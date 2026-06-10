@@ -1,8 +1,26 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { CheckCircle2, Film, Eye, Users, Coins } from 'lucide-react';
+import { 
+  CheckCircle2, Film, Users, Play, 
+  MessageSquare, UserCheck, Coins, Cpu, Zap,
+  Settings, Maximize2, Plus, Minus, Move
+} from 'lucide-react';
 
 export default function AgencyHero() {
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5; // -0.5 to 0.5
+    const y = (e.clientY - rect.top) / rect.height - 0.5; // -0.5 to 0.5
+    setTilt({ x: x * 18, y: -y * 18 }); // Up to 18 degrees dynamic tilt
+  };
+
+  const handleMouseLeave = () => {
+    setTilt({ x: 0, y: 0 });
+  };
+
   const trustItems = [
     "Marketing + Editing",
     "AI Lead Funnels",
@@ -10,11 +28,89 @@ export default function AgencyHero() {
     "Done-For-You"
   ];
 
-  const flywheelNodes = [
-    { id: 'content', label: 'Content', icon: Film, delay: 0 },
-    { id: 'views', label: 'Views', icon: Eye, delay: 0.2 },
-    { id: 'leads', label: 'Leads', icon: Users, delay: 0.4 },
-    { id: 'revenue', label: 'Revenue', icon: Coins, delay: 0.6 }
+  const nodes = [
+    {
+      id: 'content',
+      label: 'Content Engine',
+      sub: 'Instagram / YouTube',
+      icon: Film,
+      x: 100,
+      y: 250,
+      color: '#ff007f', // Social pink
+    },
+    {
+      id: 'agent',
+      label: 'AI Agent Core',
+      sub: 'Integrit Controller',
+      image: '/logo.jpg', // Brand logo!
+      x: 400,
+      y: 250,
+      isCenter: true,
+    },
+    {
+      id: 'lead',
+      label: 'Lead Capture',
+      sub: 'Webhook Trigger',
+      icon: Users,
+      x: 250,
+      y: 130,
+      color: '#0066ff', // Form blue
+    },
+    {
+      id: 'automation',
+      label: 'Workflow Engine',
+      sub: 'Make.com Action',
+      icon: Play,
+      x: 550,
+      y: 130,
+      color: '#ff6600', // Make/Zapier orange
+    },
+    {
+      id: 'crm',
+      label: 'CRM & Notify',
+      sub: 'WhatsApp Business',
+      icon: MessageSquare,
+      x: 250,
+      y: 370,
+      color: '#25d366', // WhatsApp green
+    },
+    {
+      id: 'customer',
+      label: 'New Customer',
+      sub: 'Lead Converted',
+      icon: UserCheck,
+      x: 550,
+      y: 370,
+      color: '#8a3ffc', // Conversion purple
+    },
+    {
+      id: 'revenue',
+      label: 'Revenue Closed',
+      sub: '+$1,200 Stripe Pay',
+      icon: Coins,
+      x: 700,
+      y: 250,
+      color: '#00c6ff', // Stripe cyan
+      badge: '+$1,200.00'
+    }
+  ];
+
+  const paths = [
+    { id: 'path-content-agent', from: 'content', to: 'agent', d: 'M 100 250 L 400 250' },
+    { id: 'path-agent-lead', from: 'agent', to: 'lead', d: 'M 400 250 C 350 250, 300 130, 250 130' },
+    { id: 'path-lead-auto', from: 'lead', to: 'automation', d: 'M 250 130 L 550 130' },
+    { id: 'path-auto-crm', from: 'automation', to: 'crm', d: 'M 550 130 C 650 180, 150 320, 250 370' },
+    { id: 'path-crm-cust', from: 'crm', to: 'customer', d: 'M 250 370 L 550 370' },
+    { id: 'path-cust-rev', from: 'customer', to: 'revenue', d: 'M 550 370 C 600 370, 650 250, 700 250' }
+  ];
+
+  const radiatingPaths = [
+    { id: 'rad-agent-content', d: 'M 400 250 L 100 250' },
+    { id: 'rad-agent-lead', d: 'M 400 250 C 350 250, 300 130, 250 130' },
+    { id: 'rad-agent-auto', d: 'M 400 250 C 450 250, 500 130, 550 130' },
+    { id: 'rad-agent-crm', d: 'M 400 250 C 350 250, 300 370, 250 370' },
+    { id: 'rad-agent-cust', d: 'M 400 250 C 450 250, 500 370, 550 370' },
+    { id: 'rad-agent-rev', d: 'M 400 250 L 700 250' }
   ];
 
   return (
@@ -36,11 +132,6 @@ export default function AgencyHero() {
             transition={{ duration: 0.8 }}
             className="flex flex-col items-start"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-none border border-accent-primary/30 bg-accent-primary/5 text-accent-primary text-sm font-medium mb-8 uppercase tracking-wider">
-              <ZapIcon className="w-4 h-4" />
-              AI Automations + Marketing Agency
-            </div>
-            
             <h1 className="font-display text-5xl md:text-[5rem] font-bold leading-[1.05] mb-6 text-white tracking-tight">
               We grow your audience.<br />
               <span className="text-text-muted">Then we convert them.</span>
@@ -75,91 +166,239 @@ export default function AgencyHero() {
             </div>
           </motion.div>
 
-          {/* Right Visual (Flywheel Diagram) */}
+          {/* Right Visual (3D AI Automation Workflow) */}
           <motion.div 
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative lg:h-[600px] flex items-center justify-center w-full"
+            className="relative flex items-center justify-center w-full"
           >
-            <div className="relative w-[320px] h-[320px] sm:w-[400px] sm:h-[400px]">
-              
-              {/* Connecting Lines SVG */}
-              <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 400 400">
-                <defs>
-                  <marker id="arrowhead" markerWidth="6" markerHeight="6" refX="6" refY="3" orient="auto">
-                    <polygon points="0 0, 6 3, 0 6" fill="#C6FF34" />
-                  </marker>
-                </defs>
-                {/* Square path with rounded corners connecting the nodes */}
-                <path 
-                  d="M 100,50 L 300,50 A 50,50 0 0 1 350,100 L 350,300 A 50,50 0 0 1 300,350 L 100,350 A 50,50 0 0 1 50,300 L 50,100 A 50,50 0 0 1 100,50 Z" 
-                  fill="none" 
-                  stroke="#C6FF34" 
-                  strokeWidth="2" 
-                  strokeDasharray="8 8" 
-                  className="animate-flow-dash opacity-50"
-                  markerEnd="url(#arrowhead)"
-                />
-              </svg>
+            {/* 3D Perspective Wrapper */}
+            <div 
+              className="w-full relative select-none cursor-crosshair group" 
+              style={{ perspective: '1200px' }}
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
+            >
+              {/* CSS Style block for custom animations */}
+              <style dangerouslySetInnerHTML={{ __html: `
+                @keyframes flowDash {
+                  to {
+                    stroke-dashoffset: -40;
+                  }
+                }
+                .animate-flow-dash {
+                  animation: flowDash 3s linear infinite;
+                }
+                .glow-path {
+                  filter: drop-shadow(0 0 6px rgba(192, 255, 52, 0.4));
+                }
+                .node-shadow {
+                  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(192, 255, 52, 0.03);
+                }
+                .center-node-glow {
+                  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), 0 0 25px rgba(192, 255, 52, 0.25);
+                }
+              `}} />
 
-              {/* Nodes */}
-              {flywheelNodes.map((node, i) => {
-                const Icon = node.icon;
-                // Position nodes at 4 corners roughly
-                const positions = [
-                  { top: '-20px', left: '50%', transform: 'translateX(-50%)' }, // Top (Content)
-                  { top: '50%', right: '-20px', transform: 'translateY(-50%)' }, // Right (Views)
-                  { bottom: '-20px', left: '50%', transform: 'translateX(-50%)' }, // Bottom (Leads)
-                  { top: '50%', left: '-20px', transform: 'translateY(-50%)' } // Left (Revenue)
-                ];
-                
-                return (
-                  <motion.div
-                    key={node.id}
-                    initial={{ scale: 0, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ delay: 0.5 + node.delay, type: 'spring', stiffness: 100 }}
-                    className="absolute z-10 glass-card p-4 rounded-full flex flex-col items-center justify-center shadow-xl border-accent-primary/20 bg-surface/90"
-                    style={{ ...positions[i], width: '100px', height: '100px' }}
-                  >
-                    <Icon className="w-8 h-8 text-accent-primary mb-1" />
-                    <span className="font-display font-bold text-xs text-white uppercase tracking-wider">{node.label}</span>
-                  </motion.div>
-                );
-              })}
-
-              {/* Center Element */}
-              <motion.div
-                initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 1.2, duration: 0.5 }}
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-24 h-24 rounded-full bg-accent-primary/10 border border-accent-primary shadow-[0_0_30px_rgba(198,255,52,0.2)]"
+              {/* Tilted Canvas */}
+              <div 
+                className="w-full aspect-[8/5] min-h-[420px] relative border border-white/10 bg-[#0A0A0A] rounded-2xl overflow-hidden shadow-[0_30px_100px_rgba(0,0,0,0.9)]"
+                style={{ 
+                  transform: `rotateX(${15 + tilt.y}deg) rotateY(${-12 + tilt.x}deg) rotateZ(2deg)`,
+                  transformStyle: 'preserve-3d',
+                  transition: 'transform 0.15s ease-out'
+                }}
               >
-                <ZapIcon className="w-10 h-10 text-accent-primary animate-pulse" />
-              </motion.div>
+                {/* Dot Grid Background */}
+                <div 
+                  className="absolute inset-0 opacity-[0.15] bg-[radial-gradient(circle,#C0FF34_1px,transparent_1.5px)] bg-[size:1.5rem_1.5rem]" 
+                  style={{ transform: 'translateZ(-1px)' }}
+                />
 
+                {/* Automation Workspace Top UI Header Bar */}
+                <div 
+                  className="absolute top-0 left-0 right-0 h-10 border-b border-white/5 bg-[#0A0A0A]/90 px-4 flex items-center justify-between z-20 font-sans" 
+                  style={{ transform: 'translateZ(15px)' }}
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="flex gap-1">
+                      <div className="w-2.5 h-2.5 rounded-full bg-[#E05252]" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-[#E0A052]" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-[#52C452]" />
+                    </div>
+                    <span className="text-[10px] font-bold tracking-wider text-white font-display uppercase">
+                      Content Funnel Workflow Engine
+                    </span>
+                    <span className="text-[9px] bg-accent-primary/10 border border-accent-primary/30 text-accent-primary px-1.5 py-0.5 rounded uppercase font-bold tracking-wider">
+                      Active
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-4 text-white/30 text-[9px] font-mono">
+                    <span className="hidden sm:inline">FPS: 60/60</span>
+                    <span>ID: 8a4d-f9e2</span>
+                  </div>
+                </div>
+
+                {/* Floating controls toolbar on left side */}
+                <div 
+                  className="absolute left-4 top-1/2 -translate-y-1/2 flex flex-col gap-2.5 z-20 bg-[#111]/90 border border-white/10 p-1.5 rounded-lg text-white/40 shadow-xl" 
+                  style={{ transform: 'translateZ(20px)' }}
+                >
+                  <button className="p-1 hover:text-accent-primary transition-colors"><Move className="w-3.5 h-3.5" /></button>
+                  <button className="p-1 hover:text-accent-primary transition-colors"><Plus className="w-3.5 h-3.5" /></button>
+                  <button className="p-1 hover:text-accent-primary transition-colors"><Minus className="w-3.5 h-3.5" /></button>
+                  <button className="p-1 hover:text-accent-primary transition-colors"><Maximize2 className="w-3.5 h-3.5" /></button>
+                  <button className="p-1 hover:text-accent-primary transition-colors"><Settings className="w-3.5 h-3.5" /></button>
+                </div>
+
+                {/* SVG Connections Canvas */}
+                <svg 
+                  className="absolute inset-0 w-full h-full pointer-events-none z-10" 
+                  viewBox="0 0 800 500"
+                  style={{ transform: 'translateZ(5px)' }}
+                >
+                  <defs>
+                    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                      <feGaussianBlur stdDeviation="4" result="blur" />
+                      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                  </defs>
+
+                  {/* Radiating AI Control lines (Agent -> other steps) */}
+                  {radiatingPaths.map((path) => (
+                    <path
+                      key={path.id}
+                      d={path.d}
+                      fill="none"
+                      stroke="rgba(192, 255, 52, 0.05)"
+                      strokeWidth="1.5"
+                    />
+                  ))}
+
+                  {/* Sequential Main Flow Lines */}
+                  {paths.map((path) => (
+                    <g key={path.id}>
+                      {/* Underlay shadow/glow line */}
+                      <path
+                        d={path.d}
+                        fill="none"
+                        stroke="#C0FF34"
+                        strokeWidth="3"
+                        strokeOpacity="0.1"
+                        className="glow-path"
+                      />
+                      {/* Flowing Dash Line */}
+                      <path
+                        id={path.id}
+                        d={path.d}
+                        fill="none"
+                        stroke="rgba(192, 255, 52, 0.4)"
+                        strokeWidth="1.5"
+                        strokeDasharray="6 8"
+                        className="animate-flow-dash"
+                      />
+                    </g>
+                  ))}
+
+                  {/* Flowing Data Particles */}
+                  {paths.map((path, idx) => (
+                    <g key={`particle-${path.id}`}>
+                      {/* First particle */}
+                      <circle r="3.5" fill="#C0FF34" filter="url(#glow)">
+                        <animateMotion dur={`${3 + idx * 0.4}s`} repeatCount="indefinite">
+                          <mpath href={`#${path.id}`} />
+                        </animateMotion>
+                      </circle>
+                      {/* Second delayed particle */}
+                      <circle r="2.5" fill="#ffffff" filter="url(#glow)" opacity="0.8">
+                        <animateMotion dur={`${3 + idx * 0.4}s`} begin="1.5s" repeatCount="indefinite">
+                          <mpath href={`#${path.id}`} />
+                        </animateMotion>
+                      </circle>
+                    </g>
+                  ))}
+                </svg>
+
+                {/* HTML Cards (Tilted & Hovering) */}
+                {nodes.map((node) => {
+                  const Icon = node.icon;
+                  const isCenter = node.isCenter;
+                  return (
+                    <div
+                      key={node.id}
+                      className={`absolute z-20 rounded-xl p-2.5 flex items-center gap-2 border transition-all duration-300 ${
+                        isCenter 
+                          ? 'w-[155px] sm:w-[170px] h-[72px] sm:h-[80px] border-accent-primary bg-black/90 center-node-glow' 
+                          : 'w-[130px] sm:w-[140px] h-[56px] sm:h-[64px] border-white/10 bg-neutral-950/80 backdrop-blur-md node-shadow hover:border-accent-primary/40'
+                      }`}
+                      style={{ 
+                        left: `${(node.x / 800) * 100}%`, 
+                        top: `${(node.y / 500) * 100}%`, 
+                        transform: `translate(-50%, -50%) translateZ(${isCenter ? '32px' : '20px'})`,
+                        transformStyle: 'preserve-3d'
+                      }}
+                    >
+                      {/* Connection Ports */}
+                      <div className="w-1.5 h-1.5 rounded-full bg-neutral-900 border border-white/20 absolute -left-0.5 top-1/2 -translate-y-1/2" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-neutral-900 border border-white/20 absolute -right-0.5 top-1/2 -translate-y-1/2" />
+
+                      {/* Status indicator */}
+                      <div className="w-1 h-full rounded-l absolute left-0 top-0 bottom-0 bg-accent-primary opacity-80" />
+
+                      {/* Icon Container */}
+                      <div 
+                        className={`rounded flex items-center justify-center shrink-0 ${
+                          isCenter 
+                            ? 'w-9 h-9 border border-accent-primary/50 text-accent-primary overflow-hidden' 
+                            : 'w-7.5 h-7.5 border'
+                        }`}
+                        style={!isCenter ? {
+                          backgroundColor: `${node.color}15`,
+                          borderColor: `${node.color}35`,
+                          color: node.color
+                        } : {}}
+                      >
+                        {node.image ? (
+                          <img src={node.image} alt="" className="w-full h-full object-cover rounded" />
+                        ) : (
+                          <Icon className={isCenter ? 'w-5 h-5' : 'w-4 h-4'} style={!isCenter ? { color: node.color } : {}} />
+                        )}
+                      </div>
+
+                      {/* Text details */}
+                      <div className="overflow-hidden">
+                        <span className="font-sans font-bold text-[9px] sm:text-[10px] text-white leading-tight block truncate">
+                          {node.label}
+                        </span>
+                        <span className="font-mono text-[7px] sm:text-[8px] text-text-secondary leading-none block truncate mt-0.5">
+                          {node.sub}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
+
+                {/* Bottom Status / Log Bar */}
+                <div 
+                  className="absolute bottom-0 left-0 right-0 h-8 border-t border-white/5 bg-[#0A0A0A]/95 px-4 flex items-center justify-between z-20 font-mono text-[8px] text-white/50" 
+                  style={{ transform: 'translateZ(15px)' }}
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-accent-primary animate-pulse" />
+                    <span>[System Status] Listening for trigger webhooks...</span>
+                  </div>
+                  <div className="text-accent-primary font-bold">
+                    Execution completed (1.2s)
+                  </div>
+                </div>
+
+              </div>
             </div>
           </motion.div>
           
         </div>
       </div>
     </section>
-  );
-}
-
-function ZapIcon(props) {
-  return (
-    <svg 
-      {...props} 
-      viewBox="0 0 24 24" 
-      fill="none" 
-      stroke="currentColor" 
-      strokeWidth="2" 
-      strokeLinecap="round" 
-      strokeLinejoin="round"
-    >
-      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="currentColor"/>
-    </svg>
   );
 }
