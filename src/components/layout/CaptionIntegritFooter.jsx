@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           <div className="md:col-span-1">
             <a href="#" className="flex items-center gap-2 mb-4">
-              <Zap className="w-6 h-6 text-accent-primary" />
+              <img src="/logo.jpg" alt="Caption Integrit Logo" className="w-8 h-8 object-contain rounded-md" />
               <span className="font-display font-bold text-xl tracking-tight text-white">Caption Integrit</span>
             </a>
             <p className="text-text-secondary text-sm mb-6 leading-relaxed">

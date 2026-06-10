@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Zap } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function GlobalNavbar() {
@@ -33,7 +33,7 @@ export default function GlobalNavbar() {
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 group">
-          <Zap className="w-5 h-5 text-accent-primary group-hover:scale-110 transition-transform" />
+          <img src="/logo.jpg" alt="Integrit Logo" className="w-7 h-7 object-contain group-hover:scale-110 transition-transform rounded-md" />
           <span className="font-display font-bold text-xl text-white tracking-wide">Integrit</span>
         </Link>
 

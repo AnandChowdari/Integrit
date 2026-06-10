@@ -29,11 +29,11 @@ export default function ServicesPage() {
   return (
     <div className="min-h-screen flex flex-col bg-bg-primary font-body text-text-primary selection:bg-accent-primary/30 selection:text-white">
       <GlobalNavbar />
-      
+
       <main className="flex-grow pt-32 pb-20">
         <div className="max-w-7xl mx-auto px-6">
-          
-          <motion.div 
+
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="mb-20 text-center"
@@ -48,7 +48,7 @@ export default function ServicesPage() {
             {services.map((svc, idx) => {
               const Icon = svc.icon;
               return (
-                <motion.div 
+                <motion.div
                   key={idx}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -76,7 +76,7 @@ export default function ServicesPage() {
             })}
           </div>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

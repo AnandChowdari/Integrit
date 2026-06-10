@@ -66,24 +66,18 @@ export default function HeroSection({ onBuyNow }) {
             </div>
           </motion.div>
 
-          {/* Right Visual (Mockup Placeholder) */}
+          {/* Right Visual (Interactive Plugin Demo) */}
           <motion.div 
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative lg:h-[600px] flex items-center justify-center"
+            className="relative w-full max-w-2xl flex items-center justify-center"
           >
-            <div className="animate-float relative w-full max-w-md aspect-[3/4] glass flex items-center justify-center border-white/10 shadow-2xl overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
-              {/* Placeholder for the real plugin mockup image */}
-              <div className="text-center p-8">
-                <div className="w-20 h-20 mx-auto rounded-2xl bg-accent-primary/20 border border-accent-primary/30 mb-6 flex items-center justify-center">
-                  <span className="font-display font-bold text-3xl text-accent-primary">CI</span>
-                </div>
-                <h3 className="font-display font-bold text-xl mb-2 text-white">Plugin Interface</h3>
-                <p className="text-sm text-text-secondary">Drop real plugin screenshot here</p>
-              </div>
-            </div>
+            <iframe 
+              src="/caption_integrit_plugin_demo.html" 
+              className="w-full h-[760px] sm:h-[480px] border-0 rounded-xl overflow-hidden shadow-2xl bg-transparent" 
+              title="Caption Integrit Demo"
+            />
           </motion.div>
           
         </div>

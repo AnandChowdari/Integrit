@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { Zap } from 'lucide-react';
 import { siteConfig } from '../../config/site';
 
 export default function GlobalFooter() {
@@ -10,7 +9,7 @@ export default function GlobalFooter() {
           
           <div className="col-span-1 md:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-4 group inline-flex">
-              <Zap className="w-5 h-5 text-accent-primary group-hover:scale-110 transition-transform" />
+              <img src="/logo.jpg" alt="Integrit Logo" className="w-7 h-7 object-contain group-hover:scale-110 transition-transform rounded-md" />
               <span className="font-display font-bold text-xl text-white tracking-wide">Integrit</span>
             </Link>
             <p className="text-text-secondary text-sm leading-relaxed max-w-xs">
