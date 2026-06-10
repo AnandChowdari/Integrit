@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { CheckCircle2 } from 'lucide-react';
+import CaptionIntegritPluginDemo from './CaptionIntegritPluginDemo';
 
 export default function HeroSection({ onBuyNow }) {
   const trustItems = [
@@ -66,18 +67,14 @@ export default function HeroSection({ onBuyNow }) {
             </div>
           </motion.div>
 
-          {/* Right Visual (Interactive Plugin Demo) */}
+          {/* Right Visual: Interactive Demo */}
           <motion.div 
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative w-full max-w-2xl flex items-center justify-center"
+            className="w-full flex items-center justify-center lg:justify-end"
           >
-            <iframe 
-              src="/caption_integrit_plugin_demo.html" 
-              className="w-full h-[760px] sm:h-[480px] border-0 rounded-xl overflow-hidden shadow-2xl bg-transparent" 
-              title="Caption Integrit Demo"
-            />
+            <CaptionIntegritPluginDemo />
           </motion.div>
           
         </div>
