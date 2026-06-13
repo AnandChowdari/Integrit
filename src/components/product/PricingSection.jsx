@@ -1,79 +1,98 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check, X, ShieldCheck } from 'lucide-react';
+import { Check, X, ShieldCheck, ArrowLeft, Sparkles, MessageSquare, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { PRICING } from '../../config/pricing';
 
 export default function PricingSection({ onBuyNow }) {
-  const [region, setRegion] = useState('india'); // 'india' or 'international'
-
-  // Basic auto-detect (just an example, defaults to india, but you could check Intl.DateTimeFormat().resolvedOptions().timeZone)
-  useEffect(() => {
+  const [region, setRegion] = useState(() => {
     try {
       const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
       if (tz && !tz.toLowerCase().includes('calcutta') && !tz.toLowerCase().includes('kolkata')) {
-        setRegion('international');
+        return 'international';
       }
-    } catch(e) {}
-  }, []);
+    } catch {
+      // Ignore timezone detection errors
+    }
+    return 'india';
+  });
+  const [selectedPlanId, setSelectedPlanId] = useState(null);
 
   const pricingData = PRICING[region];
 
   const plans = [
     {
       id: 'basic',
+      name: 'Basic',
       data: pricingData.tiers.basic,
-      features: [
-        { name: 'English + 5 Indian languages', included: true },
-        { name: 'Natural Phrase captions only', included: true },
-        { name: 'Basic Caption Editor', included: true },
-        { name: 'Premiere Pro only', included: true },
-        { name: 'Self-serve documentation', included: true },
-        { name: '6 months of updates', included: true },
-        { name: 'Phonetic Romanization', included: false },
-        { name: 'Custom Dictionary', included: false },
-        { name: 'AI Verification Pass', included: false },
-        { name: 'After Effects support', included: false },
-      ],
+      description: 'Ideal for getting started with clean, automated captions.',
+      accuracy: '95% Accuracy',
+      duration: 'Up to 30 Sec per take',
       buttonText: 'Get Basic',
-      isPopular: false
+      isPopular: false,
+      features: [
+        { name: 'All 24 languages supported', included: true },
+        { name: 'Natural phrase mode', included: true },
+        { name: 'English phonetic mode', included: true },
+        { name: 'Self Installation Guide', included: true },
+        { name: 'Email Support', included: true },
+        { name: 'Up to 30 Sec conversion per take', included: true },
+        { name: '95% Accuracy', included: true },
+        { name: 'Word by word mode', included: false },
+        { name: 'Double pass by AI', included: false },
+        { name: 'Custom Dictionary & Text Editor', included: false },
+      ]
     },
     {
       id: 'pro',
+      name: 'Pro',
       data: pricingData.tiers.pro,
-      features: [
-        { name: 'All 24 languages', included: true },
-        { name: 'All 3 caption styles', included: true },
-        { name: 'Phonetic Romanization', included: true },
-        { name: 'Full Caption Editor', included: true },
-        { name: 'Custom Dictionary', included: true },
-        { name: 'Premiere Pro + After Effects', included: true },
-        { name: 'Video setup guide', included: true },
-        { name: '1 year of updates', included: true },
-        { name: 'Email support', included: true },
-        { name: 'AI Verification Pass', included: false },
-        { name: 'Priority support', included: false },
-      ],
+      description: 'Our flagship plan. Highly accurate and fully customizable captions.',
+      accuracy: '98% Accuracy',
+      duration: 'Up to 2:30 min per take',
       buttonText: 'Get Pro',
-      isPopular: true
+      isPopular: true,
+      features: [
+        { name: 'Everything in Basic', included: true },
+        { name: 'Word by word mode', included: true },
+        { name: 'Double pass by AI', included: true },
+        { name: 'Custom Dictionary & Text Editor', included: true },
+        { name: 'Video Installation Guide', included: true },
+        { name: 'Up to 2:30 min long version per take', included: true },
+        { name: '98% Accuracy', included: true },
+        { name: 'Advanced Batch processing', included: false },
+        { name: 'Priority & Personal support', included: false },
+      ]
     },
     {
       id: 'extreme',
+      name: 'Extreme',
       data: pricingData.tiers.extreme,
+      description: 'Designed for production agencies needing top-tier speed and custom support.',
+      accuracy: '99% Accuracy',
+      duration: 'Advanced Batch processing',
+      buttonText: 'Get Extreme',
+      isPopular: false,
       features: [
         { name: 'Everything in Pro', included: true },
-        { name: 'AI Verification Pass (2nd correction pass)', included: true },
-        { name: 'Lifetime updates', included: true },
-        { name: '1-on-1 API setup call', included: true },
-        { name: '24/7 Priority support', included: true },
-      ],
-      buttonText: 'Get Extreme',
-      isPopular: false
+        { name: 'Advanced Batch processing', included: true },
+        { name: 'Personal custom support', included: true },
+        { name: 'Access up to 99% Accuracy', included: true },
+        { name: '10+ Custom presets', included: true },
+        { name: 'Mogrt (Advanced)', included: true },
+        { name: 'Text Animations', included: true },
+        { name: 'Priority Support', included: true },
+      ]
     }
   ];
+
+  const selectedPlan = plans.find((p) => p.id === selectedPlanId);
 
   return (
     <section id="pricing" className="py-32 px-6">
       <div className="max-w-7xl mx-auto">
+        
+        {/* Header Section */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -90,13 +109,17 @@ export default function PricingSection({ onBuyNow }) {
               style={{ transform: region === 'india' ? 'translateX(0%)' : 'translateX(100%)' }}
             />
             <button 
-              onClick={() => setRegion('india')}
+              onClick={() => {
+                setRegion('india');
+              }}
               className={`relative z-10 px-8 py-2.5 rounded-full font-medium text-sm transition-colors ${region === 'india' ? 'text-white' : 'text-text-secondary hover:text-white'}`}
             >
               🇮🇳 India
             </button>
             <button 
-              onClick={() => setRegion('international')}
+              onClick={() => {
+                setRegion('international');
+              }}
               className={`relative z-10 px-8 py-2.5 rounded-full font-medium text-sm transition-colors ${region === 'international' ? 'text-white' : 'text-text-secondary hover:text-white'}`}
             >
               🌍 International
@@ -104,74 +127,189 @@ export default function PricingSection({ onBuyNow }) {
           </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto items-center">
-          {plans.map((plan, idx) => (
-            <motion.div 
-              key={plan.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
-              className={`relative rounded-3xl p-8 flex flex-col h-full ${
-                plan.isPopular 
-                ? 'bg-bg-secondary border-2 border-accent-primary shadow-[0_0_30px_rgba(198,255,52,0.15)] transform scale-100 lg:scale-105 z-10' 
-                : 'glass-card'
-              }`}
-            >
-              {plan.isPopular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-accent-primary text-black px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
-                  Most Popular
-                </div>
-              )}
-              
-              <div className="mb-8">
-                <h3 className="text-2xl font-display font-bold text-white mb-2">{plan.data.label}</h3>
-                <p className="text-text-secondary text-sm">One-Time Purchase</p>
-              </div>
-              
-              <div className="mb-8 h-20">
-                <AnimatePresence mode="wait">
-                  <motion.div 
-                    key={`${region}-${plan.id}`}
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                    className="flex items-baseline gap-2"
+        {/* Unified Premium Pricing Container */}
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-[#0D0D0D]/60 backdrop-blur-md border border-white/10 rounded-3xl p-6 sm:p-10 relative overflow-hidden shadow-[0_30px_100px_rgba(0,0,0,0.8)]">
+            
+            {/* Background Glows */}
+            <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-accent-primary/5 rounded-full blur-[100px] pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-accent-primary/2 rounded-full blur-[100px] pointer-events-none" />
+            
+            <AnimatePresence mode="wait">
+              {!selectedPlanId ? (
+                // PLAN SELECTOR VIEW (STATE A)
+                <motion.div
+                  key="selector"
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.98 }}
+                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  className="relative z-10"
+                >
+                  <div className="text-center mb-8">
+                    <h3 className="text-xl font-bold text-white mb-2">Select a Plan</h3>
+                    <p className="text-sm text-text-secondary">Click on any plan to see full details and purchase options.</p>
+                  </div>
+
+                  <div className="flex flex-col gap-6 max-w-xl mx-auto">
+                    {plans.map((plan) => {
+                      const isPro = plan.isPopular;
+                      return (
+                        <button
+                          key={plan.id}
+                          onClick={() => setSelectedPlanId(plan.id)}
+                          className={`group relative text-left rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 focus:outline-none hover:-translate-y-1 ${
+                            isPro
+                              ? 'bg-neutral-900 border-2 border-accent-primary shadow-[0_0_30px_rgba(198,255,52,0.15)] md:scale-[1.02]'
+                              : 'bg-white/[0.02] border border-white/10 hover:border-accent-primary/30'
+                          }`}
+                        >
+                          {isPro && (
+                            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent-primary text-black px-3 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider flex items-center gap-1 shadow-md">
+                              <Sparkles className="w-2.5 h-2.5" /> Most Popular
+                            </div>
+                          )}
+
+                          <div className="w-full">
+                            {/* Plan Label */}
+                            <div className="flex justify-between items-center mb-4">
+                              <span className="text-lg font-bold text-white tracking-tight group-hover:text-accent-primary transition-colors">
+                                {plan.name}
+                              </span>
+                              <span className="text-[10px] text-text-secondary uppercase tracking-widest font-mono">
+                                One-Time
+                              </span>
+                            </div>
+
+                            {/* Price */}
+                            <div className="mb-4">
+                              <span className="text-4xl font-display font-extrabold text-white">
+                                {pricingData.currency}{plan.data.price}
+                              </span>
+                            </div>
+
+                            {/* Summary Limits */}
+                            <div className="space-y-2 mb-6 text-xs text-text-secondary">
+                              <div className="flex items-center gap-1.5">
+                                <div className="w-1.5 h-1.5 rounded-full bg-accent-primary" />
+                                <span>{plan.duration}</span>
+                              </div>
+                              <div className="flex items-center gap-1.5">
+                                <div className="w-1.5 h-1.5 rounded-full bg-accent-primary" />
+                                <span>{plan.accuracy}</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Action Link */}
+                          <div className="w-full pt-4 border-t border-white/5 flex justify-between items-center text-xs font-bold text-accent-primary">
+                            <span>View Details</span>
+                            <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </motion.div>
+              ) : (
+                // PLAN DETAIL VIEW (STATE B)
+                <motion.div
+                  key="detail"
+                  initial={{ opacity: 0, scale: 1.02 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 1.02 }}
+                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  className="relative z-10"
+                >
+                  {/* Back Button */}
+                  <button
+                    onClick={() => setSelectedPlanId(null)}
+                    className="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-white mb-8 group transition-colors focus:outline-none"
                   >
-                    <span className="text-5xl font-display font-bold text-white">
-                      {pricingData.currency}{plan.data.price}
-                    </span>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-              
-              <button 
-                onClick={() => onBuyNow(plan)}
-                className={`w-full py-4 rounded-xl font-bold transition-all mb-8 ${
-                  plan.isPopular 
-                  ? 'bg-accent-primary hover:bg-accent-secondary text-black shadow-[0_0_15px_rgba(198,255,52,0.2)] hover:-translate-y-1' 
-                  : 'bg-white/10 hover:bg-white/20 text-white border border-white/5 hover:-translate-y-1'
-                }`}
-              >
-                {plan.buttonText}
-              </button>
-              
-              <ul className="space-y-4 flex-1">
-                {plan.features.map((feature, fIdx) => (
-                  <li key={fIdx} className={`flex items-start gap-3 text-sm ${feature.included ? 'text-white/90' : 'text-text-secondary/50'}`}>
-                    {feature.included ? (
-                      <Check className="w-5 h-5 text-accent-primary shrink-0" />
-                    ) : (
-                      <X className="w-5 h-5 text-white/20 shrink-0" />
-                    )}
-                    <span>{feature.name}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
+                    <ArrowLeft className="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" />
+                    Back to all plans
+                  </button>
+
+                  <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+                    {/* Left: Info & CTA */}
+                    <div className="md:col-span-5 space-y-6">
+                      <div>
+                        <div className="flex items-center gap-3 mb-2">
+                          <h3 className="text-3xl font-display font-bold text-white">
+                            {selectedPlan.name}
+                          </h3>
+                          {selectedPlan.isPopular && (
+                            <span className="bg-accent-primary text-black px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider flex items-center gap-1">
+                              <Sparkles className="w-2.5 h-2.5" /> Most Popular
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-text-secondary text-sm leading-relaxed">
+                          {selectedPlan.description}
+                        </p>
+                      </div>
+
+                      {/* Large Price Display */}
+                      <div className="py-4 border-y border-white/5">
+                        <div className="flex items-baseline gap-2">
+                          <span className="text-5xl font-display font-extrabold text-white">
+                            {pricingData.currency}{selectedPlan.data.price}
+                          </span>
+                          <span className="text-xs text-text-secondary uppercase tracking-widest font-mono">
+                            One-Time Purchase
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Actions */}
+                      <div className="space-y-3">
+                        <button
+                          onClick={() => onBuyNow(selectedPlan)}
+                          className="w-full bg-accent-primary hover:bg-accent-secondary text-black font-bold py-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-[0_0_15px_rgba(198,255,52,0.2)] hover:-translate-y-1"
+                        >
+                          Buy Now <ArrowRight className="w-4 h-4" />
+                        </button>
+                        <Link
+                          to="/contact"
+                          className="w-full bg-white/5 hover:bg-white/10 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 border border-white/5 transition-all hover:-translate-y-1"
+                        >
+                          <MessageSquare className="w-4 h-4" /> Book a Discovery Call
+                        </Link>
+                      </div>
+                    </div>
+
+                    {/* Right: Detailed Feature List */}
+                    <div className="md:col-span-7 bg-white/[0.01] border border-white/5 rounded-2xl p-6 sm:p-8">
+                      <h4 className="text-xs font-mono uppercase tracking-widest text-text-secondary mb-4">
+                        What's Included
+                      </h4>
+                      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {selectedPlan.features.map((feature, fIdx) => (
+                          <li
+                            key={fIdx}
+                            className={`flex items-start gap-2.5 text-xs sm:text-sm leading-tight transition-opacity ${
+                              feature.included ? 'text-white/90' : 'text-text-secondary/40'
+                            }`}
+                          >
+                            {feature.included ? (
+                              <Check className="w-4 h-4 text-accent-primary shrink-0 mt-0.5" />
+                            ) : (
+                              <X className="w-4 h-4 text-white/20 shrink-0 mt-0.5" />
+                            )}
+                            <span>{feature.name}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+          </div>
         </div>
 
+        {/* Secure Checkout Trust Footer */}
         <div className="mt-16 text-center flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-text-secondary">
           <div className="flex items-center gap-2">
             <ShieldCheck className="w-4 h-4 text-accent-primary" />
@@ -182,6 +320,7 @@ export default function PricingSection({ onBuyNow }) {
           <div className="hidden sm:block w-1 h-1 rounded-full bg-white/20" />
           <div>Instant Download After Purchase</div>
         </div>
+
       </div>
     </section>
   );

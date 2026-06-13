@@ -1,30 +1,30 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function HowItWorksAgency() {
-  const steps = [
-    {
-      num: "01",
-      title: "ATTRACT",
-      desc: "We create and edit content that gets views — YouTube, Reels, LinkedIn. Strategy + production, handled."
-    },
-    {
-      num: "02",
-      title: "CAPTURE",
-      desc: "Every viewer is a potential lead. We build opt-in systems, lead magnets, and landing pages to capture them."
-    },
-    {
-      num: "03",
-      title: "CONVERT",
-      desc: "AI automation funnels nurture leads via WhatsApp and email sequences until they book a call or buy."
-    },
-    {
-      num: "04",
-      title: "SCALE",
-      desc: "We analyze what's converting and double down. Continuous optimization until your pipeline runs itself."
-    }
-  ];
+const steps = [
+  {
+    num: "01",
+    title: "ATTRACT",
+    desc: "We create and edit content that gets views — YouTube, Reels, LinkedIn. Strategy + production, handled."
+  },
+  {
+    num: "02",
+    title: "CAPTURE",
+    desc: "Every viewer is a potential lead. We build opt-in systems, lead magnets, and landing pages to capture them."
+  },
+  {
+    num: "03",
+    title: "CONVERT",
+    desc: "AI automation funnels nurture leads via WhatsApp and email sequences until they book a call or buy."
+  },
+  {
+    num: "04",
+    title: "SCALE",
+    desc: "We analyze what's converting and double down. Continuous optimization until your pipeline runs itself."
+  }
+];
 
+export default function HowItWorksAgency() {
   const containerRef = useRef(null);
   const [activeStep, setActiveStep] = useState(0);
   const isProgrammaticScroll = useRef(false);

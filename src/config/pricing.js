@@ -3,18 +3,18 @@ export const PRICING = {
     currency: '₹',
     symbol: 'INR',
     tiers: {
-      basic: { price: 999, label: 'Basic', paymentLink: '#' },
-      pro:   { price: 1999, label: 'Pro', paymentLink: '#' },
-      extreme: { price: 3499, label: 'Extreme', paymentLink: '#' },
+      basic: { price: 399, label: 'Basic', paymentLink: '#' },
+      pro:   { price: 599, label: 'Pro', paymentLink: '#' },
+      extreme: { price: 999, label: 'Extreme', paymentLink: '#' },
     }
   },
   international: {
     currency: '$',
     symbol: 'USD',
     tiers: {
-      basic: { price: 19, label: 'Basic', paymentLink: '#' },
-      pro:   { price: 39, label: 'Pro', paymentLink: '#' },
-      extreme: { price: 69, label: 'Extreme', paymentLink: '#' },
+      basic: { price: 9, label: 'Basic', paymentLink: '#' },
+      pro:   { price: 15, label: 'Pro', paymentLink: '#' },
+      extreme: { price: 25, label: 'Extreme', paymentLink: '#' },
     }
   }
 };

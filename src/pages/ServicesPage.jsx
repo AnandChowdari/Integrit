@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import GlobalNavbar from '../components/layout/GlobalNavbar';
 import GlobalFooter from '../components/layout/GlobalFooter';
-import { Film, Bot, BarChart3, ArrowRight } from 'lucide-react';
+import { Film, Bot, BarChart3 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function ServicesPage() {

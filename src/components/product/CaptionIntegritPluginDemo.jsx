@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import { useState } from 'react';
 
 const langs = [
   { id: 'te', label: 'Telugu', captions: ['నమస్తే అందరికీ', 'ఈ వీడియోలో', 'మీకు చూపిస్తాను', 'ధన్యవాదాలు'] },
   { id: 'hi', label: 'Hindi', captions: ['नमस्ते दोस्तों', 'इस वीडियो में', 'आपको दिखाता हूँ', 'धन्यवाद'] },
   { id: 'ml', label: 'Malayalam', captions: ['നമസ്കാരം', 'ഈ വീഡിയോയിൽ', 'നിങ്ങൾക്ക് കാണിക്കും', 'നന്ദി'] },
-  { id: 'ta', label: 'Tamil', captions: ['வணக்கம் நண்பர்களே', 'இந்த வீடியோவில்', 'உங்களுக்கு காட்டுகிறேன்', 'நன்றி'] },
+  { id: 'ta', label: 'Tamil', captions: ['வணக்கம் நண்பர்களே', 'இந்த వీడియోவில்', 'உங்களுக்கு காட்டுகிறேன்', 'நன்றி'] },
   { id: 'teng', label: 'Tenglish', captions: ['Andaru ki namaste', 'Ee video lo', 'meeku chupistanu', 'Thanks ra'] },
   { id: 'hing', label: 'Hinglish', captions: ['Kya haal hai sab', 'Is video mein', 'aapko dikhaunga', 'Thanks yaar'] },
   { id: 'en', label: 'English', captions: ['Hello everyone', 'In this video', 'I will show you', 'Thank you'] },
@@ -12,6 +12,12 @@ const langs = [
 
 const waveHeights = [6, 10, 16, 22, 28, 32, 24, 18, 30, 26, 20, 14, 8, 18, 28, 34, 26, 20, 12, 24, 30, 22, 16, 10, 20, 28, 24, 18, 12, 8];
 const times = ['00:00:02', '00:00:05', '00:00:09', '00:00:14'];
+
+// Generate static random animation durations for the waveform at module level
+const waveDurations = waveHeights.map(() => (.8 + Math.random() * .8).toFixed(2));
+
+// Generate static timeline ticks heights at module level
+const timelineTicks = Array.from({ length: 40 }, () => 4 + Math.floor(Math.random() * 20));
 
 export default function CaptionIntegritPluginDemo() {
   const [activeLang, setActiveLang] = useState('teng');
@@ -22,15 +28,7 @@ export default function CaptionIntegritPluginDemo() {
   const [captionLogs, setCaptionLogs] = useState([]);
   const [isScanning, setIsScanning] = useState(false);
 
-  // Generate static random animation durations for the waveform
-  const waveDurations = useMemo(() => {
-    return waveHeights.map(() => (.8 + Math.random() * .8).toFixed(2));
-  }, []);
 
-  // Generate static timeline ticks heights
-  const timelineTicks = useMemo(() => {
-    return Array.from({ length: 40 }, () => 4 + Math.floor(Math.random() * 20));
-  }, []);
 
   // Run the demo sequence
   const runDemo = () => {

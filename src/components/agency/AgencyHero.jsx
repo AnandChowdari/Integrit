@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { 
   CheckCircle2, Film, Users, Play, 
-  MessageSquare, UserCheck, Coins, Cpu, Zap,
+  MessageSquare, UserCheck, Coins,
   Settings, Maximize2, Plus, Minus, Move
 } from 'lucide-react';
 

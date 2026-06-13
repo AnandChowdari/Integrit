@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { X, ShieldCheck, ArrowRight } from 'lucide-react';
-import { PRICING } from '../../config/pricing';
 
 export default function CheckoutModal({ isOpen, onClose, selectedPlan }) {
   const [formData, setFormData] = useState({ name: '', email: '' });
