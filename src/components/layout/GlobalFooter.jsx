@@ -30,8 +30,8 @@ export default function GlobalFooter() {
           <div>
             <h4 className="font-bold text-white mb-6">Products</h4>
             <ul className="space-y-4">
-              <li><Link to="/products/caption-integrit" className="text-text-secondary hover:text-white transition-colors text-sm flex items-center gap-2 group">
-                Caption Integrit <span className="text-[10px] bg-accent-primary/10 text-accent-primary px-2 py-0.5 rounded-full border border-accent-primary/20 group-hover:border-accent-primary/50 transition-colors">v1.0</span>
+              <li><Link to="/products/captiongrit" className="text-text-secondary hover:text-white transition-colors text-sm flex items-center gap-2 group">
+                Captiongrit <span className="text-[10px] bg-accent-primary/10 text-accent-primary px-2 py-0.5 rounded-full border border-accent-primary/20 group-hover:border-accent-primary/50 transition-colors">v1.0</span>
               </Link></li>
             </ul>
           </div>

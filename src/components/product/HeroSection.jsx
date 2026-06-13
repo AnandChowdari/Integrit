@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { CheckCircle2 } from 'lucide-react';
-import CaptionIntegritPluginDemo from './CaptionIntegritPluginDemo';
+import CaptiongritPluginDemo from './CaptiongritPluginDemo';
 
 export default function HeroSection({ onBuyNow }) {
   const trustItems = [
@@ -74,7 +74,7 @@ export default function HeroSection({ onBuyNow }) {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="w-full flex items-center justify-center lg:justify-end"
           >
-            <CaptionIntegritPluginDemo />
+            <CaptiongritPluginDemo />
           </motion.div>
           
         </div>

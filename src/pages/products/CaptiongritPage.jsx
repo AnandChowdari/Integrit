@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 
 // Layout
-import CaptionIntegritNavbar from '../../components/layout/CaptionIntegritNavbar';
-import CaptionIntegritFooter from '../../components/layout/CaptionIntegritFooter';
+import CaptiongritNavbar from '../../components/layout/CaptiongritNavbar';
+import CaptiongritFooter from '../../components/layout/CaptiongritFooter';
 
 // Sections
 import HeroSection from '../../components/product/HeroSection';
@@ -51,7 +51,7 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-bg-primary font-body text-text-primary selection:bg-accent-primary/30 selection:text-white">
-      <CaptionIntegritNavbar onBuyNow={handleGenericBuyNow} />
+      <CaptiongritNavbar onBuyNow={handleGenericBuyNow} />
       
       <main className="flex-grow">
         <HeroSection onBuyNow={handleGenericBuyNow} />
@@ -71,7 +71,7 @@ export default function LandingPage() {
         {/* <AutomationWorkflowsSection /> */}
       </main>
 
-      <CaptionIntegritFooter />
+      <CaptiongritFooter />
 
       <AnimatePresence>
         {isCheckoutOpen && (

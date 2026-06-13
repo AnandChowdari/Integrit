@@ -7,8 +7,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           <div className="md:col-span-1">
             <a href="#" className="flex items-center gap-2 mb-4">
-              <img src="/logo.jpg" alt="Caption Integrit Logo" className="w-8 h-8 object-contain rounded-md" />
-              <span className="font-display font-bold text-xl tracking-tight text-white">Caption Integrit</span>
+              <img src="/logo.jpg" alt="Captiongrit Logo" className="w-8 h-8 object-contain rounded-md" />
+              <span className="font-display font-bold text-xl tracking-tight text-white">Captiongrit</span>
             </a>
             <p className="text-text-secondary text-sm mb-6 leading-relaxed">
               AI-Powered Captions for Creators. Generate flawless captions in 24 languages directly inside your timeline.
@@ -52,7 +52,7 @@ export default function Footer() {
         
         <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-text-secondary text-sm text-center md:text-left">
-            © 2026 Caption Integrit by Integrit. All rights reserved.
+            © 2026 Captiongrit by Integrit. All rights reserved.
           </p>
           <p className="text-text-secondary text-sm flex items-center gap-2">
             Made for creators, by a creator <Zap className="w-4 h-4 text-accent-primary" />

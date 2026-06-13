@@ -64,7 +64,7 @@ export default function WhatWeDoSection() {
               </div>
               <h3 className="font-display text-3xl font-bold text-white mb-4">Plugins & Apps for Editors</h3>
               <p className="text-text-secondary leading-relaxed mb-8 text-lg">
-                We build production tools for Adobe creators. Caption Integrit is our flagship plugin — AI-powered captions in 24 languages, built natively inside Premiere Pro and After Effects.
+                We build production tools for Adobe creators. Captiongrit is our flagship plugin — AI-powered captions in 24 languages, built natively inside Premiere Pro and After Effects.
               </p>
               <div className="flex flex-wrap gap-2 mb-10">
                 {['Adobe CEP', 'AI Captions', '24 Languages', 'One-Time License'].map(tag => (

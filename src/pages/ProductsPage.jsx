@@ -36,7 +36,7 @@ export default function ProductsPage() {
                 Now Available — v1.0
               </div>
 
-              <h2 className="font-display text-4xl font-bold text-white mb-4">Caption Integrit</h2>
+              <h2 className="font-display text-4xl font-bold text-white mb-4">Captiongrit</h2>
               
               <p className="text-text-secondary text-lg leading-relaxed mb-8 max-w-2xl mx-auto">
                 AI-powered captions in 24 languages inside Adobe Premiere Pro and After Effects. Natural, Word-by-Word, or Phonetic mode. One-time license.
@@ -54,7 +54,7 @@ export default function ProductsPage() {
 
               <div className="flex flex-col sm:flex-row justify-center gap-4">
                 <Link 
-                  to="/products/caption-integrit"
+                  to="/products/captiongrit"
                   className="bg-accent-primary hover:bg-accent-secondary text-black px-8 py-4 rounded-none font-bold text-lg transition-all shadow-[0_0_15px_rgba(198,255,52,0.2)] hover:shadow-[0_0_25px_rgba(198,255,52,0.4)]"
                 >
                   View Plugin →

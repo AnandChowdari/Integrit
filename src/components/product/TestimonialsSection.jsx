@@ -12,7 +12,7 @@ export default function TestimonialsSection() {
     {
       name: "Priya Iyer",
       role: "Freelance Video Editor",
-      quote: "Caption Integrit saves me about 2 hours per video. The fact that it works directly inside Premiere means I never have to break my workflow.",
+      quote: "Captiongrit saves me about 2 hours per video. The fact that it works directly inside Premiere means I never have to break my workflow.",
       rating: 5
     },
     {

@@ -25,8 +25,8 @@ export default function Navbar({ onBuyNow }) {
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-bg-primary/80 backdrop-blur-md border-b border-white/5' : 'bg-transparent'}`}>
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         <a href="#" className="flex items-center gap-2 group">
-          <img src="/logo.jpg" alt="Caption Integrit Logo" className="w-8 h-8 object-contain group-hover:scale-110 transition-transform rounded-md" />
-          <span className="font-display font-bold text-xl tracking-tight">Caption Integrit</span>
+          <img src="/logo.jpg" alt="Captiongrit Logo" className="w-8 h-8 object-contain group-hover:scale-110 transition-transform rounded-md" />
+          <span className="font-display font-bold text-xl tracking-tight">Captiongrit</span>
         </a>
 
         <div className="hidden md:flex items-center gap-8">

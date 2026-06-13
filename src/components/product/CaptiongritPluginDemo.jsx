@@ -19,7 +19,7 @@ const waveDurations = waveHeights.map(() => (.8 + Math.random() * .8).toFixed(2)
 // Generate static timeline ticks heights at module level
 const timelineTicks = Array.from({ length: 40 }, () => 4 + Math.floor(Math.random() * 20));
 
-export default function CaptionIntegritPluginDemo() {
+export default function CaptiongritPluginDemo() {
   const [activeLang, setActiveLang] = useState('teng');
   const [running, setRunning] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -114,7 +114,7 @@ export default function CaptionIntegritPluginDemo() {
           <div className="w-2.5 h-2.5 rounded-full bg-[#e0a052]" />
           <div className="w-2.5 h-2.5 rounded-full bg-[#52c452]" />
           <span className="ml-2 font-sans text-[11px] font-medium text-text-secondary">
-            Caption Integrit — Adobe After Effects
+            Captiongrit — Adobe After Effects
           </span>
         </div>
         <div className="flex items-center gap-2">
@@ -225,7 +225,7 @@ export default function CaptionIntegritPluginDemo() {
               />
             </div>
             <span className="font-sans font-bold text-white text-[13px] tracking-wide">
-              Caption Integrit
+              Captiongrit
             </span>
           </div>
 
@@ -294,7 +294,7 @@ export default function CaptionIntegritPluginDemo() {
                   : 'hover:bg-accent-secondary hover:shadow-[0_0_15px_rgba(198,255,52,0.25)]'
               }`}
             >
-              {running ? 'Processing...' : 'Run Caption Integrit'}
+              {running ? 'Processing...' : 'Run Captiongrit'}
             </button>
             <div className="text-[10px] text-text-secondary/60 text-center mt-2 min-h-[14px] font-sans">
               {statusText}

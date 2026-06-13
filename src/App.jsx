@@ -4,7 +4,7 @@ import ServicesPage from './pages/ServicesPage';
 import ProductsPage from './pages/ProductsPage';
 import ContactPage from './pages/ContactPage';
 import CaseStudiesPage from './pages/CaseStudiesPage';
-import CaptionIntegritPage from './pages/products/CaptionIntegritPage';
+import CaptiongritPage from './pages/products/CaptiongritPage';
 import ScrollToTop from './components/layout/ScrollToTop';
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/products" element={<ProductsPage />} />
-        <Route path="/products/caption-integrit" element={<CaptionIntegritPage />} />
+        <Route path="/products/captiongrit" element={<CaptiongritPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/case-studies" element={<CaseStudiesPage />} />
       </Routes>
