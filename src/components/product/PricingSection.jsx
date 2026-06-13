@@ -181,13 +181,6 @@ export default function PricingSection({ onBuyNow }) {
                               </span>
                             </div>
 
-                            {/* Price */}
-                            <div className="mb-4">
-                              <span className="text-4xl font-display font-extrabold text-white">
-                                {pricingData.currency}{plan.data.price}
-                              </span>
-                            </div>
-
                             {/* Summary Limits */}
                             <div className="space-y-2 mb-6 text-xs text-text-secondary">
                               <div className="flex items-center gap-1.5">
@@ -219,7 +212,7 @@ export default function PricingSection({ onBuyNow }) {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 1.02 }}
                   transition={{ duration: 0.3, ease: 'easeInOut' }}
-                  className="relative z-10"
+                  className="relative z-10 max-w-xl mx-auto"
                 >
                   {/* Back Button */}
                   <button
@@ -230,9 +223,9 @@ export default function PricingSection({ onBuyNow }) {
                     Back to all plans
                   </button>
 
-                  <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-                    {/* Left: Info & CTA */}
-                    <div className="md:col-span-5 space-y-6">
+                  <div className="flex flex-col gap-8">
+                    {/* Info & CTA */}
+                    <div className="space-y-6">
                       <div>
                         <div className="flex items-center gap-3 mb-2">
                           <h3 className="text-3xl font-display font-bold text-white">
@@ -269,17 +262,11 @@ export default function PricingSection({ onBuyNow }) {
                         >
                           Buy Now <ArrowRight className="w-4 h-4" />
                         </button>
-                        <Link
-                          to="/contact"
-                          className="w-full bg-white/5 hover:bg-white/10 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 border border-white/5 transition-all hover:-translate-y-1"
-                        >
-                          <MessageSquare className="w-4 h-4" /> Book a Discovery Call
-                        </Link>
                       </div>
                     </div>
 
-                    {/* Right: Detailed Feature List */}
-                    <div className="md:col-span-7 bg-white/[0.01] border border-white/5 rounded-2xl p-6 sm:p-8">
+                    {/* Detailed Feature List */}
+                    <div className="bg-white/[0.01] border border-white/5 rounded-2xl p-6 sm:p-8">
                       <h4 className="text-xs font-mono uppercase tracking-widest text-text-secondary mb-4">
                         What's Included
                       </h4>
