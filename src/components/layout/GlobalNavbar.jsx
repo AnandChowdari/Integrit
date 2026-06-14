@@ -31,13 +31,15 @@ export default function GlobalNavbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'backdrop-blur-md bg-[#0A0A0A]/80 border-b border-[#1E1E1E] py-3'
-          : 'bg-transparent py-5'
+      className={`fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-300 w-full max-w-7xl px-4 ${
+        isScrolled ? 'top-4' : 'top-6'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+      <div className={`flex items-center justify-between px-6 py-3 rounded-full transition-all duration-300 ${
+        isScrolled 
+          ? 'glass shadow-2xl bg-[#0A0A0A]/60' 
+          : 'bg-transparent'
+      }`}>
         <Link to="/" className="flex items-center gap-2 group">
           <img src="/logo.jpg" alt="Integrit Logo" className="w-7 h-7 object-contain group-hover:scale-110 transition-transform rounded-md" />
           <span className="font-display font-bold text-xl text-white tracking-wide">Integrit</span>
@@ -109,31 +111,41 @@ export default function GlobalNavbar() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-0 right-0 bg-[#0A0A0A]/95 backdrop-blur-md border-b border-[#1E1E1E] p-6 flex flex-col gap-5 md:hidden shadow-2xl"
+            initial={{ opacity: 0, scale: 0.95, y: -10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="absolute top-[calc(100%+12px)] left-4 right-4 glass bg-[#0A0A0A]/90 p-6 flex flex-col gap-4 md:hidden shadow-2xl"
           >
-            {[...agencyLinks, ...toolsLinks].map((link) => (
-              <Link
-                key={link.name}
-                to={link.path}
-                className="text-lg font-medium text-text-secondary hover:text-white transition-colors"
-              >
-                {link.name}
-              </Link>
-            ))}
+            <div className="flex flex-col gap-4 border-b border-white/10 pb-4">
+              {[...agencyLinks].map((link) => (
+                <Link
+                  key={link.name}
+                  to={link.path}
+                  className="text-lg font-medium text-white/80 hover:text-white transition-colors"
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </div>
+            <div className="flex flex-col gap-4 pb-4">
+              <span className="text-[10px] font-mono text-accent-primary uppercase tracking-widest">Tools</span>
+              {[...toolsLinks].map((link) => (
+                <Link
+                  key={link.name}
+                  to={link.path}
+                  className="text-lg font-medium text-white/80 hover:text-white transition-colors"
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </div>
             <Link
               to="/contact"
-              className="bg-accent-primary text-black px-6 py-4 text-center font-bold text-lg w-full rounded-lg"
+              className="bg-accent-primary text-black px-6 py-4 text-center font-bold text-lg w-full rounded-xl mt-2"
             >
               Book a Call
             </Link>
-            {siteConfig.urgency.enabled && (
-              <p className="text-xs font-mono text-text-secondary text-center">
-                ⚡ {siteConfig.urgency.text}
-              </p>
-            )}
           </motion.div>
         )}
       </AnimatePresence>

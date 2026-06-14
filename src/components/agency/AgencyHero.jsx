@@ -153,13 +153,7 @@ export default function AgencyHero() {
             animate="visible"
             className="flex flex-col items-start"
           >
-            {/* Eyebrow Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#1E1E1E] bg-[#111111] mb-6">
-              <span className="w-1.5 h-1.5 rounded-full bg-accent-primary animate-pulse" />
-              <span className="text-[11px] font-mono text-text-secondary tracking-widest uppercase">
-                For creators & businesses in India
-              </span>
-            </div>
+
 
             <h1 className="font-display font-extrabold text-5xl md:text-6xl lg:text-[5rem] leading-[1.08] tracking-tight text-white">
               We grow your<br />
@@ -186,6 +180,18 @@ export default function AgencyHero() {
               to turn views into real, paying leads — on autopilot.
             </p>
 
+            {/* Mobile Stats Fallback (< md) - Moved above CTAs */}
+            <div className="grid grid-cols-2 gap-3 md:hidden mt-8 w-full max-w-md">
+              {mobileStats.map(stat => (
+                <div key={stat.label} className="glass-card p-4">
+                  <p className="text-2xl font-display font-bold text-accent-primary">
+                    <AnimatedCounter target={stat.value} suffix={stat.suffix} />
+                  </p>
+                  <p className="text-xs font-mono text-text-secondary mt-1">{stat.label}</p>
+                </div>
+              ))}
+            </div>
+
             {/* CTAs */}
             <div className="mt-8 flex flex-col sm:flex-row gap-3">
               <Link to="/contact"
@@ -202,34 +208,7 @@ export default function AgencyHero() {
               </Link>
             </div>
 
-            {/* Urgency */}
-            {siteConfig.urgency.enabled && (
-              <p className="mt-3 text-xs font-mono text-text-secondary/70">
-                ⚡ Only {siteConfig.urgency.spotsLeft} new client spots available this month
-              </p>
-            )}
 
-            {/* Trust Checklist — Pills */}
-            <div className="mt-8 flex flex-wrap gap-2">
-              {trustItems.map(item => (
-                <span key={item} className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-mono
-                                            bg-[#161616] border border-[#1E1E1E] rounded-full text-text-secondary">
-                  <span className="text-accent-primary">✓</span> {item}
-                </span>
-              ))}
-            </div>
-
-            {/* Mobile Stats Fallback (< md) */}
-            <div className="grid grid-cols-2 gap-3 md:hidden mt-8 w-full">
-              {mobileStats.map(stat => (
-                <div key={stat.label} className="glass-card p-4">
-                  <p className="text-2xl font-display font-bold text-accent-primary">
-                    <AnimatedCounter target={stat.value} suffix={stat.suffix} />
-                  </p>
-                  <p className="text-xs font-mono text-text-secondary mt-1">{stat.label}</p>
-                </div>
-              ))}
-            </div>
           </motion.div>
 
           {/* Right Visual (3D AI Automation Workflow) — Desktop Only */}

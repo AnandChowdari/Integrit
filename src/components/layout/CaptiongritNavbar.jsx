@@ -22,8 +22,16 @@ export default function Navbar({ onBuyNow }) {
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-bg-primary/80 backdrop-blur-md border-b border-white/5' : 'bg-transparent'}`}>
-      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+    <nav
+      className={`fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-300 w-full max-w-7xl px-4 ${
+        isScrolled ? 'top-4' : 'top-6'
+      }`}
+    >
+      <div className={`flex items-center justify-between px-6 py-3 rounded-full transition-all duration-300 ${
+        isScrolled 
+          ? 'glass shadow-2xl bg-[#0A0A0A]/60' 
+          : 'bg-transparent'
+      }`}>
         <a href="#" className="flex items-center gap-2 group">
           <img src="/logo.jpg" alt="Captiongrit Logo" className="w-8 h-8 object-contain group-hover:scale-110 transition-transform rounded-md" />
           <span className="font-display font-bold text-xl tracking-tight">Captiongrit</span>
@@ -51,26 +59,27 @@ export default function Navbar({ onBuyNow }) {
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div 
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-bg-secondary border-b border-white/10"
+            initial={{ opacity: 0, scale: 0.95, y: -10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="absolute top-[calc(100%+12px)] left-4 right-4 glass bg-[#0A0A0A]/90 p-6 flex flex-col gap-4 md:hidden shadow-2xl"
           >
-            <div className="px-6 py-4 flex flex-col gap-4">
+            <div className="flex flex-col gap-4 border-b border-white/10 pb-4">
               {navLinks.map((link) => (
                 <a 
                   key={link.name} 
                   href={link.href} 
-                  className="text-base font-medium text-text-secondary hover:text-white"
+                  className="text-lg font-medium text-white/80 hover:text-white transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {link.name}
                 </a>
               ))}
-              <button onClick={() => { setMobileMenuOpen(false); onBuyNow(); }} className="bg-accent-primary text-black px-4 py-3 rounded-xl font-bold w-full mt-2">
-                Buy Now
-              </button>
             </div>
+            <button onClick={() => { setMobileMenuOpen(false); onBuyNow(); }} className="bg-accent-primary text-black px-6 py-4 rounded-xl font-bold w-full text-lg mt-2">
+              Buy Now
+            </button>
           </motion.div>
         )}
       </AnimatePresence>
