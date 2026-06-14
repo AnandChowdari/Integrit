@@ -18,8 +18,8 @@ export default function HowItWorksSection() {
           viewport={{ once: true }}
           className="mb-20 text-center"
         >
-          <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-white">From footage to captions in 5 steps</h2>
-          <p className="text-text-secondary text-lg">No more manual syncing. No more external websites.</p>
+          <h2 className="font-display text-3xl md:text-4xl font-bold mb-4 text-white tracking-tight">From footage to captions in <span className="font-accent">5 steps</span></h2>
+          <p className="text-base font-body text-text-secondary">No more manual syncing. No more external websites.</p>
         </motion.div>
 
         <div className="space-y-0">

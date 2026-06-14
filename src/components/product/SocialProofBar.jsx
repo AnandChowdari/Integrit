@@ -14,7 +14,7 @@ export default function SocialProofBar() {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="glass-strong py-8 px-8 sm:px-12 flex flex-wrap justify-between items-center gap-8 shadow-2xl"
+        className="glass-card py-8 px-8 sm:px-12 flex flex-wrap justify-between items-center gap-8 shadow-2xl"
       >
         {stats.map((stat, idx) => (
           <div key={idx} className="flex flex-col items-center sm:items-start flex-1 min-w-[120px]">

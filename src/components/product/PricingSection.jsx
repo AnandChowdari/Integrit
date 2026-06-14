@@ -99,8 +99,12 @@ export default function PricingSection({ onBuyNow }) {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-white">Simple, One-Time Pricing</h2>
-          <p className="text-text-secondary text-lg mb-8">Pay once. Use forever. No subscriptions, no renewals.</p>
+          <h2 className="font-display text-3xl md:text-4xl font-bold mb-4 text-white tracking-tight">Simple, <span className="font-accent">One-Time</span> Pricing</h2>
+          <p className="text-base font-body text-text-secondary mb-4">Pay once. Use forever. No subscriptions, no renewals.</p>
+          <p className="text-sm font-body text-text-secondary mb-8">
+            Trusted by <span className="text-white font-medium">editors across India</span> — 
+            <span className="text-accent-primary"> 30-day money-back guarantee</span> on all plans
+          </p>
           
           {/* Region Toggle */}
           <div className="inline-flex bg-bg-secondary p-1 rounded-full border border-white/10 relative">

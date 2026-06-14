@@ -31,8 +31,8 @@ export default function CaptionModesSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-white">Three Ways to Caption</h2>
-          <p className="text-text-secondary text-lg">Choose the style that fits your video's vibe.</p>
+          <h2 className="font-display text-3xl md:text-4xl font-bold mb-4 text-white tracking-tight"><span className="font-accent">Three Ways</span> to Caption</h2>
+          <p className="text-base font-body text-text-secondary">Choose the style that fits your video's vibe.</p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

@@ -1,20 +1,26 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { 
-  CheckCircle2, Film, Users, Play, 
+import {
+  CheckCircle2, Film, Users, Play,
   MessageSquare, UserCheck, Coins,
   Settings, Maximize2, Plus, Minus, Move
 } from 'lucide-react';
+import { siteConfig } from '../../config/site';
+import { fadeUpVariant, slideRightVariant } from '../../lib/motionVariants';
+import AnimatedCounter from '../ui/AnimatedCounter';
+import SectionDivider from '../ui/SectionDivider';
+import TypewriterText from '../ui/TypewriterText';
+import SideRays from '../ui/SideRays';
 
 export default function AgencyHero() {
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5; // -0.5 to 0.5
-    const y = (e.clientY - rect.top) / rect.height - 0.5; // -0.5 to 0.5
-    setTilt({ x: x * 18, y: -y * 18 }); // Up to 18 degrees dynamic tilt
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    setTilt({ x: x * 18, y: -y * 18 });
   };
 
   const handleMouseLeave = () => {
@@ -28,23 +34,28 @@ export default function AgencyHero() {
     "Done-For-You"
   ];
 
+  const mobileStats = [
+    { value: siteConfig.stats.viewsNumeric, suffix: siteConfig.stats.viewsSuffix, label: 'Organic Views' },
+    { value: siteConfig.stats.clientsNumeric, suffix: siteConfig.stats.clientsSuffix, label: 'Clients Served' },
+    { value: siteConfig.stats.conversionNumeric, suffix: siteConfig.stats.conversionSuffix, label: 'Lead Conversion Lift' },
+    { value: siteConfig.stats.doneForYouNumeric, suffix: siteConfig.stats.doneForYouSuffix, label: 'Done-For-You' },
+  ];
+
   const nodes = [
     {
       id: 'content',
       label: 'Content Engine',
       sub: 'Instagram / YouTube',
       icon: Film,
-      x: 100,
-      y: 250,
-      color: '#ff007f', // Social pink
+      x: 100, y: 250,
+      color: '#ff007f',
     },
     {
       id: 'agent',
       label: 'AI Agent Core',
       sub: 'Integrit Controller',
-      image: '/logo.jpg', // Brand logo!
-      x: 400,
-      y: 250,
+      image: '/logo.jpg',
+      x: 400, y: 250,
       isCenter: true,
     },
     {
@@ -52,45 +63,40 @@ export default function AgencyHero() {
       label: 'Lead Capture',
       sub: 'Webhook Trigger',
       icon: Users,
-      x: 250,
-      y: 130,
-      color: '#0066ff', // Form blue
+      x: 250, y: 130,
+      color: '#0066ff',
     },
     {
       id: 'automation',
       label: 'Workflow Engine',
       sub: 'Make.com Action',
       icon: Play,
-      x: 550,
-      y: 130,
-      color: '#ff6600', // Make/Zapier orange
+      x: 550, y: 130,
+      color: '#ff6600',
     },
     {
       id: 'crm',
       label: 'CRM & Notify',
       sub: 'WhatsApp Business',
       icon: MessageSquare,
-      x: 250,
-      y: 370,
-      color: '#25d366', // WhatsApp green
+      x: 250, y: 370,
+      color: '#25d366',
     },
     {
       id: 'customer',
       label: 'New Customer',
       sub: 'Lead Converted',
       icon: UserCheck,
-      x: 550,
-      y: 370,
-      color: '#8a3ffc', // Conversion purple
+      x: 550, y: 370,
+      color: '#8a3ffc',
     },
     {
       id: 'revenue',
       label: 'Revenue Closed',
       sub: '+$1,200 Stripe Pay',
       icon: Coins,
-      x: 700,
-      y: 250,
-      color: '#00c6ff', // Stripe cyan
+      x: 700, y: 250,
+      color: '#00c6ff',
       badge: '+$1,200.00'
     }
   ];
@@ -117,6 +123,21 @@ export default function AgencyHero() {
     <section className="relative min-h-screen pt-32 pb-20 flex flex-col justify-center overflow-hidden bg-bg-primary">
       {/* Background Effects */}
       <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0">
+          <SideRays
+            speed={2.5}
+            rayColor1="#a7ff20"
+            rayColor2="#96c8ff"
+            intensity={2}
+            spread={2}
+            origin="top-right"
+            tilt={0}
+            saturation={1.5}
+            blend={0.75}
+            falloff={1.6}
+            opacity={1.0}
+          />
+        </div>
         <div className="absolute top-[30%] left-[20%] w-[600px] h-[600px] bg-accent-primary/10 rounded-full blur-[150px] pointer-events-none" />
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#1E1E1E_1px,transparent_1px),linear-gradient(to_bottom,#1E1E1E_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 pointer-events-none" />
         <div className="noise-overlay" />
@@ -124,58 +145,103 @@ export default function AgencyHero() {
 
       <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          
+
           {/* Left Text */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+          <motion.div
+            variants={fadeUpVariant}
+            initial="hidden"
+            animate="visible"
             className="flex flex-col items-start"
           >
-            <h1 className="font-display text-5xl md:text-[5rem] font-bold leading-[1.05] mb-6 text-white tracking-tight">
-              We grow your audience.<br />
-              <span className="text-text-muted">Then we convert them.</span>
+            {/* Eyebrow Badge */}
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#1E1E1E] bg-[#111111] mb-6">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent-primary animate-pulse" />
+              <span className="text-[11px] font-mono text-text-secondary tracking-widest uppercase">
+                For creators & businesses in India
+              </span>
+            </div>
+
+            <h1 className="font-display font-extrabold text-5xl md:text-6xl lg:text-[5rem] leading-[1.08] tracking-tight text-white">
+              We grow your<br />
+              <span className="font-accent text-accent-primary">audience & revenue.</span>
             </h1>
-            
-            <p className="text-lg md:text-xl text-text-secondary leading-relaxed mb-10 max-w-xl">
-              Integrit combines content marketing, video editing, and AI automation funneling to turn views into real, paying leads — on autopilot.
+
+            <div className="mt-4 text-2xl md:text-3xl lg:text-4xl font-display font-bold text-text-secondary leading-tight tracking-tight">
+              <TypewriterText
+                phrases={[
+                  'Then we convert them.',
+                  'Then we automate your leads.',
+                  'Then we scale your revenue.',
+                  'Then we build your system.',
+                ]}
+                typingSpeed={70}
+                deletingSpeed={35}
+                pauseDuration={2200}
+                className=""
+              />
+            </div>
+
+            <p className="mt-6 text-base md:text-lg font-body text-text-secondary max-w-md leading-relaxed">
+              Integrit combines content marketing, video editing, and AI automation funneling
+              to turn views into real, paying leads — on autopilot.
             </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 mb-10 w-full sm:w-auto">
-              <Link 
-                to="/contact"
-                className="bg-accent-primary hover:bg-accent-secondary text-black px-8 py-4 rounded-none font-bold text-lg transition-all shadow-[0_0_20px_rgba(198,255,52,0.15)] hover:shadow-[0_0_30px_rgba(198,255,52,0.3)] hover:-translate-y-1 flex items-center justify-center"
-              >
-                Work With Us
+
+            {/* CTAs */}
+            <div className="mt-8 flex flex-col sm:flex-row gap-3">
+              <Link to="/contact"
+                className="px-6 py-3.5 bg-accent-primary text-black font-semibold font-display rounded-xl
+                           hover:bg-accent-secondary transition-all hover:-translate-y-0.5
+                           shadow-[0_0_24px_rgba(198,255,52,0.2)] hover:shadow-[0_0_32px_rgba(198,255,52,0.35)]
+                           text-center text-sm">
+                Book a Discovery Call →
               </Link>
-              <Link 
-                to="/services"
-                className="flex items-center justify-center px-8 py-4 rounded-none font-bold text-lg border border-accent-primary/50 text-accent-primary hover:bg-accent-primary/10 transition-all"
-              >
+              <Link to="/services"
+                className="px-6 py-3.5 border border-accent-primary/40 text-accent-primary font-display rounded-xl
+                           hover:bg-accent-primary/10 transition-all text-center text-sm">
                 See Our Services
               </Link>
             </div>
-            
-            <div className="flex flex-wrap gap-x-6 gap-y-3">
-              {trustItems.map((item, idx) => (
-                <div key={idx} className="flex items-center gap-2 text-sm text-text-secondary font-medium">
-                  <CheckCircle2 className="w-4 h-4 text-accent-primary" />
-                  {item}
+
+            {/* Urgency */}
+            {siteConfig.urgency.enabled && (
+              <p className="mt-3 text-xs font-mono text-text-secondary/70">
+                ⚡ Only {siteConfig.urgency.spotsLeft} new client spots available this month
+              </p>
+            )}
+
+            {/* Trust Checklist — Pills */}
+            <div className="mt-8 flex flex-wrap gap-2">
+              {trustItems.map(item => (
+                <span key={item} className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-mono
+                                            bg-[#161616] border border-[#1E1E1E] rounded-full text-text-secondary">
+                  <span className="text-accent-primary">✓</span> {item}
+                </span>
+              ))}
+            </div>
+
+            {/* Mobile Stats Fallback (< md) */}
+            <div className="grid grid-cols-2 gap-3 md:hidden mt-8 w-full">
+              {mobileStats.map(stat => (
+                <div key={stat.label} className="glass-card p-4">
+                  <p className="text-2xl font-display font-bold text-accent-primary">
+                    <AnimatedCounter target={stat.value} suffix={stat.suffix} />
+                  </p>
+                  <p className="text-xs font-mono text-text-secondary mt-1">{stat.label}</p>
                 </div>
               ))}
             </div>
           </motion.div>
 
-          {/* Right Visual (3D AI Automation Workflow) */}
-          <motion.div 
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative flex items-center justify-center w-full"
+          {/* Right Visual (3D AI Automation Workflow) — Desktop Only */}
+          <motion.div
+            variants={slideRightVariant}
+            initial="hidden"
+            animate="visible"
+            className="relative hidden md:flex items-center justify-center w-full"
           >
             {/* 3D Perspective Wrapper */}
-            <div 
-              className="w-full relative select-none cursor-crosshair group" 
+            <div
+              className="w-full relative select-none cursor-crosshair group"
               style={{ perspective: '1200px' }}
               onMouseMove={handleMouseMove}
               onMouseLeave={handleMouseLeave}
@@ -187,7 +253,7 @@ export default function AgencyHero() {
                     stroke-dashoffset: -40;
                   }
                 }
-                .animate-flow-dash {
+                .animate-flow-dash-hero {
                   animation: flowDash 3s linear infinite;
                 }
                 .glow-path {
@@ -202,23 +268,23 @@ export default function AgencyHero() {
               `}} />
 
               {/* Tilted Canvas */}
-              <div 
+              <div
                 className="w-full aspect-[8/5] min-h-[420px] relative border border-white/10 bg-[#0A0A0A] rounded-2xl overflow-hidden shadow-[0_30px_100px_rgba(0,0,0,0.9)]"
-                style={{ 
+                style={{
                   transform: `rotateX(${15 + tilt.y}deg) rotateY(${-12 + tilt.x}deg) rotateZ(2deg)`,
                   transformStyle: 'preserve-3d',
                   transition: 'transform 0.15s ease-out'
                 }}
               >
                 {/* Dot Grid Background */}
-                <div 
-                  className="absolute inset-0 opacity-[0.15] bg-[radial-gradient(circle,#C0FF34_1px,transparent_1.5px)] bg-[size:1.5rem_1.5rem]" 
+                <div
+                  className="absolute inset-0 opacity-[0.15] bg-[radial-gradient(circle,#C0FF34_1px,transparent_1.5px)] bg-[size:1.5rem_1.5rem]"
                   style={{ transform: 'translateZ(-1px)' }}
                 />
 
                 {/* Automation Workspace Top UI Header Bar */}
-                <div 
-                  className="absolute top-0 left-0 right-0 h-10 border-b border-white/5 bg-[#0A0A0A]/90 px-4 flex items-center justify-between z-20 font-sans" 
+                <div
+                  className="absolute top-0 left-0 right-0 h-10 border-b border-white/5 bg-[#0A0A0A]/90 px-4 flex items-center justify-between z-20 font-sans"
                   style={{ transform: 'translateZ(15px)' }}
                 >
                   <div className="flex items-center gap-3">
@@ -241,20 +307,20 @@ export default function AgencyHero() {
                 </div>
 
                 {/* Floating controls toolbar on left side */}
-                <div 
-                  className="absolute left-4 top-1/2 -translate-y-1/2 flex flex-col gap-2.5 z-20 bg-[#111]/90 border border-white/10 p-1.5 rounded-lg text-white/40 shadow-xl" 
+                <div
+                  className="absolute left-4 top-1/2 -translate-y-1/2 flex flex-col gap-2.5 z-20 bg-[#111]/90 border border-white/10 p-1.5 rounded-lg text-white/40 shadow-xl"
                   style={{ transform: 'translateZ(20px)' }}
                 >
-                  <button className="p-1 hover:text-accent-primary transition-colors"><Move className="w-3.5 h-3.5" /></button>
-                  <button className="p-1 hover:text-accent-primary transition-colors"><Plus className="w-3.5 h-3.5" /></button>
-                  <button className="p-1 hover:text-accent-primary transition-colors"><Minus className="w-3.5 h-3.5" /></button>
-                  <button className="p-1 hover:text-accent-primary transition-colors"><Maximize2 className="w-3.5 h-3.5" /></button>
-                  <button className="p-1 hover:text-accent-primary transition-colors"><Settings className="w-3.5 h-3.5" /></button>
+                  <button className="p-1 hover:text-accent-primary transition-colors" aria-label="Move"><Move className="w-3.5 h-3.5" /></button>
+                  <button className="p-1 hover:text-accent-primary transition-colors" aria-label="Zoom in"><Plus className="w-3.5 h-3.5" /></button>
+                  <button className="p-1 hover:text-accent-primary transition-colors" aria-label="Zoom out"><Minus className="w-3.5 h-3.5" /></button>
+                  <button className="p-1 hover:text-accent-primary transition-colors" aria-label="Fullscreen"><Maximize2 className="w-3.5 h-3.5" /></button>
+                  <button className="p-1 hover:text-accent-primary transition-colors" aria-label="Settings"><Settings className="w-3.5 h-3.5" /></button>
                 </div>
 
                 {/* SVG Connections Canvas */}
-                <svg 
-                  className="absolute inset-0 w-full h-full pointer-events-none z-10" 
+                <svg
+                  className="absolute inset-0 w-full h-full pointer-events-none z-10"
                   viewBox="0 0 800 500"
                   style={{ transform: 'translateZ(5px)' }}
                 >
@@ -265,7 +331,7 @@ export default function AgencyHero() {
                     </filter>
                   </defs>
 
-                  {/* Radiating AI Control lines (Agent -> other steps) */}
+                  {/* Radiating AI Control lines */}
                   {radiatingPaths.map((path) => (
                     <path
                       key={path.id}
@@ -279,7 +345,6 @@ export default function AgencyHero() {
                   {/* Sequential Main Flow Lines */}
                   {paths.map((path) => (
                     <g key={path.id}>
-                      {/* Underlay shadow/glow line */}
                       <path
                         d={path.d}
                         fill="none"
@@ -288,7 +353,6 @@ export default function AgencyHero() {
                         strokeOpacity="0.1"
                         className="glow-path"
                       />
-                      {/* Flowing Dash Line */}
                       <path
                         id={path.id}
                         d={path.d}
@@ -296,7 +360,7 @@ export default function AgencyHero() {
                         stroke="rgba(192, 255, 52, 0.4)"
                         strokeWidth="1.5"
                         strokeDasharray="6 8"
-                        className="animate-flow-dash"
+                        className="animate-flow-dash-hero"
                       />
                     </g>
                   ))}
@@ -304,13 +368,11 @@ export default function AgencyHero() {
                   {/* Flowing Data Particles */}
                   {paths.map((path, idx) => (
                     <g key={`particle-${path.id}`}>
-                      {/* First particle */}
                       <circle r="3.5" fill="#C0FF34" filter="url(#glow)">
                         <animateMotion dur={`${3 + idx * 0.4}s`} repeatCount="indefinite">
                           <mpath href={`#${path.id}`} />
                         </animateMotion>
                       </circle>
-                      {/* Second delayed particle */}
                       <circle r="2.5" fill="#ffffff" filter="url(#glow)" opacity="0.8">
                         <animateMotion dur={`${3 + idx * 0.4}s`} begin="1.5s" repeatCount="indefinite">
                           <mpath href={`#${path.id}`} />
@@ -328,13 +390,13 @@ export default function AgencyHero() {
                     <div
                       key={node.id}
                       className={`absolute z-20 rounded-xl p-2.5 flex items-center gap-2 border transition-all duration-300 ${
-                        isCenter 
-                          ? 'w-[155px] sm:w-[170px] h-[72px] sm:h-[80px] border-accent-primary bg-black/90 center-node-glow' 
+                        isCenter
+                          ? 'w-[155px] sm:w-[170px] h-[72px] sm:h-[80px] border-accent-primary bg-black/90 center-node-glow'
                           : 'w-[130px] sm:w-[140px] h-[56px] sm:h-[64px] border-white/10 bg-neutral-950/80 backdrop-blur-md node-shadow hover:border-accent-primary/40'
                       }`}
-                      style={{ 
-                        left: `${(node.x / 800) * 100}%`, 
-                        top: `${(node.y / 500) * 100}%`, 
+                      style={{
+                        left: `${(node.x / 800) * 100}%`,
+                        top: `${(node.y / 500) * 100}%`,
                         transform: `translate(-50%, -50%) translateZ(${isCenter ? '32px' : '20px'})`,
                         transformStyle: 'preserve-3d'
                       }}
@@ -347,10 +409,10 @@ export default function AgencyHero() {
                       <div className="w-1 h-full rounded-l absolute left-0 top-0 bottom-0 bg-accent-primary opacity-80" />
 
                       {/* Icon Container */}
-                      <div 
+                      <div
                         className={`rounded flex items-center justify-center shrink-0 ${
-                          isCenter 
-                            ? 'w-9 h-9 border border-accent-primary/50 text-accent-primary overflow-hidden' 
+                          isCenter
+                            ? 'w-9 h-9 border border-accent-primary/50 text-accent-primary overflow-hidden'
                             : 'w-7.5 h-7.5 border'
                         }`}
                         style={!isCenter ? {
@@ -360,7 +422,7 @@ export default function AgencyHero() {
                         } : {}}
                       >
                         {node.image ? (
-                          <img src={node.image} alt="" className="w-full h-full object-cover rounded" />
+                          <img src={node.image} alt="Integrit Logo" className="w-full h-full object-cover rounded" />
                         ) : (
                           <Icon className={isCenter ? 'w-5 h-5' : 'w-4 h-4'} style={!isCenter ? { color: node.color } : {}} />
                         )}
@@ -380,8 +442,8 @@ export default function AgencyHero() {
                 })}
 
                 {/* Bottom Status / Log Bar */}
-                <div 
-                  className="absolute bottom-0 left-0 right-0 h-8 border-t border-white/5 bg-[#0A0A0A]/95 px-4 flex items-center justify-between z-20 font-mono text-[8px] text-white/50" 
+                <div
+                  className="absolute bottom-0 left-0 right-0 h-8 border-t border-white/5 bg-[#0A0A0A]/95 px-4 flex items-center justify-between z-20 font-mono text-[8px] text-white/50"
                   style={{ transform: 'translateZ(15px)' }}
                 >
                   <div className="flex items-center gap-2">
@@ -396,9 +458,11 @@ export default function AgencyHero() {
               </div>
             </div>
           </motion.div>
-          
+
         </div>
       </div>
+
+      <SectionDivider direction="down" />
     </section>
   );
 }

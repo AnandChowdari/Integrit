@@ -16,7 +16,7 @@ export default function ProductsPage() {
             animate={{ opacity: 1, y: 0 }}
             className="mb-20 text-center"
           >
-            <h1 className="font-display text-5xl md:text-6xl font-bold text-white mb-6">Tools built by creators, <span className="text-accent-primary">for creators</span></h1>
+            <h1 className="font-display text-5xl md:text-6xl font-extrabold text-white mb-6">Tools built by creators, <span className="font-accent">for creators</span></h1>
             <p className="text-xl text-text-secondary max-w-2xl mx-auto">
               We build production tools that we use ourselves. No subscriptions.
             </p>

@@ -8,16 +8,18 @@ import CaptiongritFooter from '../../components/layout/CaptiongritFooter';
 // Sections
 import HeroSection from '../../components/product/HeroSection';
 import SocialProofBar from '../../components/product/SocialProofBar';
+import BeforeAfterSection from '../../components/product/BeforeAfterSection';
 import CaptionModesSection from '../../components/product/CaptionModesSection';
 import HowItWorksSection from '../../components/product/HowItWorksSection';
 import FeaturesSection from '../../components/product/FeaturesSection';
 import LanguageMarquee from '../../components/product/LanguageMarquee';
 import PricingSection from '../../components/product/PricingSection';
-import TestimonialsSection from '../../components/product/TestimonialsSection';
 import ComparisonSection from '../../components/product/ComparisonSection';
+import TestimonialsSection from '../../components/product/TestimonialsSection';
 import FaqSection from '../../components/product/FaqSection';
 import FinalCtaSection from '../../components/product/FinalCtaSection';
 import CheckoutModal from '../../components/product/CheckoutModal';
+import SectionDivider from '../../components/ui/SectionDivider';
 
 // Hidden Sections
 // import CaseStudiesSection from '../../components/product/CaseStudiesSection';
@@ -56,12 +58,18 @@ export default function LandingPage() {
       <main className="flex-grow">
         <HeroSection onBuyNow={handleGenericBuyNow} />
         <SocialProofBar />
+        <SectionDivider direction="down" />
+        <BeforeAfterSection />
+        <SectionDivider direction="down" />
         <CaptionModesSection />
         <HowItWorksSection />
+        <SectionDivider direction="down" />
         <FeaturesSection />
         <LanguageMarquee />
+        <SectionDivider direction="down" />
         <PricingSection onBuyNow={handleSelectPlan} />
         <ComparisonSection />
+        <SectionDivider direction="down" />
         <TestimonialsSection />
         <FaqSection />
         <FinalCtaSection onBuyNow={handleGenericBuyNow} />

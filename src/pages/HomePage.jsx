@@ -8,7 +8,9 @@ import AgencyServicesPreview from '../components/agency/AgencyServicesPreview';
 import HowItWorksAgency from '../components/agency/HowItWorksAgency';
 import AgencyProductsSection from '../components/agency/AgencyProductsSection';
 import WhoWeWorkWithSection from '../components/agency/WhoWeWorkWithSection';
+import AgencyTestimonialsTeaser from '../components/agency/AgencyTestimonialsTeaser';
 import AgencyFinalCta from '../components/agency/AgencyFinalCta';
+import SectionDivider from '../components/ui/SectionDivider';
 
 export default function HomePage() {
   return (
@@ -18,13 +20,16 @@ export default function HomePage() {
       <main className="flex-grow">
         <AgencyHero />
         <AgencySocialProof />
+        <SectionDivider direction="down" />
         <WhatWeDoSection />
+        <SectionDivider direction="down" />
         <AgencyServicesPreview />
         <HowItWorksAgency />
+        <SectionDivider direction="down" />
         <AgencyProductsSection />
+        <SectionDivider direction="down" />
         <WhoWeWorkWithSection />
-        {/* HIDDEN: uncomment when case studies are ready */}
-        {/* <CaseStudiesPreview /> */}
+        <AgencyTestimonialsTeaser />
         <AgencyFinalCta />
       </main>
 

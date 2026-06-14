@@ -35,7 +35,7 @@ export default function TestimonialsSection() {
           <div className="inline-block px-4 py-1 rounded-full border border-white/10 bg-white/5 text-sm text-text-secondary mb-4">
             Early Beta Feedback
           </div>
-          <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-white">What Beta Testers Say</h2>
+          <h2 className="font-display text-3xl md:text-4xl font-bold mb-4 text-white tracking-tight">What Beta Testers Say</h2>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

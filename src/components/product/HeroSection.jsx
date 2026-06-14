@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { CheckCircle2 } from 'lucide-react';
+import { fadeUpVariant, slideRightVariant } from '../../lib/motionVariants';
 import CaptiongritPluginDemo from './CaptiongritPluginDemo';
 
 export default function HeroSection({ onBuyNow }) {
@@ -23,9 +24,9 @@ export default function HeroSection({ onBuyNow }) {
           
           {/* Left Text */}
           <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            variants={fadeUpVariant}
+            initial="hidden"
+            animate="visible"
             className="flex flex-col items-start"
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-accent-primary/30 bg-accent-primary/5 text-accent-primary text-sm font-semibold mb-8">
@@ -33,25 +34,25 @@ export default function HeroSection({ onBuyNow }) {
               Now Available — Version 1.0
             </div>
             
-            <h1 className="font-display text-5xl md:text-7xl font-bold leading-[1.1] mb-6 text-white">
-              Don't waste hours.<br />
-              <span className="glow-text text-accent-primary">Create captions in seconds.</span>
+            <h1 className="font-display text-5xl md:text-6xl lg:text-[5rem] font-extrabold leading-[1.08] mb-6 text-white tracking-tight">
+              Don’t waste hours.<br />
+              <span className="font-accent glow-text text-accent-primary">Create captions in seconds.</span>
             </h1>
             
-            <p className="text-lg md:text-xl text-text-secondary leading-relaxed mb-10 max-w-xl">
+            <p className="text-base md:text-lg font-body text-text-secondary leading-relaxed mb-10 max-w-xl">
               AI-powered captions in 24 languages — One Click, One-Time License. Works inside Adobe Premiere Pro & After Effects.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 mb-10 w-full sm:w-auto">
               <button 
                 onClick={onBuyNow}
-                className="bg-accent-primary hover:bg-accent-secondary text-black px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-[0_0_20px_rgba(198,255,52,0.2)] hover:shadow-[0_0_30px_rgba(198,255,52,0.4)] hover:-translate-y-1"
+                className="bg-accent-primary hover:bg-accent-secondary text-black px-8 py-4 rounded-xl font-bold text-lg font-display transition-all shadow-[0_0_20px_rgba(198,255,52,0.2)] hover:shadow-[0_0_30px_rgba(198,255,52,0.4)] hover:-translate-y-1"
               >
-                Buy Now — Starting at ₹999
+                Buy Now — Starting at ₹399
               </button>
               <a 
                 href="#how-it-works"
-                className="flex items-center justify-center px-8 py-4 rounded-xl font-bold text-lg border border-white/20 hover:bg-white/5 transition-all"
+                className="flex items-center justify-center px-8 py-4 rounded-xl font-bold text-lg border border-white/20 hover:bg-white/5 transition-all text-white"
               >
                 See How It Works
               </a>
@@ -67,14 +68,28 @@ export default function HeroSection({ onBuyNow }) {
             </div>
           </motion.div>
 
-          {/* Right Visual: Interactive Demo */}
+          {/* Right Visual: Interactive Plugin Demo */}
           <motion.div 
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            variants={slideRightVariant}
+            initial="hidden"
+            animate="visible"
             className="w-full flex items-center justify-center lg:justify-end"
           >
-            <CaptiongritPluginDemo />
+            <div className="relative w-full max-w-2xl transform lg:rotate-y-[-5deg] lg:rotate-x-[2deg] hover:rotate-y-0 hover:rotate-x-0 transition-transform duration-700 perspective-1000">
+              {/* Glow behind demo */}
+              <div className="absolute -inset-4 bg-accent-primary/20 rounded-3xl blur-3xl pointer-events-none" />
+              
+              {/* Demo container */}
+              <div className="relative">
+                <CaptiongritPluginDemo />
+              </div>
+              
+              {/* Floating badge */}
+              <div className="absolute -bottom-3 -right-3 bg-[#111111] border border-accent-primary/30 rounded-xl px-4 py-2 flex items-center gap-2 shadow-lg z-10">
+                <span className="w-2 h-2 rounded-full bg-accent-primary animate-pulse" />
+                <span className="text-xs font-mono text-accent-primary">Live Interactive Demo</span>
+              </div>
+            </div>
           </motion.div>
           
         </div>

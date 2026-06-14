@@ -163,6 +163,14 @@ export default function HowItWorksAgency() {
       {/* Sticky viewport content */}
       <div className="sticky top-0 h-screen w-full flex flex-col justify-between overflow-hidden py-16 md:py-24 px-6">
         
+        {/* Skip button */}
+        <button
+          onClick={() => { containerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' }); }}
+          className="absolute top-4 right-6 text-xs font-mono text-text-secondary hover:text-white transition-colors z-30"
+        >
+          Skip →
+        </button>
+        
         {/* Section Header */}
         <div className="max-w-7xl mx-auto w-full text-center">
           <motion.div
@@ -170,11 +178,14 @@ export default function HowItWorksAgency() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
-              The Integrit Growth System
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">
+              The Integrit <span className="font-accent">Growth System</span>
             </h2>
-            <p className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto">
+            <p className="text-base font-body text-text-secondary max-w-2xl mx-auto">
               Views without conversions is just vanity. We fix both.
+            </p>
+            <p className="text-xs font-mono text-text-secondary/60 mt-4 animate-bounce">
+              ↓ Scroll to walk through the process
             </p>
           </motion.div>
         </div>

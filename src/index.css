@@ -2,45 +2,84 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── Self-hosted Fonts ──────────────────────────────── */
+@font-face {
+  font-family: 'Kepler Std Subhead';
+  src: url('/fonts/KeplerStd-SemiboldScnItSubh.otf') format('opentype');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
   }
+
   body {
     @apply bg-bg-primary text-text-primary font-body antialiased;
     background-color: #0A0A0A;
+    font-weight: 400;
+    letter-spacing: -0.01em;
   }
-  
-  h1, h2, h3, h4, h5, h6 {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-display tracking-tight;
+    font-weight: 800;
+    letter-spacing: -0.04em;
   }
+
+  h1 { font-weight: 800; }
+  h2 { font-weight: 700; }
+  h3 { font-weight: 700; }
+  h4, h5, h6 { font-weight: 600; }
 }
 
 @layer utilities {
+  /* Kepler accent — used for editorial emphasis on key words */
+  .font-accent {
+    font-family: 'Kepler Std Subhead', Georgia, serif;
+    font-style: italic;
+    font-weight: 600;
+  }
   .glass {
     @apply bg-white/[0.03] backdrop-blur-[20px] border border-white/[0.06] rounded-2xl;
   }
-  
+
   .glass-card {
     @apply bg-white/[0.02] backdrop-blur-[12px] border border-white/[0.06] rounded-2xl transition-all duration-300;
   }
-  
+
   .glass-card:hover {
     @apply bg-white/[0.04] border-accent-primary/20 -translate-y-1;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(198, 255, 52, 0.05);
   }
-  
+
+  .glass-card-standard {
+    @apply bg-white/[0.02] backdrop-blur-[12px] border border-white/[0.06] rounded-2xl transition-all duration-300;
+  }
+
+  .glass-card-standard:hover {
+    @apply border-accent-primary/20 -translate-y-1;
+    box-shadow: 0 0 32px rgba(198, 255, 52, 0.06);
+  }
+
   .glow-text {
     text-shadow: 0 0 20px rgba(198, 255, 52, 0.3);
   }
-  
+
   .noise-overlay {
     position: absolute;
     inset: 0;
     z-index: 0;
     opacity: 0.05;
     pointer-events: none;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   }
 }
 
@@ -48,13 +87,16 @@
 ::-webkit-scrollbar {
   width: 8px;
 }
+
 ::-webkit-scrollbar-track {
   background: #0A0A0A;
 }
+
 ::-webkit-scrollbar-thumb {
   background: rgba(198, 255, 52, 0.3);
   border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(198, 255, 52, 0.6);
 }
@@ -67,12 +109,19 @@
 
 /* ─── Animations ─────────────────────────────────────── */
 @keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 @keyframes flow-dash {
-  to { stroke-dashoffset: -20; }
+  to {
+    stroke-dashoffset: -20;
+  }
 }
 
 .animate-marquee {
@@ -84,10 +133,40 @@
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 .animate-float {
   animation: float 6s ease-in-out infinite;
+}
+
+/* ─── Focus Rings (Accessibility) ────────────────────── */
+*:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #0A0A0A, 0 0 0 4px #C6FF34;
+  border-radius: 4px;
+}
+
+/* ─── Typewriter Cursor ──────────────────────────────── */
+@keyframes blink-caret {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.typewriter-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background-color: #C6FF34;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: blink-caret 0.8s step-end infinite;
 }

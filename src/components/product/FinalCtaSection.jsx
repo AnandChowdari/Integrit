@@ -15,7 +15,7 @@ export default function FinalCtaSection({ onBuyNow }) {
           className="font-display text-5xl md:text-7xl font-bold mb-6 text-white leading-tight"
         >
           Start captioning <br className="hidden md:block" />
-          <span className="text-accent-primary glow-text">smarter today.</span>
+          <span className="font-accent text-accent-primary glow-text">smarter today.</span>
         </motion.h2>
         
         <motion.p 

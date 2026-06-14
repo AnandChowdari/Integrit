@@ -12,15 +12,20 @@ export default function GlobalFooter() {
               <img src="/logo.jpg" alt="Integrit Logo" className="w-7 h-7 object-contain group-hover:scale-110 transition-transform rounded-md" />
               <span className="font-display font-bold text-xl text-white tracking-wide">Integrit</span>
             </Link>
-            <p className="text-text-secondary text-sm leading-relaxed max-w-xs">
+            <p className="text-text-secondary text-sm font-body leading-relaxed max-w-xs">
               AI Automations + Marketing. Built for creators.
             </p>
+            <div className="inline-flex items-center gap-2 mt-3 px-3 py-1.5 rounded-full
+                            bg-[#111111] border border-[#1E1E1E] w-fit">
+              <span className="text-sm">🇮🇳</span>
+              <span className="text-[11px] font-mono text-text-secondary">Made in India</span>
+            </div>
           </div>
 
           <div>
             <h4 className="font-bold text-white mb-6">Company</h4>
             <ul className="space-y-4">
-              <li><Link to="/about" className="text-text-secondary hover:text-white transition-colors text-sm">About</Link></li>
+              <li><Link to="/contact" className="text-text-secondary hover:text-white transition-colors text-sm">Book a Discovery Call</Link></li>
               <li><Link to="/services" className="text-text-secondary hover:text-white transition-colors text-sm">Services</Link></li>
               <li><Link to="/products" className="text-text-secondary hover:text-white transition-colors text-sm">Products</Link></li>
               <li><Link to="/contact" className="text-text-secondary hover:text-white transition-colors text-sm">Contact</Link></li>

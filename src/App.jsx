@@ -6,6 +6,7 @@ import ContactPage from './pages/ContactPage';
 import CaseStudiesPage from './pages/CaseStudiesPage';
 import CaptiongritPage from './pages/products/CaptiongritPage';
 import ScrollToTop from './components/layout/ScrollToTop';
+import StickyCTABar from './components/ui/StickyCTABar';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/case-studies" element={<CaseStudiesPage />} />
       </Routes>
+      <StickyCTABar />
     </BrowserRouter>
   );
 }

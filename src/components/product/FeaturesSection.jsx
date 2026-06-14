@@ -45,8 +45,8 @@ export default function FeaturesSection() {
           viewport={{ once: true }}
           className="text-center mb-20"
         >
-          <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-white">Everything you need. Nothing you don't.</h2>
-          <p className="text-text-secondary text-lg">Built specifically for the modern video editor's workflow.</p>
+          <h2 className="font-display text-3xl md:text-4xl font-bold mb-4 text-white tracking-tight"><span className="font-accent">Everything</span> you need. Nothing you don't.</h2>
+          <p className="text-base font-body text-text-secondary">Built specifically for the modern video editor's workflow.</p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -70,7 +70,7 @@ export default function FeaturesSection() {
                 </div>
                 
                 <h3 className="font-display font-bold text-xl text-white mt-2">{feat.title}</h3>
-                <p className="text-text-secondary leading-relaxed">{feat.desc}</p>
+                <p className="text-base font-body text-text-secondary leading-relaxed">{feat.desc}</p>
               </motion.div>
             );
           })}

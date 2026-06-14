@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, Minus } from 'lucide-react';
+import { Plus, Minus, Search } from 'lucide-react';
+import { fadeUpVariant } from '../../lib/motionVariants';
 
 export default function FaqSection() {
   const [openIndex, setOpenIndex] = useState(null);
+  const [filter, setFilter] = useState('');
 
   const faqs = [
     { q: "What's the difference between Basic, Pro, and Extreme?", a: "Basic gives you standard captions in English + 5 Indian languages. Pro unlocks all 24 languages, phonetic modes, and custom dictionaries. Extreme adds a second AI verification pass for maximum accuracy, lifetime updates, and 1-on-1 setup support." },
@@ -18,49 +20,77 @@ export default function FaqSection() {
     { q: "Does it work offline?", a: "No, the AI transcription models require an internet connection to process the audio and generate the text." }
   ];
 
+  const filteredFaqs = filter
+    ? faqs.filter(faq => faq.q.toLowerCase().includes(filter.toLowerCase()) || faq.a.toLowerCase().includes(filter.toLowerCase()))
+    : faqs;
+
   return (
     <section id="faq" className="py-32 px-6">
-      <div className="max-w-3xl mx-auto">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+      <div className="max-w-5xl mx-auto">
+        <motion.div
+          variants={fadeUpVariant}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <h2 className="font-display text-4xl md:text-5xl font-bold mb-4 text-white">Frequently Asked Questions</h2>
+          <h2 className="font-display text-3xl md:text-4xl font-bold mb-4 text-white tracking-tight">Frequently Asked Questions</h2>
         </motion.div>
 
-        <div className="space-y-4">
-          {faqs.map((faq, idx) => (
-            <motion.div 
+        {/* Search filter */}
+        <motion.div
+          variants={fadeUpVariant}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="mb-8"
+        >
+          <div className="relative max-w-md mx-auto">
+            <input
+              type="text"
+              placeholder="Search FAQ..."
+              value={filter}
+              onChange={e => setFilter(e.target.value)}
+              className="w-full bg-[#111111] border border-[#1E1E1E] rounded-xl px-4 py-3 pl-10
+                         text-sm font-body text-white placeholder:text-text-secondary
+                         focus:outline-none focus:border-accent-primary/40 transition-colors"
+            />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-secondary" />
+          </div>
+        </motion.div>
+
+        {/* 2-column FAQ grid on desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          {filteredFaqs.map((faq, idx) => (
+            <motion.div
               key={idx}
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: idx * 0.05 }}
+              transition={{ delay: idx * 0.03 }}
               className="glass-card overflow-hidden"
             >
-              <button 
+              <button
                 onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
                 className="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none"
               >
-                <span className="font-bold text-white pr-8">{faq.q}</span>
+                <span className="font-bold text-white pr-8 text-sm">{faq.q}</span>
                 {openIndex === idx ? (
                   <Minus className="w-5 h-5 text-accent-primary shrink-0" />
                 ) : (
                   <Plus className="w-5 h-5 text-text-secondary shrink-0" />
                 )}
               </button>
-              
+
               <AnimatePresence>
                 {openIndex === idx && (
-                  <motion.div 
+                  <motion.div
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <div className="px-6 pb-6 text-text-secondary leading-relaxed border-t border-white/5 pt-4 mt-2">
+                    <div className="px-6 pb-6 text-sm text-text-secondary font-body leading-relaxed border-t border-white/5 pt-4 mt-2">
                       {faq.a}
                     </div>
                   </motion.div>
@@ -69,6 +99,10 @@ export default function FaqSection() {
             </motion.div>
           ))}
         </div>
+
+        {filteredFaqs.length === 0 && (
+          <p className="text-center text-text-secondary text-sm mt-8 font-body">No matching questions found.</p>
+        )}
       </div>
     </section>
   );
