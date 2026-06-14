@@ -34,12 +34,7 @@ export default function AgencyHero() {
     "Done-For-You"
   ];
 
-  const mobileStats = [
-    { value: siteConfig.stats.viewsNumeric, suffix: siteConfig.stats.viewsSuffix, label: 'Organic Views' },
-    { value: siteConfig.stats.clientsNumeric, suffix: siteConfig.stats.clientsSuffix, label: 'Clients Served' },
-    { value: siteConfig.stats.conversionNumeric, suffix: siteConfig.stats.conversionSuffix, label: 'Lead Conversion Lift' },
-    { value: siteConfig.stats.doneForYouNumeric, suffix: siteConfig.stats.doneForYouSuffix, label: 'Done-For-You' },
-  ];
+
 
   const nodes = [
     {
@@ -180,17 +175,7 @@ export default function AgencyHero() {
               to turn views into real, paying leads — on autopilot.
             </p>
 
-            {/* Mobile Stats Fallback (< md) - Moved above CTAs */}
-            <div className="grid grid-cols-2 gap-3 md:hidden mt-8 w-full max-w-md">
-              {mobileStats.map(stat => (
-                <div key={stat.label} className="glass-card p-4">
-                  <p className="text-2xl font-display font-bold text-accent-primary">
-                    <AnimatedCounter target={stat.value} suffix={stat.suffix} />
-                  </p>
-                  <p className="text-xs font-mono text-text-secondary mt-1">{stat.label}</p>
-                </div>
-              ))}
-            </div>
+
 
             {/* CTAs */}
             <div className="mt-8 flex flex-col sm:flex-row gap-3">
@@ -211,17 +196,17 @@ export default function AgencyHero() {
 
           </motion.div>
 
-          {/* Right Visual (3D AI Automation Workflow) — Desktop Only */}
+          {/* Right Visual (3D AI Automation Workflow) */}
           <motion.div
             variants={slideRightVariant}
             initial="hidden"
             animate="visible"
-            className="relative hidden md:flex items-center justify-center w-full"
+            className="relative flex items-center justify-center w-full mt-12 lg:mt-0"
           >
             {/* 3D Perspective Wrapper */}
             <div
               className="w-full relative select-none cursor-crosshair group"
-              style={{ perspective: '1200px' }}
+              style={{ perspective: '1200px', containerType: 'inline-size' }}
               onMouseMove={handleMouseMove}
               onMouseLeave={handleMouseLeave}
             >
@@ -246,15 +231,25 @@ export default function AgencyHero() {
                 }
               `}} />
 
-              {/* Tilted Canvas */}
-              <div
-                className="w-full aspect-[8/5] min-h-[420px] relative border border-white/10 bg-[#0A0A0A] rounded-2xl overflow-hidden shadow-[0_30px_100px_rgba(0,0,0,0.9)]"
-                style={{
-                  transform: `rotateX(${15 + tilt.y}deg) rotateY(${-12 + tilt.x}deg) rotateZ(2deg)`,
-                  transformStyle: 'preserve-3d',
-                  transition: 'transform 0.15s ease-out'
-                }}
-              >
+              {/* Scaled Wrapper to make 3D Canvas responsive */}
+              <div className="w-full aspect-[8/5] relative">
+                <div
+                  className="absolute top-0 left-0 origin-top-left"
+                  style={{
+                    width: '800px',
+                    height: '500px',
+                    transform: 'scale(calc(100cqw / 800))'
+                  }}
+                >
+                  {/* Tilted Canvas */}
+                  <div
+                    className="w-full h-full relative border border-white/10 bg-[#0A0A0A] rounded-2xl overflow-hidden shadow-[0_30px_100px_rgba(0,0,0,0.9)]"
+                    style={{
+                      transform: `rotateX(${15 + tilt.y}deg) rotateY(${-12 + tilt.x}deg) rotateZ(2deg)`,
+                      transformStyle: 'preserve-3d',
+                      transition: 'transform 0.15s ease-out'
+                    }}
+                  >
                 {/* Dot Grid Background */}
                 <div
                   className="absolute inset-0 opacity-[0.15] bg-[radial-gradient(circle,#C0FF34_1px,transparent_1.5px)] bg-[size:1.5rem_1.5rem]"
@@ -434,6 +429,8 @@ export default function AgencyHero() {
                   </div>
                 </div>
 
+                  </div>
+                </div>
               </div>
             </div>
           </motion.div>
