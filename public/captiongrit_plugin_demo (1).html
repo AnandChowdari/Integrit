@@ -1,0 +1,838 @@
+@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Captiongrit Plugin</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    body {
+      background: #111;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #fff;
+      min-height: 100vh
+    }
+
+    .app {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden
+    }
+
+    /* Topbar */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 18px;
+      background: #111;
+      border-bottom: 1px solid #222;
+      flex-shrink: 0
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .logo-dot {
+      width: 18px;
+      height: 18px;
+      background: #c6f135;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative
+    }
+
+    .logo-dot::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      border: 1.5px solid #c6f13566;
+      animation: pulseRing 2s ease-out infinite
+    }
+
+    .logo-dot svg {
+      width: 10px;
+      height: 10px
+    }
+
+    .app-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: .01em
+    }
+
+    .version-badge {
+      font-size: 11px;
+      color: #c6f135;
+      font-weight: 600
+    }
+
+    /* Content */
+    .content {
+      flex: 1;
+      overflow-y: auto;
+      padding-bottom: 10px
+    }
+
+    /* Section label */
+    .section-label {
+      font-size: 10px;
+      color: #c6f135;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 14px 18px 6px;
+      display: flex;
+      align-items: center;
+      gap: 5px
+    }
+
+    .section-label::before {
+      content: '•';
+      font-size: 14px;
+      line-height: 1
+    }
+
+    /* Language cycle strip */
+    .lang-strip {
+      display: flex;
+      gap: 6px;
+      padding: 4px 18px 10px;
+      overflow-x: auto;
+      scrollbar-width: none
+    }
+
+    .lang-strip::-webkit-scrollbar {
+      display: none
+    }
+
+    .lang-chip {
+      padding: 5px 12px;
+      border-radius: 16px;
+      border: 1px solid #2a2a2a;
+      background: #1a1a1a;
+      color: #555;
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: all .3s;
+      flex-shrink: 0
+    }
+
+    .lang-chip.active {
+      background: #c6f135;
+      border-color: #c6f135;
+      color: #0a1200
+    }
+
+    .lang-chip.done {
+      border-color: #2a4000;
+      color: #4a7a10
+    }
+
+    /* Clip box */
+    .clip-box {
+      margin: 0 18px 4px;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 6px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between
+    }
+
+    .clip-name {
+      font-size: 13px;
+      color: #e0e0e0
+    }
+
+    .clip-lang-badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 10px;
+      background: #1e2e08;
+      border: 1px solid #c6f135;
+      color: #c6f135;
+      transition: all .3s
+    }
+
+    /* Waveform */
+    .waveform-wrap {
+      margin: 6px 18px;
+      background: #161618;
+      border-radius: 6px;
+      padding: 8px 10px;
+      border: 1px solid #222
+    }
+
+    .wave-label {
+      font-size: 9px;
+      color: #555;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 5px
+    }
+
+    .wave-bars {
+      display: flex;
+      gap: 2px;
+      align-items: center;
+      height: 32px
+    }
+
+    .wave-bar {
+      width: 4px;
+      border-radius: 2px;
+      background: #2a3a1a;
+      transition: background .1s
+    }
+
+    .wave-bar.scanned {
+      background: #c6f135
+    }
+
+    .wave-bar.active {
+      background: #e8ff80
+    }
+
+    .scan-track {
+      height: 2px;
+      background: #1e1e1e;
+      border-radius: 1px;
+      margin-top: 5px;
+      overflow: hidden
+    }
+
+    .scan-fill {
+      height: 100%;
+      width: 0%;
+      background: #c6f135;
+      border-radius: 1px;
+      transition: width .05s linear
+    }
+
+    /* STT/AI info row */
+    .info-row {
+      display: flex;
+      gap: 8px;
+      margin: 6px 18px;
+      flex-wrap: wrap
+    }
+
+    .info-pill {
+      font-size: 10px;
+      padding: 4px 10px;
+      border-radius: 10px;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      color: #666;
+      display: flex;
+      align-items: center;
+      gap: 4px
+    }
+
+    .info-pill .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #333;
+      flex-shrink: 0;
+      transition: background .3s
+    }
+
+    .info-pill.active .dot {
+      background: #c6f135
+    }
+
+    .info-pill.active {
+      color: #aaa;
+      border-color: #333
+    }
+
+    /* Caption output section */
+    .caption-output-wrap {
+      margin: 6px 18px;
+      background: #161618;
+      border-radius: 6px;
+      border: 1px solid #222;
+      overflow: hidden
+    }
+
+    .caption-output-header {
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #1e1e1e
+    }
+
+    .caption-output-label {
+      font-size: 9px;
+      color: #555;
+      letter-spacing: .08em;
+      text-transform: uppercase
+    }
+
+    .caption-count {
+      font-size: 10px;
+      color: #c6f135;
+      font-weight: 600;
+      min-width: 40px;
+      text-align: right
+    }
+
+    .caption-log {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-height: 160px;
+      overflow-y: auto;
+      scrollbar-width: none
+    }
+
+    .caption-log::-webkit-scrollbar {
+      display: none
+    }
+
+    .caption-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 7px 12px;
+      border-bottom: 1px solid #1a1a1a;
+      animation: popIn .25s ease forwards;
+      opacity: 0
+    }
+
+    .caption-row:last-child {
+      border-bottom: none
+    }
+
+    .caption-time {
+      font-size: 10px;
+      color: #c6f135;
+      font-family: monospace;
+      flex-shrink: 0;
+      margin-top: 2px;
+      min-width: 60px
+    }
+
+    .caption-text {
+      font-size: 13px;
+      color: #e0e0e0;
+      line-height: 1.4
+    }
+
+    /* Status bar */
+    .status-bar {
+      margin: 8px 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #333;
+      flex-shrink: 0
+    }
+
+    .status-dot.running {
+      background: #c6f135;
+      animation: blink 1s ease-in-out infinite
+    }
+
+    .status-dot.done {
+      background: #22c47a
+    }
+
+    .status-text {
+      font-size: 12px;
+      color: #666
+    }
+
+    /* Progress steps */
+    .steps-row {
+      display: flex;
+      gap: 4px;
+      margin: 0 18px 8px;
+      align-items: center
+    }
+
+    .step {
+      height: 3px;
+      flex: 1;
+      border-radius: 2px;
+      background: #1e1e1e;
+      transition: background .4s
+    }
+
+    .step.done {
+      background: #c6f135
+    }
+
+    .step.active {
+      background: #6a8820
+    }
+
+    /* Generate button */
+    .generate-btn {
+      margin: 10px 18px 6px;
+      width: calc(100% - 36px);
+      background: #c6f135;
+      border: none;
+      border-radius: 8px;
+      padding: 13px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #0a1200;
+      cursor: pointer;
+      letter-spacing: .02em;
+      transition: opacity .2s, background .2s
+    }
+
+    .generate-btn:disabled {
+      opacity: .45;
+      cursor: default
+    }
+
+    .generate-btn.running {
+      background: #2a4000;
+      color: #c6f135
+    }
+
+    /* Loop badge */
+    .loop-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 4px;
+      margin: 0 18px
+    }
+
+    .loop-text {
+      font-size: 10px;
+      color: #444
+    }
+
+    .loop-dots {
+      display: flex;
+      gap: 4px
+    }
+
+    .loop-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #222;
+      transition: background .3s
+    }
+
+    .loop-dot.active {
+      background: #c6f135
+    }
+
+    @keyframes popIn {
+      from {
+        opacity: 0;
+        transform: translateX(-4px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0)
+      }
+    }
+
+    @keyframes pulseRing {
+      0% {
+        opacity: .6;
+        transform: scale(1)
+      }
+
+      100% {
+        opacity: 0;
+        transform: scale(1.7)
+      }
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: .2
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+
+    <!-- Topbar -->
+    <div class="topbar">
+      <div class="topbar-left">
+        <div class="logo-dot">
+          <svg viewBox="0 0 10 10" fill="none">
+            <polygon points="2,2 8,5 2,8" fill="#0a1200" />
+          </svg>
+        </div>
+        <span class="app-name">Captiongrit</span>
+      </div>
+      <span class="version-badge">v1.0</span>
+    </div>
+
+    <div class="content">
+
+      <!-- Language being processed -->
+      <div class="section-label">Source Language</div>
+      <div class="lang-strip" id="lang-strip"></div>
+
+      <!-- Clip -->
+      <div class="clip-box">
+        <span class="clip-name" id="clip-name">loading clip...</span>
+        <span class="clip-lang-badge" id="clip-lang-badge">—</span>
+      </div>
+
+      <!-- Waveform -->
+      <div class="waveform-wrap">
+        <div class="wave-label">Audio Waveform</div>
+        <div class="wave-bars" id="wave-bars"></div>
+        <div class="scan-track">
+          <div class="scan-fill" id="scan-fill"></div>
+        </div>
+      </div>
+
+      <!-- STT / AI info -->
+      <div class="info-row">
+        <div class="info-pill" id="stt-pill"><span class="dot"></span><span id="stt-label">STT: —</span></div>
+        <div class="info-pill" id="ai-pill"><span class="dot"></span><span id="ai-label">AI: —</span></div>
+        <div class="info-pill" id="mode-pill"><span class="dot"></span><span id="mode-label">Output: —</span></div>
+      </div>
+
+      <!-- Progress steps -->
+      <div class="steps-row" id="steps-row">
+        <div class="step" id="step-0"></div>
+        <div class="step" id="step-1"></div>
+        <div class="step" id="step-2"></div>
+        <div class="step" id="step-3"></div>
+      </div>
+
+      <!-- Status -->
+      <div class="status-bar">
+        <div class="status-dot" id="status-dot"></div>
+        <span class="status-text" id="status-text">Initializing...</span>
+      </div>
+
+      <!-- Caption output -->
+      <div class="section-label">Caption Output</div>
+      <div class="caption-output-wrap">
+        <div class="caption-output-header">
+          <span class="caption-output-label">Generated Captions</span>
+          <span class="caption-count" id="caption-count"></span>
+        </div>
+        <div class="caption-log" id="caption-log"></div>
+      </div>
+
+      <!-- Loop indicator -->
+      <div class="loop-badge">
+        <span class="loop-text">Auto-looping through languages</span>
+        <div class="loop-dots" id="loop-dots"></div>
+      </div>
+
+      <!-- Button -->
+      <button class="generate-btn" id="gen-btn" onclick="userToggle()">⏸ Pause Demo</button>
+
+    </div>
+  </div>
+
+  <script>
+    const LANGUAGES = [
+      {
+        id: 'hi', label: 'Hindi', file: 'Hindi_Clip.mp4', stt: 'ElevenLabs Scribe', ai: 'Gemini Flash', mode: 'Native Script',
+        captions: [
+          { time: '00:00:01', text: 'नमस्ते दोस्तों' },
+          { time: '00:00:04', text: 'इस वीडियो में मैं आपको' },
+          { time: '00:00:08', text: 'Caption Integrit दिखाऊँगा' },
+          { time: '00:00:12', text: 'यह बहुत आसान है' },
+          { time: '00:00:16', text: 'धन्यवाद 🙏' }
+        ]
+      },
+      {
+        id: 'ta', label: 'Tamil', file: 'Tamil_Clip.mp4', stt: 'Deepgram', ai: 'Groq Llama', mode: 'Native Script',
+        captions: [
+          { time: '00:00:01', text: 'வணக்கம் நண்பர்களே' },
+          { time: '00:00:04', text: 'இந்த வீடியோவில்' },
+          { time: '00:00:07', text: 'Caption Integrit பற்றி' },
+          { time: '00:00:11', text: 'உங்களுக்கு காட்டுகிறேன்' },
+          { time: '00:00:15', text: 'நன்றி 🙏' }
+        ]
+      },
+      {
+        id: 'ml', label: 'Malayalam', file: 'Malayalam_Clip.mp4', stt: 'ElevenLabs Scribe', ai: 'Gemini Flash', mode: 'Native Script',
+        captions: [
+          { time: '00:00:01', text: 'നമസ്കാരം സുഹൃത്തുക്കളേ' },
+          { time: '00:00:04', text: 'ഈ വീഡിയോയിൽ' },
+          { time: '00:00:07', text: 'Caption Integrit എങ്ങനെ' },
+          { time: '00:00:11', text: 'ഉപയോഗിക്കാമെന്ന് കാണിക്കാം' },
+          { time: '00:00:15', text: 'നന്ദി 🙏' }
+        ]
+      },
+      {
+        id: 'te', label: 'Telugu', file: 'Telugu_Clip.mp4', stt: 'ElevenLabs Scribe', ai: 'Gemini Flash', mode: 'Native Script',
+        captions: [
+          { time: '00:00:01', text: 'నమస్తే అందరికీ' },
+          { time: '00:00:04', text: 'ఈ వీడియోలో మీకు' },
+          { time: '00:00:08', text: 'Caption Integrit చూపిస్తాను' },
+          { time: '00:00:12', text: 'ఇది చాలా సులభం' },
+          { time: '00:00:16', text: 'ధన్యవాదాలు 🙏' }
+        ]
+      },
+      {
+        id: 'teng', label: 'Tenglish', file: 'Tenglish_Clip.mp4', stt: 'Deepgram', ai: 'Groq Llama', mode: 'English Phonetic',
+        captions: [
+          { time: '00:00:01', text: 'Andaru ki namaste ra' },
+          { time: '00:00:04', text: 'Ee video lo meeku' },
+          { time: '00:00:08', text: 'Caption Integrit chupistanu' },
+          { time: '00:00:12', text: 'Chala easy ga untundi' },
+          { time: '00:00:16', text: 'Thanks ra 🙌' }
+        ]
+      },
+      {
+        id: 'hing', label: 'Hinglish', file: 'Hinglish_Clip.mp4', stt: 'Deepgram', ai: 'OpenRouter', mode: 'English Phonetic',
+        captions: [
+          { time: '00:00:01', text: 'Kya haal hai sab' },
+          { time: '00:00:04', text: 'Is video mein main' },
+          { time: '00:00:08', text: 'Caption Integrit dikhaunga' },
+          { time: '00:00:12', text: 'Bahut aasaan hai yaar' },
+          { time: '00:00:16', text: 'Thanks guys 🙌' }
+        ]
+      },
+      {
+        id: 'en', label: 'English', file: 'English_Clip.mp4', stt: 'ElevenLabs Scribe', ai: 'Gemini Flash', mode: 'English',
+        captions: [
+          { time: '00:00:01', text: 'Hello everyone' },
+          { time: '00:00:04', text: 'In this video' },
+          { time: '00:00:08', text: "I'll show you Caption Integrit" },
+          { time: '00:00:12', text: 'It\'s incredibly easy to use' },
+          { time: '00:00:16', text: 'Thank you so much 🙌' }
+        ]
+      }
+    ];
+
+    const WAVE_HEIGHTS = [6, 10, 18, 24, 30, 26, 16, 22, 32, 28, 20, 12, 8, 18, 28, 34, 26, 20, 14, 24, 30, 22, 18, 10, 20, 28, 24, 16, 12, 8, 22, 30, 18, 14, 26, 20, 16, 10, 24, 28];
+    let currentIdx = 0;
+    let paused = false;
+    let loopTimer = null;
+    let scanInterval = null;
+
+    // Build wave bars
+    const waveEl = document.getElementById('wave-bars');
+    WAVE_HEIGHTS.forEach((h, i) => {
+      const b = document.createElement('div');
+      b.className = 'wave-bar';
+      b.style.height = h + 'px';
+      b.style.animationDelay = (i * 0.04) + 's';
+      waveEl.appendChild(b);
+    });
+
+    // Build lang chips
+    const strip = document.getElementById('lang-strip');
+    LANGUAGES.forEach((l, i) => {
+      const c = document.createElement('div');
+      c.className = 'lang-chip';
+      c.id = 'chip-' + l.id;
+      c.textContent = l.label;
+      strip.appendChild(c);
+    });
+
+    // Build loop dots
+    const dotsEl = document.getElementById('loop-dots');
+    LANGUAGES.forEach((_, i) => {
+      const d = document.createElement('div');
+      d.className = 'loop-dot';
+      d.id = 'ldot-' + i;
+      dotsEl.appendChild(d);
+    });
+
+    function resetWave() {
+      Array.from(waveEl.children).forEach(b => {
+        b.classList.remove('scanned', 'active');
+      });
+      document.getElementById('scan-fill').style.width = '0%';
+    }
+
+    function setStep(n) {
+      for (let i = 0; i < 4; i++) {
+        const s = document.getElementById('step-' + i);
+        s.className = 'step' + (i < n ? ' done' : i === n ? ' active' : '');
+      }
+    }
+
+    function setStatus(msg, state = 'running') {
+      document.getElementById('status-text').textContent = msg;
+      const dot = document.getElementById('status-dot');
+      dot.className = 'status-dot ' + state;
+    }
+
+    function setPills(lang) {
+      ['stt', 'ai', 'mode'].forEach(k => {
+        document.getElementById(k + '-pill').classList.remove('active');
+        document.getElementById(k + '-label').textContent =
+          k === 'stt' ? 'STT: ' + lang.stt :
+            k === 'ai' ? 'AI: ' + lang.ai :
+              'Output: ' + lang.mode;
+      });
+    }
+
+    function activatePills() {
+      ['stt-pill', 'ai-pill', 'mode-pill'].forEach(id => document.getElementById(id).classList.add('active'));
+    }
+
+    function updateLangChips(idx, phase) {
+      LANGUAGES.forEach((l, i) => {
+        const c = document.getElementById('chip-' + l.id);
+        c.className = 'lang-chip' + (i === idx ? ' active' : i < idx ? ' done' : '');
+      });
+      // loop dots
+      LANGUAGES.forEach((_, i) => {
+        document.getElementById('ldot-' + i).className = 'loop-dot' + (i === idx ? ' active' : '');
+      });
+    }
+
+    function runLanguage(idx) {
+      if (paused) return;
+      const lang = LANGUAGES[idx];
+      currentIdx = idx;
+
+      // Reset UI
+      document.getElementById('caption-log').innerHTML = '';
+      document.getElementById('caption-count').textContent = '';
+      resetWave();
+      setStep(-1);
+      updateLangChips(idx, 'scanning');
+      document.getElementById('clip-name').textContent = lang.file;
+      document.getElementById('clip-lang-badge').textContent = lang.label;
+      setPills(lang);
+
+      // Phase 1: scan waveform
+      setStatus('Reading audio track...', 'running');
+      setStep(0);
+      let pct = 0;
+      const bars = Array.from(waveEl.children);
+      clearInterval(scanInterval);
+      scanInterval = setInterval(() => {
+        if (paused) { clearInterval(scanInterval); return; }
+        pct += 2.5;
+        document.getElementById('scan-fill').style.width = Math.min(pct, 100) + '%';
+        const scannedCount = Math.floor(pct / 100 * bars.length);
+        bars.forEach((b, i) => {
+          if (i < scannedCount - 1) { b.classList.add('scanned'); b.classList.remove('active'); }
+          else if (i === scannedCount - 1) { b.classList.add('active'); b.classList.remove('scanned'); }
+        });
+        if (pct >= 100) {
+          clearInterval(scanInterval);
+          bars.forEach(b => { b.classList.add('scanned'); b.classList.remove('active'); });
+          phase2(lang, idx);
+        }
+      }, 35);
+    }
+
+    function phase2(lang, idx) {
+      if (paused) return;
+      setStep(1);
+      setStatus('Transcribing via ' + lang.stt + '...', 'running');
+      activatePills();
+      loopTimer = setTimeout(() => { if (!paused) phase3(lang, idx); }, 900);
+    }
+
+    function phase3(lang, idx) {
+      if (paused) return;
+      setStep(2);
+      setStatus('Applying AI formatting (' + lang.ai + ')...', 'running');
+      loopTimer = setTimeout(() => { if (!paused) showCaptions(lang, idx); }, 800);
+    }
+
+    function showCaptions(lang, idx) {
+      if (paused) return;
+      setStep(3);
+      setStatus('Generating captions...', 'running');
+      const log = document.getElementById('caption-log');
+      let i = 0;
+      function next() {
+        if (paused) return;
+        if (i >= lang.captions.length) {
+          const n = lang.captions.length;
+          setStatus(n + ' captions exported ✓', 'done');
+          document.getElementById('caption-count').textContent = n + ' lines';
+          updateLangChips(idx, 'done');
+          // Pause briefly then move to next language
+          loopTimer = setTimeout(() => {
+            if (!paused) {
+              const next = (idx + 1) % LANGUAGES.length;
+              runLanguage(next);
+            }
+          }, 2200);
+          return;
+        }
+        const row = document.createElement('div');
+        row.className = 'caption-row';
+        row.innerHTML = `<span class="caption-time">${lang.captions[i].time}</span><span class="caption-text">${lang.captions[i].text}</span>`;
+        log.appendChild(row);
+        log.scrollTop = log.scrollHeight;
+        document.getElementById('caption-count').textContent = (i + 1) + ' / ' + lang.captions.length;
+        i++;
+        loopTimer = setTimeout(next, 700);
+      }
+      loopTimer = setTimeout(next, 300);
+    }
+
+    function userToggle() {
+      const btn = document.getElementById('gen-btn');
+      if (!paused) {
+        paused = true;
+        clearInterval(scanInterval);
+        clearTimeout(loopTimer);
+        btn.textContent = '▶ Resume Demo';
+        btn.classList.remove('running');
+        setStatus('Paused', '');
+        document.getElementById('status-dot').className = 'status-dot';
+      } else {
+        paused = false;
+        btn.textContent = '⏸ Pause Demo';
+        btn.classList.add('running');
+        runLanguage(currentIdx);
+      }
+    }
+
+    // Kick off
+    document.getElementById('gen-btn').classList.add('running');
+    runLanguage(0);
+  </script>
+</body>
+
+</html>
