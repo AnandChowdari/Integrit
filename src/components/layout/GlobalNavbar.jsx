@@ -20,14 +20,12 @@ export default function GlobalNavbar() {
     setIsMobileMenuOpen(false);
   }, [location.pathname]);
 
-  const agencyLinks = [
+  const navLinks = [
     { name: 'Services', path: '/services' },
+    { name: 'Products', path: '/products' },
     { name: 'Contact', path: '/contact' },
   ];
 
-  const toolsLinks = [
-    { name: 'Products', path: '/products' },
-  ];
 
   return (
     <nav
@@ -48,7 +46,7 @@ export default function GlobalNavbar() {
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-8">
           <div className="flex items-center gap-6">
-            {agencyLinks.map((link) => (
+            {navLinks.map((link) => (
               <Link
                 key={link.name}
                 to={link.path}
@@ -62,24 +60,7 @@ export default function GlobalNavbar() {
               </Link>
             ))}
 
-            {/* Visual separator between Agency and Tools */}
-            <span className="inline-flex items-center px-2 py-0.5 text-[10px] font-mono text-accent-primary/60 border border-accent-primary/20 rounded-full bg-accent-primary/5">
-              TOOLS
-            </span>
 
-            {toolsLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.path}
-                className={`text-sm font-medium transition-colors ${
-                  location.pathname === link.path
-                    ? 'text-white'
-                    : 'text-text-secondary hover:text-white'
-                }`}
-              >
-                {link.name}
-              </Link>
-            ))}
           </div>
 
           <div className="flex flex-col items-center">
@@ -118,19 +99,7 @@ export default function GlobalNavbar() {
             className="absolute top-[calc(100%+12px)] left-4 right-4 glass bg-[#0A0A0A]/90 p-6 flex flex-col gap-4 md:hidden shadow-2xl"
           >
             <div className="flex flex-col gap-4 border-b border-white/10 pb-4">
-              {[...agencyLinks].map((link) => (
-                <Link
-                  key={link.name}
-                  to={link.path}
-                  className="text-lg font-medium text-white/80 hover:text-white transition-colors"
-                >
-                  {link.name}
-                </Link>
-              ))}
-            </div>
-            <div className="flex flex-col gap-4 pb-4">
-              <span className="text-[10px] font-mono text-accent-primary uppercase tracking-widest">Tools</span>
-              {[...toolsLinks].map((link) => (
+              {[...navLinks].map((link) => (
                 <Link
                   key={link.name}
                   to={link.path}

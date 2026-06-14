@@ -20,7 +20,7 @@ export default function HeroSection({ onBuyNow }) {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.3fr] gap-12 items-center">
           
           {/* Left Text */}
           <motion.div 
@@ -75,7 +75,7 @@ export default function HeroSection({ onBuyNow }) {
             animate="visible"
             className="w-full flex items-center justify-center lg:justify-end"
           >
-            <div className="relative w-full max-w-2xl transform lg:rotate-y-[-5deg] lg:rotate-x-[2deg] hover:rotate-y-0 hover:rotate-x-0 transition-transform duration-700 perspective-1000">
+            <div className="relative w-full max-w-4xl transform lg:rotate-y-[-5deg] lg:rotate-x-[2deg] hover:rotate-y-0 hover:rotate-x-0 transition-transform duration-700 perspective-1000">
               {/* Glow behind demo */}
               <div className="absolute -inset-4 bg-accent-primary/20 rounded-3xl blur-3xl pointer-events-none" />
               

@@ -42,19 +42,6 @@ export default function AgencyProductsSection() {
               </span>
             </div>
 
-            {/* Middle: Language chips */}
-            <div className="px-5 py-4 border-b border-[#1E1E1E]">
-              <p className="text-[10px] font-mono text-text-secondary mb-2 uppercase tracking-wider">Supported languages</p>
-              <div className="flex flex-wrap gap-2">
-                {['Telugu', 'Hindi', 'Tamil', 'English', '+20 more'].map(lang => (
-                  <span key={lang} className={`px-2.5 py-1 rounded-full text-[10px] font-mono border
-                    ${lang === 'Telugu' ? 'bg-accent-primary/15 border-accent-primary/40 text-accent-primary'
-                                        : 'bg-[#161616] border-[#2a2a2a] text-text-secondary'}`}>
-                    {lang}
-                  </span>
-                ))}
-              </div>
-            </div>
 
             {/* Bottom: Card content */}
             <div className="p-5">

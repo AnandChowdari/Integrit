@@ -91,9 +91,9 @@ export default function PricingSection({ onBuyNow }) {
   return (
     <section id="pricing" className="py-32 px-6">
       <div className="max-w-7xl mx-auto">
-        
+
         {/* Header Section */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -102,31 +102,30 @@ export default function PricingSection({ onBuyNow }) {
           <h2 className="font-display text-3xl md:text-4xl font-bold mb-4 text-white tracking-tight">Simple, <span className="font-accent">One-Time</span> Pricing</h2>
           <p className="text-base font-body text-text-secondary mb-4">Pay once. Use forever. No subscriptions, no renewals.</p>
           <p className="text-sm font-body text-text-secondary mb-8">
-            Trusted by <span className="text-white font-medium">editors across India</span> — 
-            <span className="text-accent-primary"> 30-day money-back guarantee</span> on all plans
+            Trusted by <span className="text-white font-medium">editors across India</span>
           </p>
-          
+
           {/* Region Toggle */}
           <div className="inline-flex bg-bg-secondary p-1 rounded-full border border-white/10 relative">
-            <div 
-              className={`absolute top-1 bottom-1 w-1/2 bg-white/10 rounded-full transition-transform duration-300 ease-out`} 
+            <div
+              className={`absolute top-1 bottom-1 w-1/2 bg-white/10 rounded-full transition-transform duration-300 ease-out`}
               style={{ transform: region === 'india' ? 'translateX(0%)' : 'translateX(100%)' }}
             />
-            <button 
+            <button
               onClick={() => {
                 setRegion('india');
               }}
               className={`relative z-10 px-8 py-2.5 rounded-full font-medium text-sm transition-colors ${region === 'india' ? 'text-white' : 'text-text-secondary hover:text-white'}`}
             >
-              🇮🇳 India
+              India
             </button>
-            <button 
+            <button
               onClick={() => {
                 setRegion('international');
               }}
               className={`relative z-10 px-8 py-2.5 rounded-full font-medium text-sm transition-colors ${region === 'international' ? 'text-white' : 'text-text-secondary hover:text-white'}`}
             >
-              🌍 International
+              International
             </button>
           </div>
         </motion.div>
@@ -134,11 +133,11 @@ export default function PricingSection({ onBuyNow }) {
         {/* Unified Premium Pricing Container */}
         <div className="max-w-4xl mx-auto">
           <div className="bg-[#0D0D0D]/60 backdrop-blur-md border border-white/10 rounded-3xl p-6 sm:p-10 relative overflow-hidden shadow-[0_30px_100px_rgba(0,0,0,0.8)]">
-            
+
             {/* Background Glows */}
             <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-accent-primary/5 rounded-full blur-[100px] pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-accent-primary/2 rounded-full blur-[100px] pointer-events-none" />
-            
+
             <AnimatePresence mode="wait">
               {!selectedPlanId ? (
                 // PLAN SELECTOR VIEW (STATE A)
@@ -162,14 +161,13 @@ export default function PricingSection({ onBuyNow }) {
                         <button
                           key={plan.id}
                           onClick={() => setSelectedPlanId(plan.id)}
-                          className={`group relative text-left rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 focus:outline-none hover:-translate-y-1 ${
-                            isPro
-                              ? 'bg-neutral-900 border-2 border-accent-primary shadow-[0_0_30px_rgba(198,255,52,0.15)] md:scale-[1.02]'
-                              : 'bg-white/[0.02] border border-white/10 hover:border-accent-primary/30'
-                          }`}
+                          className={`group relative text-left rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 focus:outline-none hover:-translate-y-1 ${isPro
+                            ? 'bg-neutral-900 border border-white/10 hover:border-accent-primary/30 shadow-[0_0_30px_rgba(198,255,52,0.08)] md:scale-[1.02]'
+                            : 'bg-white/[0.02] border border-white/10 hover:border-accent-primary/30'
+                            }`}
                         >
                           {isPro && (
-                            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent-primary text-black px-3 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider flex items-center gap-1 shadow-md">
+                            <div className="absolute -top-3 right-6 bg-accent-primary text-black px-3 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider flex items-center gap-1 shadow-md">
                               <Sparkles className="w-2.5 h-2.5" /> Most Popular
                             </div>
                           )}
@@ -278,9 +276,8 @@ export default function PricingSection({ onBuyNow }) {
                         {selectedPlan.features.map((feature, fIdx) => (
                           <li
                             key={fIdx}
-                            className={`flex items-start gap-2.5 text-xs sm:text-sm leading-tight transition-opacity ${
-                              feature.included ? 'text-white/90' : 'text-text-secondary/40'
-                            }`}
+                            className={`flex items-start gap-2.5 text-xs sm:text-sm leading-tight transition-opacity ${feature.included ? 'text-white/90' : 'text-text-secondary/40'
+                              }`}
                           >
                             {feature.included ? (
                               <Check className="w-4 h-4 text-accent-primary shrink-0 mt-0.5" />
@@ -306,8 +303,6 @@ export default function PricingSection({ onBuyNow }) {
             <ShieldCheck className="w-4 h-4 text-accent-primary" />
             Secure Payment
           </div>
-          <div className="hidden sm:block w-1 h-1 rounded-full bg-white/20" />
-          <div>30-Day Money-Back Guarantee</div>
           <div className="hidden sm:block w-1 h-1 rounded-full bg-white/20" />
           <div>Instant Download After Purchase</div>
         </div>
