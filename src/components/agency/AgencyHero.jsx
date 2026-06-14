@@ -201,35 +201,54 @@ export default function AgencyHero() {
             variants={slideRightVariant}
             initial="hidden"
             animate="visible"
-            className="relative flex items-center justify-center lg:justify-start w-full mt-12 lg:mt-0 max-w-[clamp(320px,90vw,360px)] sm:max-w-[clamp(360px,70vw,520px)] lg:max-w-[600px] xl:max-w-[680px] mx-auto lg:mx-0 lg:-ml-24 xl:-ml-40"
+            className="relative flex items-center justify-center lg:justify-start w-full mt-12 lg:mt-0 lg:max-w-[600px] xl:max-w-[680px] lg:-ml-24 xl:-ml-40"
           >
-            {/* 3D Perspective Wrapper */}
-            <div
-              className="w-full relative select-none cursor-crosshair group"
-              style={{ perspective: '1200px', containerType: 'inline-size' }}
-              onMouseMove={handleMouseMove}
-              onMouseLeave={handleMouseLeave}
-            >
-              {/* CSS Style block for custom animations */}
-              <style dangerouslySetInnerHTML={{ __html: `
-                @keyframes flowDash {
-                  to {
-                    stroke-dashoffset: -40;
+            {/* Mobile Scaling Wrapper */}
+            <div className="hero-3d w-full flex justify-center">
+              {/* 3D Perspective Wrapper */}
+              <div
+                className="w-full relative select-none cursor-crosshair group"
+                style={{ perspective: '1200px', containerType: 'inline-size' }}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+              >
+                {/* CSS Style block for custom animations */}
+                <style dangerouslySetInnerHTML={{ __html: `
+                  @keyframes flowDash {
+                    to {
+                      stroke-dashoffset: -40;
+                    }
                   }
-                }
-                .animate-flow-dash-hero {
-                  animation: flowDash 3s linear infinite;
-                }
-                .glow-path {
-                  filter: drop-shadow(0 0 6px rgba(192, 255, 52, 0.4));
-                }
-                .node-shadow {
-                  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(192, 255, 52, 0.03);
-                }
-                .center-node-glow {
-                  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), 0 0 25px rgba(192, 255, 52, 0.25);
-                }
-              `}} />
+                  .animate-flow-dash-hero {
+                    animation: flowDash 3s linear infinite;
+                  }
+                  .glow-path {
+                    filter: drop-shadow(0 0 6px rgba(192, 255, 52, 0.4));
+                  }
+                  .node-shadow {
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(192, 255, 52, 0.03);
+                  }
+                  .center-node-glow {
+                    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), 0 0 25px rgba(192, 255, 52, 0.25);
+                  }
+                  @media (max-width: 768px) {
+                    .hero-3d {
+                      width: 100%;
+                      max-width: 320px;
+                      transform: scale(0.7);
+                      transform-origin: center top;
+                      margin: 2rem auto 0;
+                      left: auto;
+                      right: auto;
+                    }
+                  }
+                  @media (max-width: 480px) {
+                    .hero-3d {
+                      max-width: 280px;
+                      transform: scale(0.6);
+                    }
+                  }
+                `}} />
 
               {/* Scaled Wrapper to make 3D Canvas responsive */}
               <div className="w-full aspect-[8/5] relative">
@@ -432,6 +451,7 @@ export default function AgencyHero() {
                   </div>
                 </div>
               </div>
+            </div>
             </div>
           </motion.div>
 
