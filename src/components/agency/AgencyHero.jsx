@@ -138,8 +138,8 @@ export default function AgencyHero() {
         <div className="noise-overlay" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 relative z-10 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-[55%_45%] gap-8 lg:gap-4 items-center">
 
           {/* Left Text */}
           <motion.div
@@ -150,7 +150,7 @@ export default function AgencyHero() {
           >
 
 
-            <h1 className="font-display font-extrabold text-5xl md:text-6xl lg:text-[5rem] leading-[1.08] tracking-tight text-white">
+            <h1 className="font-display font-extrabold text-5xl md:text-6xl lg:text-[clamp(3.2rem,5.2vw,4.8rem)] leading-[1.08] tracking-tight text-white">
               We grow your<br />
               <span className="font-accent text-accent-primary">audience & revenue.</span>
             </h1>
@@ -201,12 +201,12 @@ export default function AgencyHero() {
             variants={slideRightVariant}
             initial="hidden"
             animate="visible"
-            className="relative flex items-center justify-center w-full mt-12 lg:mt-0"
+            className="relative flex items-center justify-center lg:justify-start w-full mt-12 lg:mt-0 max-w-[clamp(320px,90vw,360px)] sm:max-w-[clamp(360px,70vw,520px)] lg:max-w-[600px] xl:max-w-[680px] mx-auto lg:mx-0 lg:-ml-24 xl:-ml-40"
           >
             {/* 3D Perspective Wrapper */}
             <div
               className="w-full relative select-none cursor-crosshair group"
-              style={{ 'container-type': 'inline-size' }}
+              style={{ perspective: '1200px', containerType: 'inline-size' }}
               onMouseMove={handleMouseMove}
               onMouseLeave={handleMouseLeave}
             >
@@ -245,7 +245,7 @@ export default function AgencyHero() {
                   <div
                     className="w-full h-full relative border border-white/10 bg-[#0A0A0A] rounded-2xl overflow-hidden shadow-[0_30px_100px_rgba(0,0,0,0.9)]"
                     style={{
-                      transform: `perspective(1200px) rotateX(${15 + tilt.y}deg) rotateY(${-12 + tilt.x}deg) rotateZ(2deg)`,
+                      transform: `rotateX(${15 + tilt.y}deg) rotateY(${-12 + tilt.x}deg) rotateZ(2deg)`,
                       transformStyle: 'preserve-3d',
                       transition: 'transform 0.15s ease-out'
                     }}

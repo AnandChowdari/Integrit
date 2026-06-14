@@ -1,3 +1,4 @@
+
 # INTEGRIT WEBSITE — COMPLETE REDESIGN IMPLEMENTATION PROMPT
 > For: Coding AI (Claude / Cursor / v0)  
 > Stack: React 19 + Vite + TailwindCSS v3 + Framer Motion v12 + React Router DOM v7  
