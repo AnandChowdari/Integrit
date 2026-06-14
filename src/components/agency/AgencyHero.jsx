@@ -206,7 +206,7 @@ export default function AgencyHero() {
             {/* 3D Perspective Wrapper */}
             <div
               className="w-full relative select-none cursor-crosshair group"
-              style={{ perspective: '1200px', containerType: 'inline-size' }}
+              style={{ 'container-type': 'inline-size' }}
               onMouseMove={handleMouseMove}
               onMouseLeave={handleMouseLeave}
             >
@@ -245,7 +245,7 @@ export default function AgencyHero() {
                   <div
                     className="w-full h-full relative border border-white/10 bg-[#0A0A0A] rounded-2xl overflow-hidden shadow-[0_30px_100px_rgba(0,0,0,0.9)]"
                     style={{
-                      transform: `rotateX(${15 + tilt.y}deg) rotateY(${-12 + tilt.x}deg) rotateZ(2deg)`,
+                      transform: `perspective(1200px) rotateX(${15 + tilt.y}deg) rotateY(${-12 + tilt.x}deg) rotateZ(2deg)`,
                       transformStyle: 'preserve-3d',
                       transition: 'transform 0.15s ease-out'
                     }}
