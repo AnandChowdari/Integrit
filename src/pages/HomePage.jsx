@@ -10,6 +10,7 @@ import AgencyProductsSection from '../components/agency/AgencyProductsSection';
 import WhoWeWorkWithSection from '../components/agency/WhoWeWorkWithSection';
 import AgencyTestimonialsTeaser from '../components/agency/AgencyTestimonialsTeaser';
 import AgencyFinalCta from '../components/agency/AgencyFinalCta';
+import ContactSection from '../components/agency/ContactSection';
 import SectionDivider from '../components/ui/SectionDivider';
 
 export default function HomePage() {
@@ -31,6 +32,7 @@ export default function HomePage() {
         <WhoWeWorkWithSection />
         <AgencyTestimonialsTeaser />
         <AgencyFinalCta />
+        <ContactSection />
       </main>
 
       <GlobalFooter />

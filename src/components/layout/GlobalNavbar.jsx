@@ -23,13 +23,14 @@ export default function GlobalNavbar() {
   const navLinks = [
     { name: 'Services', path: '/services' },
     { name: 'Products', path: '/products' },
-    { name: 'Contact', path: '/contact' },
+    { name: 'Captiongrit', path: '/products/captiongrit' },
+    { name: 'Contact', path: '/#contact' },
   ];
 
 
   return (
     <nav
-      className={`fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-300 w-[95%] max-w-[620px] px-2 ${
+      className={`fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-300 w-[95%] max-w-[690px] px-2 ${
         isScrolled ? 'top-4' : 'top-6'
       }`}
     >
@@ -59,7 +60,7 @@ export default function GlobalNavbar() {
 
           <div className="flex items-center">
             <Link
-              to="/contact"
+              to="/#contact"
               className="bg-accent-primary hover:bg-accent-secondary text-black px-5 py-2 rounded-full font-extrabold text-[11px] uppercase tracking-wider transition-all shadow-[0_0_15px_rgba(198,255,52,0.15)] hover:shadow-[0_0_25px_rgba(198,255,52,0.3)] hover:-translate-y-0.5"
             >
               Book a Call
@@ -99,7 +100,7 @@ export default function GlobalNavbar() {
               ))}
             </div>
             <Link
-              to="/contact"
+              to="/#contact"
               className="bg-accent-primary text-black px-6 py-3.5 text-center font-extrabold text-sm uppercase tracking-wider rounded-xl mt-2"
             >
               Book a Call

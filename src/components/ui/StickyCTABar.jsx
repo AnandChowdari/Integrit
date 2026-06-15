@@ -36,7 +36,7 @@ export default function StickyCTABar() {
             </p>
           )}
           <div className="flex gap-3 w-full sm:w-auto">
-            <Link to="/contact"
+            <Link to="/#contact"
                className="flex-1 sm:flex-none px-5 py-2.5 bg-accent-primary text-black text-sm font-semibold font-display rounded-lg
                           hover:bg-accent-secondary transition-colors text-center whitespace-nowrap
                           shadow-[0_0_20px_rgba(198,255,52,0.2)]">

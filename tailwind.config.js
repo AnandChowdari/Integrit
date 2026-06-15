@@ -20,7 +20,8 @@ export default {
         'display': ['Inter', 'sans-serif'],
         'body': ['Inter', 'sans-serif'],
         'accent': ['"Kepler Std Subhead"', 'Georgia', 'serif'],
-        'mono': ['"JetBrains Mono"', 'monospace']
+        'mono': ['"JetBrains Mono"', 'monospace'],
+        'syne': ['Syne', 'sans-serif'],
       },
       animation: {
         'count-up': 'countUp 2s ease-out forwards',

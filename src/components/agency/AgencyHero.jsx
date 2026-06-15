@@ -206,7 +206,7 @@ export default function AgencyHero() {
 
             {/* CTAs */}
             <div className="mt-8 flex flex-col sm:flex-row gap-3">
-              <Link to="/contact"
+              <Link to="/#contact"
                 className="px-6 py-3.5 bg-accent-primary text-black font-semibold font-display rounded-xl
                            hover:bg-accent-secondary transition-all hover:-translate-y-0.5
                            shadow-[0_0_24px_rgba(198,255,52,0.2)] hover:shadow-[0_0_32px_rgba(198,255,52,0.35)]

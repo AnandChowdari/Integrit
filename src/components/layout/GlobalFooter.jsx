@@ -25,10 +25,10 @@ export default function GlobalFooter() {
           <div>
             <h4 className="font-bold text-white mb-6">Company</h4>
             <ul className="space-y-4">
-              <li><Link to="/contact" className="text-text-secondary hover:text-white transition-colors text-sm">Book a Discovery Call</Link></li>
+              <li><Link to="/#contact" className="text-text-secondary hover:text-white transition-colors text-sm">Book a Discovery Call</Link></li>
               <li><Link to="/services" className="text-text-secondary hover:text-white transition-colors text-sm">Services</Link></li>
               <li><Link to="/products" className="text-text-secondary hover:text-white transition-colors text-sm">Products</Link></li>
-              <li><Link to="/contact" className="text-text-secondary hover:text-white transition-colors text-sm">Contact</Link></li>
+              <li><Link to="/#contact" className="text-text-secondary hover:text-white transition-colors text-sm">Contact</Link></li>
             </ul>
           </div>
 
