@@ -1,0 +1,148 @@
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.scene{display:flex;gap:20px;padding:16px 4px;justify-content:center;align-items:stretch;flex-wrap:wrap}
+.card{background:#111;border:1.5px solid #2a2a2a;border-radius:14px;padding:20px 16px;flex:1;min-width:200px;max-width:300px;display:flex;flex-direction:column;align-items:center;gap:10px;transition:border-color .3s}
+.card.active{border-color:#c8f135}
+.card-title{color:#fff;font-size:14px;font-weight:700;text-align:center}
+.card-sub{color:#888;font-size:11px;text-align:center}
+.caption-box{background:#0d0d0d;border:1.5px solid #222;border-radius:10px;padding:20px 14px;width:100%;min-height:100px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;position:relative;overflow:hidden}
+.lang-badge{font-size:10px;color:#555;letter-spacing:.08em;text-transform:uppercase;font-weight:600;transition:opacity .3s}
+.caption-text{color:#d0d0d0;font-size:15px;font-weight:700;text-align:center;line-height:1.5}
+.highlight{color:#c8f135}
+.word{display:inline-block}
+.word.dim{color:#888}
+</style>
+
+<div class="scene">
+  <div class="card" id="c1">
+    <div class="card-title">Natural Phrase</div>
+    <div class="card-sub">flowing conversational captions</div>
+    <div class="caption-box">
+      <div class="caption-text" id="txt1"></div>
+    </div>
+  </div>
+  <div class="card active" id="c2">
+    <div class="card-title">Word by Word</div>
+    <div class="card-sub">one word at a time, TikTok style</div>
+    <div class="caption-box">
+      <div class="caption-text" id="txt2"></div>
+    </div>
+  </div>
+  <div class="card" id="c3">
+    <div class="card-title">Phonetic Mode</div>
+    <div class="card-sub">Telugu / Hindi / Tamil / Malayalam</div>
+    <div class="caption-box">
+      <div class="lang-badge" id="lang-badge">Telugu</div>
+      <div class="caption-text" id="txt3"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const phrase1 = [
+  {text:"AI captions are ",hl:false},
+  {text:"taking",hl:true},
+  {text:" ",hl:false},
+  {text:"over",hl:true},
+  {text:" the world.",hl:false}
+];
+
+const wbw = ["AI","captions","are","taking","over","the","world."];
+const wbwHL = [false,false,false,true,false,false,false];
+
+const phonetics = [
+  {lang:"Telugu",    parts:[{text:"Nenu AI use ",hl:false},{text:"chestunnanu",hl:true},{text:" .",hl:false}]},
+  {lang:"Hindi",     parts:[{text:"Main AI se ",hl:false},{text:"seekh raha",hl:true},{text:" hoon .",hl:false}]},
+  {lang:"Tamil",     parts:[{text:"Naan AI ",hl:false},{text:"upayogikkirean",hl:true},{text:" .",hl:false}]},
+  {lang:"Malayalam", parts:[{text:"Njaan AI ",hl:false},{text:"upayogikkunnu",hl:true},{text:" .",hl:false}]},
+];
+
+let phIdx = 0;
+
+function animatePhrase(container, parts, cb){
+  container.innerHTML='';
+  let i=0;
+  function next(){
+    if(i>=parts.length){setTimeout(cb,1400);return;}
+    const s=document.createElement('span');
+    s.textContent=parts[i].text;
+    if(parts[i].hl) s.classList.add('highlight');
+    s.style.opacity='0';
+    s.style.transform='translateY(5px)';
+    container.appendChild(s);
+    requestAnimationFrame(()=>{
+      s.style.transition='opacity .25s,transform .25s';
+      s.style.opacity='1';
+      s.style.transform='translateY(0)';
+    });
+    i++;
+    setTimeout(next,i<=1?350:230);
+  }
+  next();
+}
+
+function animateWbW(container,words,hls,cb){
+  let idx=0;
+  function showWord(){
+    if(idx>=words.length){setTimeout(cb,1000);return;}
+    container.innerHTML='';
+    words.forEach((w,j)=>{
+      const span=document.createElement('span');
+      span.classList.add('word');
+      if(j<idx){
+        span.textContent=w;
+        span.classList.add('dim');
+      } else if(j===idx){
+        span.textContent=w;
+        if(hls[j]) span.classList.add('highlight');
+        span.style.fontSize='17px';
+        if(!hls[j]) span.style.color='#fff';
+      } else {
+        span.textContent=' | '+w;
+        span.style.color='#444';
+      }
+      if(j>0&&j!==idx) container.appendChild(document.createTextNode(' '));
+      container.appendChild(span);
+    });
+    idx++;
+    setTimeout(showWord,idx===1?550:380);
+  }
+  showWord();
+}
+
+function runPhrase1(){
+  animatePhrase(document.getElementById('txt1'),phrase1,()=>setTimeout(runPhrase1,1800));
+}
+
+function runWbW(){
+  animateWbW(document.getElementById('txt2'),wbw,wbwHL,()=>setTimeout(runWbW,1200));
+}
+
+function runPhonetic(){
+  const {lang,parts} = phonetics[phIdx % phonetics.length];
+  const badge = document.getElementById('lang-badge');
+  const txt = document.getElementById('txt3');
+
+  badge.style.opacity='0';
+  txt.style.opacity='0';
+  setTimeout(()=>{
+    badge.textContent = lang;
+    badge.style.transition='opacity .4s';
+    badge.style.opacity='1';
+    txt.style.opacity='1';
+    animatePhrase(txt, parts, ()=>{
+      phIdx++;
+      setTimeout(runPhonetic, 600);
+    });
+  }, 350);
+}
+
+setTimeout(runPhrase1, 200);
+setTimeout(runWbW, 400);
+setTimeout(runPhonetic, 300);
+
+setInterval(()=>{
+  ['c1','c2','c3'].forEach(id=>document.getElementById(id).classList.remove('active'));
+  document.getElementById(['c1','c2','c3'][Math.floor(Date.now()/3500)%3]).classList.add('active');
+},3500);
+</script>
