@@ -1,11 +1,11 @@
 import { motion } from 'framer-motion';
 
 export default function SocialProofBar() {
-  const stats = [
-    { value: '500+', label: 'Editors Using It' },
-    { value: '24', label: 'Languages Supported' },
-    { value: '4.9★', label: 'Average Rating' },
-    { value: '30sec', label: 'Average Caption Time' },
+  const features = [
+    { title: 'Write Better Captions', description: 'Turn simple ideas into impactful content.' },
+    { title: 'Match Your Brand', description: 'Keep every caption aligned with your unique voice.' },
+    { title: 'Built for Creators', description: 'Designed for marketers, businesses, and content teams.' },
+    { title: 'Ready to Share', description: 'Create polished captions without the extra effort.' },
   ];
 
   return (
@@ -14,18 +14,20 @@ export default function SocialProofBar() {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="glass-card py-8 px-8 sm:px-12 flex flex-wrap justify-between items-center gap-8 shadow-2xl"
+        className="glass-card py-8 px-8 sm:px-12 shadow-2xl"
       >
-        {stats.map((stat, idx) => (
-          <div key={idx} className="flex flex-col items-center sm:items-start flex-1 min-w-[120px]">
-            <span className="font-display font-bold text-4xl text-white mb-1 glow-text">
-              {stat.value}
-            </span>
-            <span className="text-sm text-text-secondary font-medium tracking-wide uppercase">
-              {stat.label}
-            </span>
-          </div>
-        ))}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 w-full">
+          {features.map((feat, idx) => (
+            <div key={idx} className="flex flex-col items-center sm:items-start text-center sm:text-left group">
+              <span className="font-display font-bold text-lg text-white mb-1.5 group-hover:text-accent-primary transition-colors">
+                {feat.title}
+              </span>
+              <span className="text-xs text-text-secondary font-body leading-relaxed">
+                {feat.description}
+              </span>
+            </div>
+          ))}
+        </div>
       </motion.div>
     </section>
   );

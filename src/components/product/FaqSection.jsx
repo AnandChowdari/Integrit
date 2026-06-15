@@ -11,7 +11,7 @@ export default function FaqSection() {
     { q: "What's the difference between Basic, Pro, and Extreme?", a: "Basic gives you standard captions in English + 5 Indian languages. Pro unlocks all 24 languages, phonetic modes, and custom dictionaries. Extreme adds a second AI verification pass for maximum accuracy, lifetime updates, and 1-on-1 setup support." },
     { q: "Is this a one-time payment or a subscription?", a: "It's a strict one-time payment for the software license. You bring your own API key for the generation model (which costs pennies per hour of video), so we don't have to charge you a monthly subscription." },
     { q: "How do I receive the plugin after purchase?", a: "You'll receive an email instantly with a secure download link for the .zxp plugin file, along with your license key and installation instructions." },
-    { q: "Do you offer refunds?", a: "Yes, we have a 30-day money-back guarantee. If the plugin doesn't save you time, just email us and we'll refund your purchase in full." },
+    { q: "Can I use the license on multiple devices?", a: "No, each license key allows activation on up to 1 device for a single user." },
     { q: "Can I upgrade from Basic to Pro later?", a: "Yes, you can upgrade at any time by paying just the difference in price between the two tiers." },
     { q: "Why is the pricing different for India?", a: "We believe in Purchasing Power Parity (PPP). We've priced the Indian version locally to make it accessible to regional creators while maintaining global standards for international users." },
     { q: "What Adobe versions are supported?", a: "Captiongrit works natively with Adobe Premiere Pro CC 2022 and newer, and Adobe After Effects CC 2022 and newer (Pro/Extreme tiers)." },

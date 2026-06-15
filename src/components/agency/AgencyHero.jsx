@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
@@ -15,6 +15,33 @@ import SideRays from '../ui/SideRays';
 
 export default function AgencyHero() {
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const [scale, setScale] = useState(1);
+
+  useEffect(() => {
+    const updateScale = () => {
+      const width = window.innerWidth;
+      if (width < 768) {
+        // Mobile scaling: container width is approx screen width - 48 (padding)
+        // Apply 0.7 scale visually (30% reduction) as recommended by user, capped at 320px
+        const baseWidth = Math.min(width - 48, 320);
+        const containerWidth = baseWidth * 0.7;
+        setScale(containerWidth / 800);
+      } else if (width < 1024) {
+        // Tablet scaling: center and scale down slightly
+        const baseWidth = Math.min(width - 48, 480);
+        const containerWidth = baseWidth * 0.8;
+        setScale(containerWidth / 800);
+      } else {
+        // Desktop scaling: scale to fit the 45% grid column (max container 1400px)
+        const containerWidth = Math.min(width - 96, 1400) * 0.45;
+        setScale(Math.min(containerWidth, 600) / 800);
+      }
+    };
+
+    updateScale();
+    window.addEventListener('resize', updateScale);
+    return () => window.removeEventListener('resize', updateScale);
+  }, []);
 
   const handleMouseMove = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -203,72 +230,57 @@ export default function AgencyHero() {
             animate="visible"
             className="relative flex items-center justify-center lg:justify-start w-full mt-12 lg:mt-0 lg:max-w-[600px] xl:max-w-[680px] lg:-ml-24 xl:-ml-40"
           >
-            {/* Mobile Scaling Wrapper */}
-            <div className="hero-3d w-full flex justify-center">
-              {/* 3D Perspective Wrapper */}
-              <div
-                className="w-full relative select-none cursor-crosshair group"
-                style={{ perspective: '1200px', containerType: 'inline-size' }}
-                onMouseMove={handleMouseMove}
-                onMouseLeave={handleMouseLeave}
-              >
-                {/* CSS Style block for custom animations */}
-                <style dangerouslySetInnerHTML={{ __html: `
-                  @keyframes flowDash {
-                    to {
-                      stroke-dashoffset: -40;
-                    }
+            {/* 3D Perspective Wrapper */}
+            <div
+              className="relative select-none cursor-crosshair group mx-auto lg:mx-0"
+              style={{
+                perspective: '1200px',
+                width: `${800 * scale}px`,
+                height: `${500 * scale}px`,
+                marginTop: window.innerWidth < 768 ? '2rem' : undefined
+              }}
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
+            >
+              {/* CSS Style block for custom animations */}
+              <style dangerouslySetInnerHTML={{ __html: `
+                @keyframes flowDash {
+                  to {
+                    stroke-dashoffset: -40;
                   }
-                  .animate-flow-dash-hero {
-                    animation: flowDash 3s linear infinite;
-                  }
-                  .glow-path {
-                    filter: drop-shadow(0 0 6px rgba(192, 255, 52, 0.4));
-                  }
-                  .node-shadow {
-                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(192, 255, 52, 0.03);
-                  }
-                  .center-node-glow {
-                    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), 0 0 25px rgba(192, 255, 52, 0.25);
-                  }
-                  @media (max-width: 768px) {
-                    .hero-3d {
-                      width: 100%;
-                      max-width: 320px;
-                      transform: scale(0.7);
-                      transform-origin: center top;
-                      margin: 2rem auto 0;
-                      left: auto;
-                      right: auto;
-                    }
-                  }
-                  @media (max-width: 480px) {
-                    .hero-3d {
-                      max-width: 280px;
-                      transform: scale(0.6);
-                    }
-                  }
-                `}} />
+                }
+                .animate-flow-dash-hero {
+                  animation: flowDash 3s linear infinite;
+                }
+                .glow-path {
+                  filter: drop-shadow(0 0 6px rgba(192, 255, 52, 0.4));
+                }
+                .node-shadow {
+                  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(192, 255, 52, 0.03);
+                }
+                .center-node-glow {
+                  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), 0 0 25px rgba(192, 255, 52, 0.25);
+                }
+              `}} />
 
-              {/* Scaled Wrapper to make 3D Canvas responsive */}
-              <div className="w-full aspect-[8/5] relative">
+              {/* Scaled Wrapper */}
+              <div
+                className="absolute top-0 left-0 origin-top-left"
+                style={{
+                  width: '800px',
+                  height: '500px',
+                  transform: `scale(${scale})`
+                }}
+              >
+                {/* Tilted Canvas */}
                 <div
-                  className="absolute top-0 left-0 origin-top-left"
+                  className="w-full h-full relative border border-white/10 bg-[#0A0A0A] rounded-2xl overflow-hidden shadow-[0_30px_100px_rgba(0,0,0,0.9)]"
                   style={{
-                    width: '800px',
-                    height: '500px',
-                    transform: 'scale(calc(100cqw / 800))'
+                    transform: `rotateX(${15 + tilt.y}deg) rotateY(${-12 + tilt.x}deg) rotateZ(2deg)`,
+                    transformStyle: 'preserve-3d',
+                    transition: 'transform 0.15s ease-out'
                   }}
                 >
-                  {/* Tilted Canvas */}
-                  <div
-                    className="w-full h-full relative border border-white/10 bg-[#0A0A0A] rounded-2xl overflow-hidden shadow-[0_30px_100px_rgba(0,0,0,0.9)]"
-                    style={{
-                      transform: `rotateX(${15 + tilt.y}deg) rotateY(${-12 + tilt.x}deg) rotateZ(2deg)`,
-                      transformStyle: 'preserve-3d',
-                      transition: 'transform 0.15s ease-out'
-                    }}
-                  >
                 {/* Dot Grid Background */}
                 <div
                   className="absolute inset-0 opacity-[0.15] bg-[radial-gradient(circle,#C0FF34_1px,transparent_1.5px)] bg-[size:1.5rem_1.5rem]"
@@ -448,12 +460,10 @@ export default function AgencyHero() {
                   </div>
                 </div>
 
-                  </div>
-                </div>
               </div>
             </div>
-            </div>
-          </motion.div>
+          </div>
+        </motion.div>
 
         </div>
       </div>

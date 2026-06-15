@@ -2,6 +2,26 @@ import { useState, useEffect } from 'react';
 
 const LANGUAGES = [
   {
+    id: 'teng', label: 'Tenglish', file: 'Tenglish_Clip.mp4', stt: 'Deepgram', ai: 'Groq Llama', mode: 'English Phonetic',
+    captions: [
+      { time: '00:00:01', text: 'Andaru ki namaste ra' },
+      { time: '00:00:04', text: 'Ee video lo meeku' },
+      { time: '00:00:08', text: 'Caption Integrit chupistanu' },
+      { time: '00:00:12', text: 'Chala easy ga untundi' },
+      { time: '00:00:16', text: 'Thanks ra 🙌' }
+    ]
+  },
+  {
+    id: 'hing', label: 'Hinglish', file: 'Hinglish_Clip.mp4', stt: 'Deepgram', ai: 'OpenRouter', mode: 'English Phonetic',
+    captions: [
+      { time: '00:00:01', text: 'Kya haal hai sab' },
+      { time: '00:00:04', text: 'Is video mein main' },
+      { time: '00:00:08', text: 'Caption Integrit dikhaunga' },
+      { time: '00:00:12', text: 'Bahut aasaan hai yaar' },
+      { time: '00:00:16', text: 'Thanks guys 🙌' }
+    ]
+  },
+  {
     id: 'hi', label: 'Hindi', file: 'Hindi_Clip.mp4', stt: 'ElevenLabs Scribe', ai: 'Gemini Flash', mode: 'Native Script',
     captions: [
       { time: '00:00:01', text: 'नमस्ते दोस्तों' },
@@ -39,26 +59,6 @@ const LANGUAGES = [
       { time: '00:00:08', text: 'Caption Integrit చూపిస్తాను' },
       { time: '00:00:12', text: 'ఇది చాలా సులభం' },
       { time: '00:00:16', text: 'ధన్యవాదాలు 🙏' }
-    ]
-  },
-  {
-    id: 'teng', label: 'Tenglish', file: 'Tenglish_Clip.mp4', stt: 'Deepgram', ai: 'Groq Llama', mode: 'English Phonetic',
-    captions: [
-      { time: '00:00:01', text: 'Andaru ki namaste ra' },
-      { time: '00:00:04', text: 'Ee video lo meeku' },
-      { time: '00:00:08', text: 'Caption Integrit chupistanu' },
-      { time: '00:00:12', text: 'Chala easy ga untundi' },
-      { time: '00:00:16', text: 'Thanks ra 🙌' }
-    ]
-  },
-  {
-    id: 'hing', label: 'Hinglish', file: 'Hinglish_Clip.mp4', stt: 'Deepgram', ai: 'OpenRouter', mode: 'English Phonetic',
-    captions: [
-      { time: '00:00:01', text: 'Kya haal hai sab' },
-      { time: '00:00:04', text: 'Is video mein main' },
-      { time: '00:00:08', text: 'Caption Integrit dikhaunga' },
-      { time: '00:00:12', text: 'Bahut aasaan hai yaar' },
-      { time: '00:00:16', text: 'Thanks guys 🙌' }
     ]
   },
   {

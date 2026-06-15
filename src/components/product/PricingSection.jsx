@@ -108,14 +108,14 @@ export default function PricingSection({ onBuyNow }) {
           {/* Region Toggle */}
           <div className="inline-flex bg-bg-secondary p-1 rounded-full border border-white/10 relative">
             <div
-              className={`absolute top-1 bottom-1 w-1/2 bg-white/10 rounded-full transition-transform duration-300 ease-out`}
-              style={{ transform: region === 'india' ? 'translateX(0%)' : 'translateX(100%)' }}
+              className="absolute top-1 bottom-1 w-[calc(50%-4px)] bg-accent-primary rounded-full transition-all duration-300 ease-out"
+              style={{ left: region === 'india' ? '4px' : 'calc(50%)' }}
             />
             <button
               onClick={() => {
                 setRegion('india');
               }}
-              className={`relative z-10 px-8 py-2.5 rounded-full font-medium text-sm transition-colors ${region === 'india' ? 'text-white' : 'text-text-secondary hover:text-white'}`}
+              className={`relative z-10 px-8 py-2.5 rounded-full font-semibold text-sm transition-colors ${region === 'india' ? 'text-[#0a1200]' : 'text-text-secondary hover:text-white'}`}
             >
               India
             </button>
@@ -123,7 +123,7 @@ export default function PricingSection({ onBuyNow }) {
               onClick={() => {
                 setRegion('international');
               }}
-              className={`relative z-10 px-8 py-2.5 rounded-full font-medium text-sm transition-colors ${region === 'international' ? 'text-white' : 'text-text-secondary hover:text-white'}`}
+              className={`relative z-10 px-8 py-2.5 rounded-full font-semibold text-sm transition-colors ${region === 'international' ? 'text-[#0a1200]' : 'text-text-secondary hover:text-white'}`}
             >
               International
             </button>
