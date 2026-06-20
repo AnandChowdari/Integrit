@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -15,6 +16,7 @@ export default function Navbar({ onBuyNow }) {
   }, []);
 
   const navLinks = [
+    { name: 'Integrit', path: '/' },
     { name: 'Features', href: '#features' },
     { name: 'Languages', href: '#languages' },
     { name: 'Pricing', href: '#pricing' },
@@ -23,7 +25,7 @@ export default function Navbar({ onBuyNow }) {
 
   return (
     <nav
-      className={`fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-300 w-[95%] max-w-[620px] px-2 ${
+      className={`fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-300 w-[95%] max-w-[680px] px-2 ${
         isScrolled ? 'top-4' : 'top-6'
       }`}
     >
@@ -36,15 +38,25 @@ export default function Navbar({ onBuyNow }) {
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center justify-between flex-grow pl-6">
           <div className="flex items-center gap-6">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="text-xs font-semibold tracking-wide text-text-secondary hover:text-white transition-colors"
-              >
-                {link.name}
-              </a>
-            ))}
+            {navLinks.map((link) => 
+              link.path ? (
+                <Link
+                  key={link.name}
+                  to={link.path}
+                  className="text-xs font-semibold tracking-wide text-text-secondary hover:text-white transition-colors"
+                >
+                  {link.name}
+                </Link>
+              ) : (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className="text-xs font-semibold tracking-wide text-text-secondary hover:text-white transition-colors"
+                >
+                  {link.name}
+                </a>
+              )
+            )}
           </div>
 
           <div className="flex items-center">
@@ -78,16 +90,27 @@ export default function Navbar({ onBuyNow }) {
             className="absolute top-[calc(100%+12px)] left-2 right-2 glass bg-[#0A0A0A]/95 p-6 flex flex-col gap-4 md:hidden shadow-2xl rounded-2xl border border-white/10"
           >
             <div className="flex flex-col gap-4 border-b border-white/10 pb-4">
-              {navLinks.map((link) => (
-                <a 
-                  key={link.name} 
-                  href={link.href} 
-                  className="text-base font-semibold text-white/80 hover:text-white transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {link.name}
-                </a>
-              ))}
+              {navLinks.map((link) => 
+                link.path ? (
+                  <Link
+                    key={link.name}
+                    to={link.path}
+                    className="text-base font-semibold text-white/80 hover:text-white transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {link.name}
+                  </Link>
+                ) : (
+                  <a 
+                    key={link.name} 
+                    href={link.href} 
+                    className="text-base font-semibold text-white/80 hover:text-white transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {link.name}
+                  </a>
+                )
+              )}
             </div>
             <button onClick={() => { setMobileMenuOpen(false); onBuyNow(); }} className="bg-accent-primary text-black px-6 py-3.5 text-center font-extrabold text-sm uppercase tracking-wider rounded-xl mt-2">
               Buy Now

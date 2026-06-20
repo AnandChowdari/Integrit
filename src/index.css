@@ -139,11 +139,16 @@
 }
 
 .animate-marquee-fast {
-  animation: marquee 15s linear infinite;
+  animation: marquee 8s linear infinite;
 }
 
 .animate-marquee-reverse-fast {
-  animation: marquee-reverse 15s linear infinite;
+  animation: marquee-reverse 8s linear infinite;
+}
+
+.animate-marquee-fast:hover,
+.animate-marquee-reverse-fast:hover {
+  animation-play-state: paused;
 }
 
 .animate-flow-dash {

@@ -180,10 +180,26 @@ const TESTIMONIALS = [
 
 /* ─── Video Showcase Data ─────────────────────────────── */
 const VIDEO_CARDS = [
-  { title: 'Brand Reel', gradient: 'linear-gradient(135deg, #1a1a1a 0%, #0d2800 100%)' },
-  { title: 'Product Launch', gradient: 'linear-gradient(135deg, #1a1a1a 0%, #1a2100 100%)' },
-  { title: 'Testimonial Edit', gradient: 'linear-gradient(135deg, #0d0d0d 0%, #1a2800 100%)' },
-  { title: 'Motion Graphics', gradient: 'linear-gradient(135deg, #1a1a1a 0%, #0d1a00 100%)' },
+  { 
+    title: 'Brand Reel', 
+    gradient: 'linear-gradient(135deg, #1a1a1a 0%, #0d2800 100%)',
+    videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4'
+  },
+  { 
+    title: 'Product Launch', 
+    gradient: 'linear-gradient(135deg, #1a1a1a 0%, #1a2100 100%)',
+    videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4'
+  },
+  { 
+    title: 'Testimonial Edit', 
+    gradient: 'linear-gradient(135deg, #0d0d0d 0%, #1a2800 100%)',
+    videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4'
+  },
+  { 
+    title: 'Motion Graphics', 
+    gradient: 'linear-gradient(135deg, #1a1a1a 0%, #0d1a00 100%)',
+    videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+  },
 ];
 
 const CONTENT_PILLS = ['Reels', 'Long-form', 'Motion Graphics', 'Multilingual Captions', 'Ad Creatives'];
@@ -342,12 +358,27 @@ export default function ServicesPage() {
                   viewport={{ once: true }}
                   style={{ background: card.gradient }}
                 >
+                  {/* Looping Video element */}
+                  {card.videoUrl && (
+                    <video
+                      src={card.videoUrl}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 pointer-events-none"
+                    />
+                  )}
+
+                  {/* Dark overlay for readability */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent opacity-90 z-10 pointer-events-none" />
+
                   {/* Visual content area */}
-                  <div className="absolute inset-0 flex flex-col items-center justify-end pb-6 px-4">
-                    <p className="text-xs font-medium text-white/70 text-center">{card.title}</p>
+                  <div className="absolute inset-0 flex flex-col items-center justify-end pb-6 px-4 z-20">
+                    <p className="text-xs font-semibold text-white/95 text-center tracking-wide">{card.title}</p>
                   </div>
                   {/* Play overlay */}
-                  <div className="play-overlay">
+                  <div className="play-overlay z-30">
                     <div className="w-12 h-12 rounded-full flex items-center justify-center"
                       style={{ background: 'rgba(181,255,71,0.15)', border: '1px solid rgba(181,255,71,0.3)' }}>
                       <Play size={20} style={{ color: 'var(--accent)' }} fill="currentColor" />
@@ -440,7 +471,8 @@ export default function ServicesPage() {
             >
               <p className="section-label mb-4">PRICING</p>
               <h2 className="display-heading text-3xl md:text-4xl lg:text-5xl mb-4">
-                Plans — 4 videos / 8 videos / 12 videos
+                Plans
+
               </h2>
             </motion.div>
 

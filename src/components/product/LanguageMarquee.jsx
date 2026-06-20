@@ -14,7 +14,7 @@ export default function LanguageMarquee() {
       <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-bg-secondary to-transparent z-10 pointer-events-none" />
       
       {/* Row 1: Left moving fast */}
-      <div className="flex animate-marquee-fast whitespace-nowrap">
+      <div className="flex w-max animate-marquee-fast whitespace-nowrap">
         {[...row1, ...row1].map((lang, idx) => (
           <div 
             key={idx} 
@@ -26,7 +26,7 @@ export default function LanguageMarquee() {
       </div>
 
       {/* Row 2: Right moving fast */}
-      <div className="flex animate-marquee-reverse-fast whitespace-nowrap">
+      <div className="flex w-max animate-marquee-reverse-fast whitespace-nowrap">
         {[...row2, ...row2].map((lang, idx) => (
           <div 
             key={idx} 
