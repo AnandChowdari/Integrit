@@ -115,7 +115,7 @@ export default function PricingSection({ onBuyNow }) {
               onClick={() => {
                 setRegion('india');
               }}
-              className={`relative z-10 px-8 py-2.5 rounded-full font-semibold text-sm transition-colors ${region === 'india' ? 'text-[#0a1200]' : 'text-text-secondary hover:text-white'}`}
+              className={`relative z-10 w-[140px] py-2.5 rounded-full font-semibold text-sm transition-colors ${region === 'india' ? 'text-[#0a1200]' : 'text-text-secondary hover:text-white'}`}
             >
               India
             </button>
@@ -123,7 +123,7 @@ export default function PricingSection({ onBuyNow }) {
               onClick={() => {
                 setRegion('international');
               }}
-              className={`relative z-10 px-8 py-2.5 rounded-full font-semibold text-sm transition-colors ${region === 'international' ? 'text-[#0a1200]' : 'text-text-secondary hover:text-white'}`}
+              className={`relative z-10 w-[140px] py-2.5 rounded-full font-semibold text-sm transition-colors ${region === 'international' ? 'text-[#0a1200]' : 'text-text-secondary hover:text-white'}`}
             >
               International
             </button>

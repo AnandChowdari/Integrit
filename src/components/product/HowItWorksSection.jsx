@@ -2,15 +2,9 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // --- CONFIGURATION ---
-// Set to true if you are using a single combined video file.
-// Set to false if you are using separate video files (one for each step).
 const USE_SINGLE_VIDEO = false;
-
-// Path for the single video (if USE_SINGLE_VIDEO = true)
 const SINGLE_VIDEO_PATH = "/videos/how_it_works_full.mp4";
 
-// Paths for separate videos (if USE_SINGLE_VIDEO = false)
-// WebM is recommended for high compression & speed; MP4 is provided as fallback.
 const VIDEO_SOURCES = [
   "/videos/step_1.webm",
   "/videos/step_2.webm",
@@ -21,7 +15,7 @@ const VIDEO_SOURCES = [
   "/videos/step_7.webm",
 ];
 
-const STEP_DURATION = 6000; // Duration of each step in milliseconds (6 seconds)
+const STEP_DURATION = 6000;
 
 export default function HowItWorksSection() {
   const steps = [
@@ -55,120 +49,12 @@ export default function HowItWorksSection() {
     }
   ];
 
-  const [activeStep, setActiveStep] = useState(0);
-  const [progress, setProgress] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [videoErrors, setVideoErrors] = useState(Array(steps.length).fill(false));
-  const [videoLoaded, setVideoLoaded] = useState(Array(steps.length).fill(false));
-  const [singleVideoError, setSingleVideoError] = useState(false);
+  const [activeStep, setActiveStep] = useState(null);
 
-  const videoRefs = useRef([]);
-  const singleVideoRef = useRef(null);
-
-  // Auto-advancing slider progress
-  useEffect(() => {
-    if (!isPlaying) return;
-
-    const intervalTime = 30; // Update every 30ms for smooth transitions
-    const stepIncrement = (intervalTime / STEP_DURATION) * 100;
-
-    const timer = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          setActiveStep((curr) => (curr + 1) % steps.length);
-          return 0;
-        }
-        return prev + stepIncrement;
-      });
-    }, intervalTime);
-
-    return () => clearInterval(timer);
-  }, [isPlaying, steps.length, activeStep]);
-
-  // Video playback controller (for multiple videos)
-  useEffect(() => {
-    if (USE_SINGLE_VIDEO) return;
-
-    videoRefs.current.forEach((video, idx) => {
-      if (video) {
-        if (idx === activeStep && !videoErrors[idx]) {
-          video.currentTime = 0;
-          video.play().catch((err) => {
-            console.log(`Auto-play blocked or video file not found for step ${idx + 1}:`, err);
-            // Treat it as an error to fall back to the CSS animation
-            handleVideoError(idx);
-          });
-        } else {
-          video.pause();
-        }
-      }
-    });
-  }, [activeStep, videoErrors, USE_SINGLE_VIDEO]);
-
-  // Video playback controller (for single combined video)
-  useEffect(() => {
-    if (!USE_SINGLE_VIDEO) return;
-    const video = singleVideoRef.current;
-    if (video && !singleVideoError) {
-      const stepDurationSeconds = STEP_DURATION / 1000;
-      const startTime = activeStep * stepDurationSeconds;
-
-      video.currentTime = startTime;
-      video.play().catch((err) => {
-        console.log("Auto-play blocked or single video file not found:", err);
-        setSingleVideoError(true);
-      });
-    }
-  }, [activeStep, singleVideoError, USE_SINGLE_VIDEO]);
-
-  // Check timestamp boundary for single video to loop step segments
-  useEffect(() => {
-    if (!USE_SINGLE_VIDEO) return;
-    const video = singleVideoRef.current;
-    if (!video || singleVideoError) return;
-
-    const checkTime = () => {
-      const stepDurationSeconds = STEP_DURATION / 1000;
-      const endTime = (activeStep + 1) * stepDurationSeconds;
-      if (video.currentTime >= endTime) {
-        if (isPlaying) {
-          // Progress bar handles transition naturally
-        } else {
-          // If paused, loop this specific step segment
-          video.currentTime = activeStep * stepDurationSeconds;
-        }
-      }
-    };
-
-    video.addEventListener('timeupdate', checkTime);
-    return () => video.removeEventListener('timeupdate', checkTime);
-  }, [activeStep, isPlaying, singleVideoError, USE_SINGLE_VIDEO]);
-
-  const handleStepClick = (index) => {
-    setActiveStep(index);
-    setProgress(0);
-  };
-
-  const handleVideoError = (index) => {
-    setVideoErrors((prev) => {
-      const next = [...prev];
-      next[index] = true;
-      return next;
-    });
-  };
-
-  const handleVideoLoad = (index) => {
-    setVideoLoaded((prev) => {
-      const next = [...prev];
-      next[index] = true;
-      return next;
-    });
-  };
-
-  // CSS Mockup Fallbacks for each step (for when video isn't found/loaded yet)
+  // CSS Mockup Fallbacks for each step
   const renderFallbackAnimation = (idx) => {
     switch (idx) {
-      case 0: // Select Your Clip
+      case 0:
         return (
           <div className="absolute inset-0 flex flex-col justify-between p-6 bg-[#0B0B0C]">
             <div className="flex items-center justify-between border-b border-white/5 pb-3">
@@ -198,13 +84,13 @@ export default function HowItWorksSection() {
             </div>
           </div>
         );
-      case 1: // Choose Language
+      case 1:
         return (
           <div className="absolute inset-0 flex flex-col justify-between p-6 bg-[#0B0B0C]">
             <div className="border-b border-white/5 pb-3">
-              <h4 className="text-white text-xs font-bold font-display uppercase tracking-wider">Transcription Language</h4>
+              <h4 className="text-white text-xs font-bold font-display uppercase tracking-wider text-left">Transcription Language</h4>
             </div>
-            <div className="flex-grow py-4 space-y-4">
+            <div className="flex-grow py-4 space-y-4 text-left">
               <div className="space-y-1">
                 <label className="text-[9px] text-text-secondary uppercase tracking-wider block font-bold">Target Audio Language</label>
                 <div className="h-9 bg-white/[0.02] border border-white/10 rounded-lg flex items-center justify-between px-3 text-xs text-white">
@@ -229,13 +115,13 @@ export default function HowItWorksSection() {
             </div>
           </div>
         );
-      case 2: // Select Caption Mode
+      case 2:
         return (
           <div className="absolute inset-0 flex flex-col justify-between p-6 bg-[#0B0B0C]">
             <div className="border-b border-white/5 pb-3">
-              <h4 className="text-white text-xs font-bold font-display uppercase tracking-wider">Caption Generation Modes</h4>
+              <h4 className="text-white text-xs font-bold font-display uppercase tracking-wider text-left">Caption Generation Modes</h4>
             </div>
-            <div className="flex-grow py-3">
+            <div className="flex-grow py-3 text-left">
               <label className="text-[9px] text-text-secondary uppercase tracking-wider block font-bold mb-2">Preset Styles</label>
               <div className="grid grid-cols-3 gap-2">
                 {[
@@ -262,11 +148,11 @@ export default function HowItWorksSection() {
             </div>
           </div>
         );
-      case 3: // Translate Captions
+      case 3:
         return (
           <div className="absolute inset-0 flex flex-col justify-between p-6 bg-[#0B0B0C]">
             <div className="border-b border-white/5 pb-3">
-              <h4 className="text-white text-xs font-bold font-display uppercase tracking-wider">AI Translation Engine</h4>
+              <h4 className="text-white text-xs font-bold font-display uppercase tracking-wider text-left">AI Translation Engine</h4>
             </div>
             <div className="flex-grow py-4 space-y-3">
               <div className="flex justify-between items-center text-xs text-white">
@@ -292,11 +178,11 @@ export default function HowItWorksSection() {
             </div>
           </div>
         );
-      case 4: // Customize Caption Flow
+      case 4:
         return (
           <div className="absolute inset-0 flex flex-col justify-between p-6 bg-[#0B0B0C]">
             <div className="border-b border-white/5 pb-3 flex justify-between items-center">
-              <h4 className="text-white text-xs font-bold font-display uppercase tracking-wider">Typography & Style Editor</h4>
+              <h4 className="text-white text-xs font-bold font-display uppercase tracking-wider text-left">Typography & Style Editor</h4>
               <span className="text-[9px] bg-accent-primary/10 text-accent-primary px-1.5 py-0.5 rounded font-mono">V2</span>
             </div>
             <div className="flex-grow py-3 space-y-3">
@@ -328,11 +214,11 @@ export default function HowItWorksSection() {
             </div>
           </div>
         );
-      case 5: // AI Proofreading (Pro)
+      case 5:
         return (
           <div className="absolute inset-0 flex flex-col justify-between p-6 bg-[#0B0B0C]">
             <div className="border-b border-white/5 pb-3">
-              <h4 className="text-white text-xs font-bold font-display uppercase tracking-wider flex items-center gap-1.5">
+              <h4 className="text-white text-xs font-bold font-display uppercase tracking-wider flex items-center gap-1.5 text-left">
                 <span className="text-accent-primary">✦</span> Focus on Edit Proofreading
               </h4>
             </div>
@@ -359,7 +245,7 @@ export default function HowItWorksSection() {
             </div>
           </div>
         );
-      case 6: // Advanced Caption Editor
+      case 6:
         return (
           <div className="absolute inset-0 flex flex-col justify-between p-6 bg-[#0B0B0C] overflow-hidden">
             <div className="flex-1 flex flex-col items-center justify-center relative">
@@ -404,7 +290,7 @@ export default function HowItWorksSection() {
       {/* Visual background details */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-accent-primary/5 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="max-w-4xl mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -419,161 +305,125 @@ export default function HowItWorksSection() {
           </p>
         </motion.div>
 
-        {/* Dynamic Stepper Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-
-          {/* Left Column: Interactive Stepper */}
-          <div className="lg:col-span-5 space-y-4">
-            {steps.map((step, idx) => {
-              const isActive = activeStep === idx;
-              return (
-                <div
-                  key={idx}
-                  onClick={() => handleStepClick(idx)}
-                  className={`group relative p-6 rounded-2xl cursor-pointer transition-all duration-300 border-2 select-none ${isActive
-                    ? 'bg-bg-tertiary border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.4),0_0_20px_rgba(198,255,52,0.02)]'
-                    : 'bg-transparent border-transparent hover:bg-white/[0.01] hover:border-white/[0.04]'
-                    }`}
-                  onMouseEnter={() => setIsPlaying(false)}
-                  onMouseLeave={() => setIsPlaying(true)}
-                >
-                  {/* Left Highlight Indicator / Stepper Number */}
-                  <div className="flex gap-5 items-start">
-                    <div className={`w-10 h-10 shrink-0 rounded-full border flex items-center justify-center font-display font-bold text-base transition-all duration-300 z-10 ${isActive
-                      ? 'bg-accent-primary border-accent-primary text-black shadow-[0_0_15px_rgba(198,255,52,0.25)]'
-                      : 'bg-white/5 border-white/10 text-text-secondary group-hover:text-white group-hover:border-white/20'
-                      }`}>
-                      {idx + 1}
-                    </div>
-
-                    <div className="space-y-1 pt-1.5">
-                      <h3 className={`text-lg font-bold tracking-tight transition-all duration-300 ${isActive ? 'text-white font-extrabold' : 'text-text-secondary group-hover:text-white'
-                        }`}>
-                        {step.title}
-                      </h3>
-                      <p className={`text-sm leading-relaxed transition-all duration-300 ${isActive ? 'text-text-primary' : 'text-text-secondary'
-                        }`}>
-                        {step.description}
-                      </p>
-                    </div>
+        {/* Dynamic Accordion Stepper */}
+        <div className="flex flex-col gap-6">
+          {steps.map((step, idx) => {
+            const isActive = activeStep === idx;
+            return (
+              <div
+                key={idx}
+                className={`group relative rounded-2xl cursor-pointer transition-all duration-500 overflow-hidden border-2 select-none flex flex-col items-center text-center ${isActive
+                  ? 'bg-bg-tertiary border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.4),0_0_20px_rgba(198,255,52,0.02)]'
+                  : 'bg-transparent border-transparent hover:bg-white/[0.01] hover:border-white/[0.04]'
+                  }`}
+                onMouseEnter={() => setActiveStep(idx)}
+                onMouseLeave={() => setActiveStep(null)}
+              >
+                {/* Step Header */}
+                <div className="flex flex-col items-center p-8 gap-4 w-full">
+                  <div className={`w-12 h-12 shrink-0 rounded-full border flex items-center justify-center font-display font-bold text-lg transition-all duration-300 z-10 ${isActive
+                    ? 'bg-accent-primary border-accent-primary text-black shadow-[0_0_15px_rgba(198,255,52,0.25)]'
+                    : 'bg-white/5 border-white/10 text-text-secondary group-hover:text-white group-hover:border-white/20'
+                    }`}>
+                    {idx + 1}
                   </div>
 
-                  {/* Horizontal progress bar for active card */}
+                  <div className="space-y-2">
+                    <h3 className={`text-xl font-bold tracking-tight transition-all duration-300 ${isActive ? 'text-white font-extrabold' : 'text-text-secondary group-hover:text-white'
+                      }`}>
+                      {step.title}
+                    </h3>
+                    <p className={`text-base leading-relaxed transition-all duration-300 max-w-xl mx-auto ${isActive ? 'text-text-primary' : 'text-text-secondary'
+                      }`}>
+                      {step.description}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Video Player Sub-box (Expanded only when active) */}
+                <AnimatePresence>
                   {isActive && (
-                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/5 rounded-b-2xl overflow-hidden">
-                      <div
-                        className="h-full bg-accent-primary transition-all duration-300 ease-linear shadow-[0_0_8px_#C6FF34]"
-                        style={{ width: `${progress}%` }}
-                      />
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Right Column: Premium Video Mockup Player Container */}
-          <div
-            className="lg:col-span-7 flex justify-center items-center h-full"
-            onMouseEnter={() => setIsPlaying(false)}
-            onMouseLeave={() => setIsPlaying(true)}
-          >
-            <div className="w-full max-w-[620px] aspect-[16/10] bg-[#0E0E10] rounded-2xl border border-white/10 overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.8),0_0_40px_rgba(198,255,52,0.03)] flex flex-col relative group/player">
-
-              {/* macOS-style traffic light header */}
-              <div className="px-5 py-3 border-b border-white/5 bg-[#0B0B0C] flex items-center justify-between">
-                <div className="flex gap-1.5">
-                  <span className="w-3 h-3 rounded-full bg-red-500/20 group-hover/player:bg-red-500/80 transition-colors duration-200" />
-                  <span className="w-3 h-3 rounded-full bg-yellow-500/20 group-hover/player:bg-yellow-500/80 transition-colors duration-200" />
-                  <span className="w-3 h-3 rounded-full bg-green-500/20 group-hover/player:bg-green-500/80 transition-colors duration-200" />
-                </div>
-                <div className="px-3 py-0.5 rounded bg-white/5 text-[10px] text-text-secondary font-mono tracking-wider">
-                  PREVIEW WINDOW
-                </div>
-                <div className="w-12" />
-              </div>
-
-              {/* Video viewport area */}
-              <div className="flex-grow relative overflow-hidden bg-black/60">
-                <AnimatePresence mode="wait">
-                  {/* Real video layers (7 separate clips) */}
-                  {!USE_SINGLE_VIDEO && steps.map((_, idx) => {
-                    const showVideo = activeStep === idx && !videoErrors[idx];
-                    return (
-                      <video
-                        key={idx}
-                        ref={(el) => (videoRefs.current[idx] = el)}
-                        playsInline
-                        muted
-                        loop
-                        onLoadedData={() => handleVideoLoad(idx)}
-                        onError={() => handleVideoError(idx)}
-                        className={`absolute inset-0 w-full h-full ${idx === 5 ? 'object-contain' : 'object-cover'} transition-all duration-500 ease-out ${showVideo ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'
-                          }`}
-                      >
-                        <source src={VIDEO_SOURCES[idx]} type="video/webm" />
-                      </video>
-                    );
-                  })}
-
-                  {/* Real video layer (Single combined video) */}
-                  {USE_SINGLE_VIDEO && !singleVideoError && (
-                    <video
-                      ref={singleVideoRef}
-                      playsInline
-                      muted
-                      loop
-                      src={SINGLE_VIDEO_PATH}
-                      type="video/mp4"
-                      onError={() => setSingleVideoError(true)}
-                      className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
-                    />
-                  )}
-
-                  {/* Interactive CSS Fallback Graphics when video is not found/errors */}
-                  {((!USE_SINGLE_VIDEO && videoErrors[activeStep]) || (USE_SINGLE_VIDEO && singleVideoError)) && (
                     <motion.div
-                      key={`fallback-${activeStep}`}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="absolute inset-0 w-full h-full"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+                      className="w-full overflow-hidden"
                     >
-                      {renderFallbackAnimation(activeStep)}
+                      <div className="px-8 pb-8 pt-2 w-full flex justify-center">
+                        <div className="w-full max-w-[620px] aspect-[16/10] bg-[#0E0E10] rounded-2xl border border-white/10 overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.8),0_0_40px_rgba(198,255,52,0.03)] flex flex-col relative group/player">
+                          {/* macOS-style traffic light header */}
+                          <div className="px-5 py-3 border-b border-white/5 bg-[#0B0B0C] flex items-center justify-between">
+                            <div className="flex gap-1.5">
+                              <span className="w-3 h-3 rounded-full bg-red-500/20 group-hover/player:bg-red-500/80 transition-colors duration-200" />
+                              <span className="w-3 h-3 rounded-full bg-yellow-500/20 group-hover/player:bg-yellow-500/80 transition-colors duration-200" />
+                              <span className="w-3 h-3 rounded-full bg-green-500/20 group-hover/player:bg-green-500/80 transition-colors duration-200" />
+                            </div>
+                            <div className="px-3 py-0.5 rounded bg-white/5 text-[10px] text-text-secondary font-mono tracking-wider">
+                              PREVIEW WINDOW
+                            </div>
+                            <div className="w-12" />
+                          </div>
+
+                          {/* Video viewport area */}
+                          <div className="flex-grow relative overflow-hidden bg-black/60">
+                            {!USE_SINGLE_VIDEO ? (
+                              <video
+                                autoPlay
+                                playsInline
+                                muted
+                                loop
+                                className={`absolute inset-0 w-full h-full ${idx === 5 ? 'object-contain' : 'object-cover'}`}
+                                onError={(e) => {
+                                  // Use fallback if video fails to load
+                                  e.target.style.display = 'none';
+                                  e.target.nextSibling.style.display = 'block';
+                                }}
+                              >
+                                <source src={VIDEO_SOURCES[idx]} type="video/webm" />
+                              </video>
+                            ) : (
+                              <video
+                                autoPlay
+                                playsInline
+                                muted
+                                loop
+                                src={SINGLE_VIDEO_PATH}
+                                className="absolute inset-0 w-full h-full object-cover"
+                              />
+                            )}
+                            
+                            {/* Fallback container (shown if video fails or is missing) */}
+                            <div className="absolute inset-0 w-full h-full" style={{ display: 'none' }}>
+                               {renderFallbackAnimation(idx)}
+                            </div>
+                          </div>
+
+                          {/* Player timeline footer control bar */}
+                          <div className="px-5 py-3.5 border-t border-white/5 bg-[#0B0B0C] flex items-center justify-between text-xs font-mono select-none">
+                            <div className="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center border border-white/5 text-white opacity-50 cursor-default">
+                                <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                                  <rect x="4" y="4" width="4" height="16" />
+                                  <rect x="16" y="4" width="4" height="16" />
+                                </svg>
+                            </div>
+
+                            <div className="text-text-secondary text-[11px] shrink-0 font-semibold select-none flex items-center gap-2">
+                              <span>0{idx + 1}</span>
+                              <span className="opacity-30">/</span>
+                              <span className="opacity-50">0{steps.length}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
+
+
               </div>
-
-              {/* Player timeline footer control bar */}
-              <div className="px-5 py-3.5 border-t border-white/5 bg-[#0B0B0C] flex items-center justify-between text-xs font-mono select-none">
-                <button
-                  onClick={() => setIsPlaying(!isPlaying)}
-                  className="w-7 h-7 rounded-lg bg-white/5 hover:bg-accent-primary hover:text-black flex items-center justify-center transition-all duration-200 border border-white/5 text-white"
-                >
-                  {isPlaying ? (
-                    <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                      <rect x="4" y="4" width="4" height="16" />
-                      <rect x="16" y="4" width="4" height="16" />
-                    </svg>
-                  ) : (
-                    <svg className="w-3.5 h-3.5 fill-current ml-0.5" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  )}
-                </button>
-
-                <div className="text-text-secondary text-[11px] shrink-0 font-semibold select-none flex items-center gap-2">
-                  <span>0{activeStep + 1}</span>
-                  <span className="opacity-30">/</span>
-                  <span className="opacity-50">0{steps.length}</span>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
+            );
+          })}
         </div>
       </div>
     </section>
