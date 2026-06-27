@@ -1,0 +1,117 @@
+/* ═══════════════════════════════════════════════════════
+   BRAND REVEAL — Full-viewport FLOGRIT typography
+   with flowing water animation at the bottom
+   ═══════════════════════════════════════════════════════ */
+
+/* ─── Section ────────────────────────────────────────── */
+.brand-reveal {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  background: #0A0A0A;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* ─── Content Block ──────────────────────────────────── */
+.brand-reveal__content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 2rem;
+  margin-bottom: 10vh;
+}
+
+/* ─── Title ──────────────────────────────────────────── */
+.brand-reveal__title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 800;
+  font-size: clamp(5rem, 18vw, 16rem);
+  color: #F0F0F0;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  margin: 0;
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.brand-reveal__fl {
+  color: #F0F0F0;
+}
+
+.brand-reveal__o {
+  color: #C0FF34;
+  position: relative;
+  display: inline-block;
+}
+
+/* Subtle glow behind the O */
+.brand-reveal__o::after {
+  content: 'O';
+  position: absolute;
+  inset: 0;
+  color: transparent;
+  text-shadow: 0 0 60px rgba(192, 255, 52, 0.35),
+               0 0 120px rgba(192, 255, 52, 0.15);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.brand-reveal__grit {
+  color: #F0F0F0;
+}
+
+/* ─── Tagline ────────────────────────────────────────── */
+.brand-reveal__tagline {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: clamp(0.85rem, 1.4vw, 1.1rem);
+  color: rgba(240, 240, 240, 0.45);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 2.5rem 0 0 0;
+}
+
+/* ─── Water Wave Container ───────────────────────────── */
+.brand-reveal__water {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.brand-reveal__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .brand-reveal__title {
+    font-size: clamp(3rem, 14vw, 6rem);
+    letter-spacing: -0.03em;
+  }
+
+  .brand-reveal__tagline {
+    font-size: clamp(0.7rem, 3vw, 0.85rem);
+    margin-top: 1.5rem;
+  }
+
+  .brand-reveal__content {
+    margin-bottom: 15vh;
+  }
+
+  .brand-reveal__water {
+    height: 30%;
+  }
+}
