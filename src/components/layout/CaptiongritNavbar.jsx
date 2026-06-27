@@ -16,7 +16,7 @@ export default function Navbar({ onBuyNow }) {
   }, []);
 
   const navLinks = [
-    { name: 'Integrit', path: '/' },
+    { name: 'Flogrit', path: '/' },
     { name: 'Features', href: '#features' },
     { name: 'Languages', href: '#languages' },
     { name: 'Pricing', href: '#pricing' },

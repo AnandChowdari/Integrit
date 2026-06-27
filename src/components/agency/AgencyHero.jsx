@@ -75,7 +75,7 @@ export default function AgencyHero() {
     {
       id: 'agent',
       label: 'AI Agent Core',
-      sub: 'Integrit Controller',
+      sub: 'Flogrit Controller',
       image: '/logo.jpg',
       x: 400, y: 250,
       isCenter: true,
@@ -198,7 +198,7 @@ export default function AgencyHero() {
             </div>
 
             <p className="mt-6 text-base md:text-lg font-body text-text-secondary max-w-md leading-relaxed">
-              Integrit combines content marketing, video editing, and AI automation funneling
+              Flogrit combines content marketing, video editing, and AI automation funneling
               to turn views into real, paying leads — on autopilot.
             </p>
 
@@ -427,7 +427,7 @@ export default function AgencyHero() {
                         } : {}}
                       >
                         {node.image ? (
-                          <img src={node.image} alt="Integrit Logo" className="w-full h-full object-cover rounded" />
+                          <img src={node.image} alt="Flogrit Logo" className="w-full h-full object-cover rounded" />
                         ) : (
                           <Icon className={isCenter ? 'w-5 h-5' : 'w-4 h-4'} style={!isCenter ? { color: node.color } : {}} />
                         )}

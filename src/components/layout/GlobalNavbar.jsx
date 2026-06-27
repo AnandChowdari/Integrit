@@ -36,8 +36,8 @@ export default function GlobalNavbar() {
     >
       <div className="flex items-center justify-between gap-4 px-6 py-2.5 rounded-full border border-white/10 bg-[#0c0c0f]/80 backdrop-blur-md shadow-[0_12px_40px_-12px_rgba(0,0,0,0.7)] transition-all duration-300">
         <Link to="/" className="flex items-center gap-2 group shrink-0">
-          <img src="/logo.jpg" alt="Integrit Logo" className="w-6 h-6 object-contain group-hover:scale-110 transition-transform rounded-md" />
-          <span className="font-display font-bold text-base text-white tracking-wide">Integrit</span>
+          <img src="/logo.jpg" alt="Flogrit Logo" className="w-6 h-6 object-contain group-hover:scale-110 transition-transform rounded-md" />
+          <span className="font-display font-bold text-base text-white tracking-wide">Flogrit</span>
         </Link>
 
         {/* Desktop Nav */}

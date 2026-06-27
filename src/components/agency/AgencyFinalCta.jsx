@@ -29,7 +29,7 @@ export default function AgencyFinalCta() {
             ))}
           </div>
           <p className="text-sm font-body text-text-secondary">
-            <span className="text-white">10+ clients</span> already scaling with Integrit
+            <span className="text-white">10+ clients</span> already scaling with Flogrit
           </p>
           {siteConfig.urgency.enabled && (
             <>

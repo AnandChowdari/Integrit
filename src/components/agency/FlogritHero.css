@@ -13,20 +13,28 @@
   --flogrit-grey: #2A2A2A;
 }
 
-/* ─── Hero Section (Scroll Space) ────────────────────── */
+/* ─── Hero Section (Loader Overlay) ────────────────────── */
 .flogrit-hero {
-  position: relative;
-  height: 400vh;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 9999;
+  background: var(--flogrit-bg);
+  overflow: hidden;
+  transition: opacity 0.5s ease-out;
 }
 
-/* ─── Sticky Frame (Viewport Lock) ───────────────────── */
+.flogrit-hero.loader-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ─── Sticky Frame (No longer sticky, just container) ───────────────────── */
 .flogrit-sticky {
-  position: sticky;
-  top: 0;
-  height: 100vh;
+  position: relative;
   width: 100%;
-  overflow: hidden;
-  background: var(--flogrit-bg);
+  height: 100%;
 }
 
 /* ─── SVG Layer ──────────────────────────────────────── */

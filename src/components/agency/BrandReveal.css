@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════════════
    BRAND REVEAL — Full-viewport FLOGRIT typography
-   with flowing water animation at the bottom
+   with wireframe animation at the bottom
    ═══════════════════════════════════════════════════════ */
 
 /* ─── Section ────────────────────────────────────────── */
@@ -8,7 +8,7 @@
   position: relative;
   min-height: 100vh;
   width: 100%;
-  background: #0A0A0A;
+  background: #161616; /* Dark grey/black matching the image */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -22,60 +22,68 @@
   z-index: 2;
   text-align: center;
   padding: 0 2rem;
-  margin-bottom: 10vh;
+  margin-bottom: 5vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* ─── Title ──────────────────────────────────────────── */
 .brand-reveal__title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 800;
-  font-size: clamp(5rem, 18vw, 16rem);
-  color: #F0F0F0;
-  letter-spacing: -0.04em;
-  line-height: 0.9;
+  font-family: 'DegularDisplay', sans-serif;
+  font-weight: 900;
+  font-style: italic;
+  font-size: clamp(4rem, 16vw, 14rem);
+  color: #C6FF34;
+  line-height: 1;
   margin: 0;
-  display: inline-flex;
-  align-items: baseline;
-}
-
-.brand-reveal__fl {
-  color: #F0F0F0;
-}
-
-.brand-reveal__o {
-  color: #C0FF34;
-  position: relative;
-  display: inline-block;
-}
-
-/* Subtle glow behind the O */
-.brand-reveal__o::after {
-  content: 'O';
-  position: absolute;
-  inset: 0;
-  color: transparent;
-  text-shadow: 0 0 60px rgba(192, 255, 52, 0.35),
-               0 0 120px rgba(192, 255, 52, 0.15);
-  z-index: -1;
-  pointer-events: none;
-}
-
-.brand-reveal__grit {
-  color: #F0F0F0;
+  letter-spacing: -0.02em;
 }
 
 /* ─── Tagline ────────────────────────────────────────── */
 .brand-reveal__tagline {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Degular', sans-serif;
   font-weight: 400;
-  font-size: clamp(0.85rem, 1.4vw, 1.1rem);
-  color: rgba(240, 240, 240, 0.45);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin: 2.5rem 0 0 0;
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  color: #E0E0E0;
+  letter-spacing: -0.01em;
+  margin: 1rem 0 3rem 0;
 }
 
-/* ─── Water Wave Container ───────────────────────────── */
+.brand-reveal__tagline strong {
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+/* ─── Button ─────────────────────────────────────────── */
+.brand-reveal__btn {
+  display: inline-block;
+  text-decoration: none;
+  font-family: 'Degular', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #000000;
+  background-color: #C6FF34;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  border: 1px solid #000000;
+  outline: 2px solid #C6FF34;
+  outline-offset: 2px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.brand-reveal__btn:hover {
+  transform: translateY(-2px);
+  outline-offset: 4px;
+}
+
+.brand-reveal__btn:active {
+  transform: translateY(0);
+  outline-offset: 1px;
+}
+
+/* ─── Wireframe Animation Container ───────────────────── */
 .brand-reveal__water {
   position: absolute;
   bottom: 0;
@@ -99,16 +107,15 @@
 @media (max-width: 768px) {
   .brand-reveal__title {
     font-size: clamp(3rem, 14vw, 6rem);
-    letter-spacing: -0.03em;
   }
 
   .brand-reveal__tagline {
-    font-size: clamp(0.7rem, 3vw, 0.85rem);
-    margin-top: 1.5rem;
+    font-size: clamp(0.9rem, 3vw, 1rem);
+    margin: 1rem 0 2rem 0;
   }
 
   .brand-reveal__content {
-    margin-bottom: 15vh;
+    margin-bottom: 10vh;
   }
 
   .brand-reveal__water {

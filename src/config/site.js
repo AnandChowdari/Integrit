@@ -1,5 +1,5 @@
 export const siteConfig = {
-  name: "Integrit",
+  name: "Flogrit",
   tagline: "We grow your audience. We convert them into leads. Automatically.",
   stats: {
     views: '5M+',

@@ -172,7 +172,7 @@ const PRICING_DATA = {
 
 /* ─── Testimonials Data ───────────────────────────────── */
 const TESTIMONIALS = [
-  { quote: "Integrit transformed our social media from zero to 2M+ views in 3 months. The ROI has been incredible.", name: "Rahul Mehta", brand: "TechVault India" },
+  { quote: "Flogrit transformed our social media from zero to 2M+ views in 3 months. The ROI has been incredible.", name: "Rahul Mehta", brand: "TechVault India" },
   { quote: "Their AI automation funnel captured 400+ qualified leads in the first month alone. Game-changing.", name: "Priya Sharma", brand: "GlowSkin Co." },
   { quote: "The video editing quality is on par with top agencies charging 5× more. Absolute no-brainer.", name: "Arjun Reddy", brand: "FitForge" },
   { quote: "We went from manually chasing leads to a fully automated pipeline. Our team can finally focus on delivery.", name: "Sneha Patel", brand: "EduBridge Academy" },

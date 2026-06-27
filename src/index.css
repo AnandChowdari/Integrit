@@ -4,6 +4,28 @@
 
 /* ─── Self-hosted Fonts ──────────────────────────────── */
 @font-face {
+  font-family: 'Degular';
+  src: url('/fonts/degular-font-family/DegularDemo-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Degular';
+  src: url('/fonts/degular-font-family/DegularDemo-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'DegularDisplay';
+  src: url('/fonts/degular-font-family/DegularDisplayDemo-BlackItalic.otf') format('opentype');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
   font-family: 'Kepler Std Subhead';
   src: url('/fonts/KeplerStd-SemiboldScnItSubh.otf') format('opentype');
   font-weight: 600;

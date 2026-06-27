@@ -179,7 +179,7 @@ export default function HowItWorksAgency() {
             transition={{ duration: 0.6 }}
           >
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">
-              The Integrit <span className="font-accent">Growth System</span>
+              The Flogrit <span className="font-accent">Growth System</span>
             </h2>
             <p className="text-base font-body text-text-secondary max-w-2xl mx-auto">
               Views without conversions is just vanity. We fix both.
