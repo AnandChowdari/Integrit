@@ -1,29 +1,30 @@
-import GlobalNavbar from '../components/layout/GlobalNavbar';
 import GlobalFooter from '../components/layout/GlobalFooter';
 
-import AgencyHero from '../components/agency/AgencyHero';
+import FlogritHero from '../components/agency/FlogritHero';
+import BrandReveal from '../components/agency/BrandReveal';
 import AgencySocialProof from '../components/agency/AgencySocialProof';
 import WhatWeDoSection from '../components/agency/WhatWeDoSection';
-import AgencyServicesPreview from '../components/agency/AgencyServicesPreview';
+import FindYourProblemSection from '../components/agency/FindYourProblemSection';
 import HowItWorksAgency from '../components/agency/HowItWorksAgency';
 import AgencyProductsSection from '../components/agency/AgencyProductsSection';
 import WhoWeWorkWithSection from '../components/agency/WhoWeWorkWithSection';
 import AgencyTestimonialsTeaser from '../components/agency/AgencyTestimonialsTeaser';
 import AgencyFinalCta from '../components/agency/AgencyFinalCta';
+import ContactSection from '../components/agency/ContactSection';
 import SectionDivider from '../components/ui/SectionDivider';
 
 export default function HomePage() {
   return (
     <div className="min-h-screen flex flex-col bg-bg-primary font-body text-text-primary selection:bg-accent-primary/30 selection:text-white">
-      <GlobalNavbar />
-
+      
       <main className="flex-grow">
-        <AgencyHero />
+        <FlogritHero />
+        <BrandReveal />
         <AgencySocialProof />
         <SectionDivider direction="down" />
         <WhatWeDoSection />
         <SectionDivider direction="down" />
-        <AgencyServicesPreview />
+        <FindYourProblemSection />
         <HowItWorksAgency />
         <SectionDivider direction="down" />
         <AgencyProductsSection />
@@ -31,6 +32,7 @@ export default function HomePage() {
         <WhoWeWorkWithSection />
         <AgencyTestimonialsTeaser />
         <AgencyFinalCta />
+        <ContactSection />
       </main>
 
       <GlobalFooter />

@@ -8,7 +8,7 @@ import CaptiongritFooter from '../../components/layout/CaptiongritFooter';
 // Sections
 import HeroSection from '../../components/product/HeroSection';
 import SocialProofBar from '../../components/product/SocialProofBar';
-import BeforeAfterSection from '../../components/product/BeforeAfterSection';
+
 import CaptionModesSection from '../../components/product/CaptionModesSection';
 import HowItWorksSection from '../../components/product/HowItWorksSection';
 import FeaturesSection from '../../components/product/FeaturesSection';
@@ -59,8 +59,7 @@ export default function LandingPage() {
         <HeroSection onBuyNow={handleGenericBuyNow} />
         <SocialProofBar />
         <SectionDivider direction="down" />
-        <BeforeAfterSection />
-        <SectionDivider direction="down" />
+
         <CaptionModesSection />
         <HowItWorksSection />
         <SectionDivider direction="down" />

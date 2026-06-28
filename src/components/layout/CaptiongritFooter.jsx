@@ -52,7 +52,7 @@ export default function Footer() {
         
         <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-text-secondary text-sm text-center md:text-left">
-            © 2026 Captiongrit by Integrit. All rights reserved.
+            © 2026 Captiongrit by Flogrit. All rights reserved.
           </p>
           <p className="text-text-secondary text-sm flex items-center gap-2">
             Made for creators, by a creator <Zap className="w-4 h-4 text-accent-primary" />

@@ -1,27 +1,61 @@
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { TrendingUp, Plug } from 'lucide-react';
 import { fadeUpVariant, staggerContainer } from '../../lib/motionVariants';
+
+const services = [
+  {
+    id: 1,
+    title: 'Expand Your Social Media Reach',
+    items: [
+      'Strategic content planning tailored to your brand',
+      'Professional video editing and creative production',
+      'Social media optimization and SEO-driven publishing',
+      'Audience growth and engagement strategies',
+      'Performance tracking and continuous optimization'
+    ]
+  },
+  {
+    id: 2,
+    title: 'Turn Reach Into Qualified Leads',
+    items: [
+      'High-converting lead generation funnels',
+      'Landing page and conversion optimization',
+      'CRM integration and lead management',
+      'Automated lead nurturing campaigns',
+      'Sales-focused marketing strategies'
+    ]
+  },
+  {
+    id: 3,
+    title: 'Never Let a Lead Slip Away',
+    items: [
+      'WhatsApp automation for instant customer engagement',
+      'Instagram DM and comment automation',
+      'AI Voice Agents for calls and appointment booking',
+      'Cart abandonment recovery workflows',
+      'Intelligent follow-up sequences and customer re-engagement'
+    ]
+  }
+];
 
 export default function WhatWeDoSection() {
   return (
     <section className="py-32 px-6">
       <div className="max-w-7xl mx-auto">
-        {/* Label strip */}
-        <div className="flex items-center gap-4 mb-4">
-          <span className="h-px flex-1 bg-gradient-to-r from-transparent to-[#1E1E1E]" />
-          <span className="text-xs font-mono text-text-secondary tracking-widest uppercase">Two ways Integrit works</span>
-          <span className="h-px flex-1 bg-gradient-to-l from-transparent to-[#1E1E1E]" />
-        </div>
-
         <motion.div
           variants={fadeUpVariant}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="mb-16"
+          className="mb-16 text-center"
         >
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-white tracking-tight">Two ways Integrit <span className="font-accent">grows</span> your business</h2>
+          <h2 className="font-display text-4xl md:text-5xl font-bold text-white tracking-tight mb-4">
+            What <span className="font-accent">We Do</span>
+          </h2>
+          <div className="flex items-center justify-center gap-4 mb-4">
+            <span className="h-px w-16 bg-gradient-to-r from-transparent to-accent-primary" />
+            <span className="text-xs font-mono text-text-secondary tracking-widest uppercase">Our Services</span>
+            <span className="h-px w-16 bg-gradient-to-l from-transparent to-accent-primary" />
+          </div>
         </motion.div>
 
         <motion.div
@@ -29,77 +63,59 @@ export default function WhatWeDoSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-8"
+          className="max-w-4xl mx-auto flex flex-col gap-6"
         >
-
-          {/* Card 1 — Agency Services */}
-          <motion.div
-            variants={fadeUpVariant}
-            className="glass-card p-10 flex flex-col justify-between group hover:border-white/20 transition-colors"
-          >
-            <div>
-              <span className="text-[10px] font-mono tracking-widest text-text-secondary uppercase mb-3 block">
-                For Business Owners & Creators
-              </span>
-              <div className="w-14 h-14 rounded-2xl bg-[#161616] border border-white/10 flex items-center justify-center mb-8">
-                <TrendingUp className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="font-display text-xl font-semibold text-white mb-4">Marketing + Editing + Lead Funnels</h3>
-              <p className="text-base font-body text-text-secondary leading-relaxed mb-8">
-                We handle your content end-to-end — from scripting and editing long-form YouTube videos to running AI automation funnels that capture and convert your viewers into paying clients.
-              </p>
-              <div className="flex flex-wrap gap-2 mb-10">
-                {['Video Editing', 'Content Strategy', 'AI Funnels', 'Lead Gen'].map(tag => (
-                  <span key={tag} className="text-xs font-mono px-3 py-1 bg-[#161616] border border-[#1E1E1E] text-text-secondary rounded-full">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-            <Link
-              to="/services"
-              className="inline-flex items-center text-accent-primary font-bold hover:text-accent-secondary transition-colors"
-            >
-              Explore Services <span className="ml-2">→</span>
-            </Link>
-          </motion.div>
-
-          {/* Card 2 — Creator Tools */}
-          <motion.div
-            variants={fadeUpVariant}
-            className="glass-card p-10 flex flex-col justify-between group hover:border-accent-primary/50 transition-colors shadow-[0_0_30px_rgba(198,255,52,0)] hover:shadow-[0_0_30px_rgba(198,255,52,0.1)] relative overflow-hidden"
-          >
-            <div className="absolute inset-0 bg-accent-primary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-
-            <div className="relative z-10">
-              <span className="text-[10px] font-mono tracking-widest text-text-secondary uppercase mb-3 block">
-                For Video Editors & Creators
-              </span>
-              <div className="w-14 h-14 rounded-2xl bg-accent-primary/10 border border-accent-primary/20 flex items-center justify-center mb-8 text-accent-primary">
-                <Plug className="w-6 h-6" />
-              </div>
-              <h3 className="font-display text-xl font-semibold text-white mb-4">Plugins & Apps for Editors</h3>
-              <p className="text-base font-body text-text-secondary leading-relaxed mb-8">
-                We build production tools for Adobe creators. Captiongrit is our flagship plugin — AI-powered captions in 24 languages, built natively inside Premiere Pro and After Effects.
-              </p>
-              <div className="flex flex-wrap gap-2 mb-10">
-                {['Adobe CEP', 'AI Captions', '24 Languages', 'One-Time License'].map(tag => (
-                  <span key={tag} className="text-xs font-mono px-3 py-1 bg-[#161616] border border-[#1E1E1E] text-text-secondary rounded-full">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-            <Link
-              to="/products"
-              className="inline-flex items-center text-accent-primary font-bold hover:text-accent-secondary transition-colors relative z-10"
-            >
-              See Our Products <span className="ml-2">→</span>
-            </Link>
-          </motion.div>
-
+          {services.map((service, index) => (
+            <ServiceBox key={service.id} service={service} index={index} />
+          ))}
         </motion.div>
       </div>
     </section>
+  );
+}
+
+function ServiceBox({ service, index }) {
+  return (
+    <motion.div
+      variants={fadeUpVariant}
+      className="rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-md overflow-hidden relative"
+    >
+      <div className="p-6 md:p-8 flex items-center justify-between relative z-20">
+        <h3 className="font-display text-lg md:text-xl font-semibold text-white flex items-center gap-4">
+          <span className="text-accent-primary font-mono text-sm">0{index + 1}</span>
+          {service.title}
+        </h3>
+        <motion.div 
+          initial={{ rotate: 0 }}
+          whileInView={{ rotate: 180 }}
+          viewport={{ margin: '-20% 0px -20% 0px' }}
+          transition={{ duration: 0.5 }}
+          className="w-8 h-8 shrink-0 rounded-full border border-white/20 flex items-center justify-center bg-white/5"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinelinejoin="round" className="text-white">
+            <path d="M6 9l6 6 6-6"/>
+          </svg>
+        </motion.div>
+      </div>
+      
+      {/* Scroll animation opening */}
+      <motion.div 
+        initial={{ height: 0, opacity: 0 }}
+        whileInView={{ height: 'auto', opacity: 1 }}
+        viewport={{ margin: '-20% 0px -20% 0px' }}
+        transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
+        className="overflow-hidden"
+      >
+        <div className="p-6 md:p-8 pt-0 text-text-secondary font-body border-t border-white/10">
+          <ul className="list-disc pl-5 space-y-2 text-white/80">
+            {service.items.map((item, idx) => (
+              <li key={idx} className="leading-relaxed">
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </motion.div>
+    </motion.div>
   );
 }

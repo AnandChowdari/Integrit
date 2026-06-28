@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
@@ -15,6 +15,33 @@ import SideRays from '../ui/SideRays';
 
 export default function AgencyHero() {
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const [scale, setScale] = useState(1);
+
+  useEffect(() => {
+    const updateScale = () => {
+      const width = window.innerWidth;
+      if (width < 768) {
+        // Mobile scaling: container width is approx screen width - 48 (padding)
+        // Apply 0.7 scale visually (30% reduction) as recommended by user, capped at 320px
+        const baseWidth = Math.min(width - 48, 320);
+        const containerWidth = baseWidth * 0.7;
+        setScale(containerWidth / 800);
+      } else if (width < 1024) {
+        // Tablet scaling: center and scale down slightly
+        const baseWidth = Math.min(width - 48, 480);
+        const containerWidth = baseWidth * 0.8;
+        setScale(containerWidth / 800);
+      } else {
+        // Desktop scaling: scale to fit the 45% grid column (max container 1400px)
+        const containerWidth = Math.min(width - 96, 1400) * 0.45;
+        setScale(Math.min(containerWidth, 600) / 800);
+      }
+    };
+
+    updateScale();
+    window.addEventListener('resize', updateScale);
+    return () => window.removeEventListener('resize', updateScale);
+  }, []);
 
   const handleMouseMove = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -48,7 +75,7 @@ export default function AgencyHero() {
     {
       id: 'agent',
       label: 'AI Agent Core',
-      sub: 'Integrit Controller',
+      sub: 'Flogrit Controller',
       image: '/logo.jpg',
       x: 400, y: 250,
       isCenter: true,
@@ -171,7 +198,7 @@ export default function AgencyHero() {
             </div>
 
             <p className="mt-6 text-base md:text-lg font-body text-text-secondary max-w-md leading-relaxed">
-              Integrit combines content marketing, video editing, and AI automation funneling
+              Flogrit combines content marketing, video editing, and AI automation funneling
               to turn views into real, paying leads — on autopilot.
             </p>
 
@@ -179,7 +206,7 @@ export default function AgencyHero() {
 
             {/* CTAs */}
             <div className="mt-8 flex flex-col sm:flex-row gap-3">
-              <Link to="/contact"
+              <Link to="/#contact"
                 className="px-6 py-3.5 bg-accent-primary text-black font-semibold font-display rounded-xl
                            hover:bg-accent-secondary transition-all hover:-translate-y-0.5
                            shadow-[0_0_24px_rgba(198,255,52,0.2)] hover:shadow-[0_0_32px_rgba(198,255,52,0.35)]
@@ -203,7 +230,6 @@ export default function AgencyHero() {
             animate="visible"
             className="relative flex items-center justify-center lg:justify-start w-full mt-12 lg:mt-0 lg:max-w-[600px] xl:max-w-[680px] lg:-ml-24 xl:-ml-40"
           >
-            {/* Mobile Scaling Wrapper */}
             <div className="hero-3d w-full flex justify-center">
               {/* 3D Perspective Wrapper */}
               <div
@@ -220,38 +246,21 @@ export default function AgencyHero() {
                       stroke-dashoffset: -40;
                     }
                   }
-                  .animate-flow-dash-hero {
-                    animation: flowDash 3s linear infinite;
-                  }
-                  .glow-path {
-                    filter: drop-shadow(0 0 6px rgba(192, 255, 52, 0.4));
-                  }
-                  .node-shadow {
-                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(192, 255, 52, 0.03);
-                  }
-                  .center-node-glow {
-                    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), 0 0 25px rgba(192, 255, 52, 0.25);
-                  }
-                  @media (max-width: 768px) {
-                    .hero-3d {
-                      width: 100%;
-                      max-width: 320px;
-                      transform: scale(0.7);
-                      transform-origin: center top;
-                      margin: 2rem auto 0;
-                      left: auto;
-                      right: auto;
-                    }
-                  }
-                  @media (max-width: 480px) {
-                    .hero-3d {
-                      max-width: 280px;
-                      transform: scale(0.6);
-                    }
-                  }
-                `}} />
+                }
+                .animate-flow-dash-hero {
+                  animation: flowDash 3s linear infinite;
+                }
+                .glow-path {
+                  filter: drop-shadow(0 0 6px rgba(192, 255, 52, 0.4));
+                }
+                .node-shadow {
+                  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(192, 255, 52, 0.03);
+                }
+                .center-node-glow {
+                  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), 0 0 25px rgba(192, 255, 52, 0.25);
+                }
+              `}} />
 
-                {/* Scaled Wrapper to make 3D Canvas responsive */}
                 <div className="w-full aspect-[8/5] relative">
                   <div
                     className="absolute top-0 left-0 origin-top-left"
@@ -281,23 +290,11 @@ export default function AgencyHero() {
                         className="absolute top-0 left-0 right-0 h-10 border-b border-white/5 bg-[#0A0A0A]/90 px-4 flex items-center justify-between z-20 font-sans"
                         style={{ transform: 'translateZ(15px)' }}
                       >
-                        <div className="flex items-center gap-3">
-                          <div className="flex gap-1">
-                            <div className="w-2.5 h-2.5 rounded-full bg-[#E05252]" />
-                            <div className="w-2.5 h-2.5 rounded-full bg-[#E0A052]" />
-                            <div className="w-2.5 h-2.5 rounded-full bg-[#52C452]" />
-                          </div>
-                          <span className="text-[10px] font-bold tracking-wider text-white font-display uppercase">
-                            Content Funnel Workflow Engine
-                          </span>
-                          <span className="text-[9px] bg-accent-primary/10 border border-accent-primary/30 text-accent-primary px-1.5 py-0.5 rounded uppercase font-bold tracking-wider">
-                            Active
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-4 text-white/30 text-[9px] font-mono">
-                          <span className="hidden sm:inline">FPS: 60/60</span>
-                          <span>ID: 8a4d-f9e2</span>
-                        </div>
+                        {node.image ? (
+                          <img src={node.image} alt="Flogrit Logo" className="w-full h-full object-cover rounded" />
+                        ) : (
+                          <Icon className={isCenter ? 'w-5 h-5' : 'w-4 h-4'} style={!isCenter ? { color: node.color } : {}} />
+                        )}
                       </div>
 
                       {/* Floating controls toolbar on left side */}
@@ -448,11 +445,27 @@ export default function AgencyHero() {
                       </div>
 
                     </div>
+                  );
+                })}
+
+                {/* Bottom Status / Log Bar */}
+                <div
+                  className="absolute bottom-0 left-0 right-0 h-8 border-t border-white/5 bg-[#0A0A0A]/95 px-4 flex items-center justify-between z-20 font-mono text-[8px] text-white/50"
+                  style={{ transform: 'translateZ(15px)' }}
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-accent-primary animate-pulse" />
+                    <span>[System Status] Listening for trigger webhooks...</span>
+                  </div>
+                  <div className="text-accent-primary font-bold">
+                    Execution completed (1.2s)
                   </div>
                 </div>
+
               </div>
             </div>
-          </motion.div>
+          </div>
+        </motion.div>
 
         </div>
       </div>

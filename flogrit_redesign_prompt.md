@@ -1,8 +1,8 @@
 
-# INTEGRIT WEBSITE — COMPLETE REDESIGN IMPLEMENTATION PROMPT
+# FLOGRIT WEBSITE — COMPLETE REDESIGN IMPLEMENTATION PROMPT
 > For: Coding AI (Claude / Cursor / v0)  
 > Stack: React 19 + Vite + TailwindCSS v3 + Framer Motion v12 + React Router DOM v7  
-> Goal: A new visitor understands what Integrit does in <5 seconds, trusts it immediately, and takes action.
+> Goal: A new visitor understands what Flogrit does in <5 seconds, trusts it immediately, and takes action.
 
 ---
 
@@ -274,7 +274,7 @@ export default function StickyCTABar() {
 
 // Subtext — increase visual separation from H1 with mt-6, not mt-2:
 <p className="mt-6 text-base md:text-lg font-body text-text-secondary max-w-md leading-relaxed">
-  Integrit combines content marketing, video editing, and AI automation funneling 
+  Flogrit combines content marketing, video editing, and AI automation funneling 
   to turn views into real, paying leads — on autopilot.
 </p>
 
@@ -375,7 +375,7 @@ Add a label strip above the headline:
 ```jsx
 <div className="flex items-center gap-4 mb-4">
   <span className="h-px flex-1 bg-gradient-to-r from-transparent to-[#1E1E1E]" />
-  <span className="text-xs font-mono text-text-secondary tracking-widest uppercase">Two ways Integrit works</span>
+  <span className="text-xs font-mono text-text-secondary tracking-widest uppercase">Two ways Flogrit works</span>
   <span className="h-px flex-1 bg-gradient-to-l from-transparent to-[#1E1E1E]" />
 </div>
 ```
@@ -423,14 +423,14 @@ import { Film, Bot, BarChart3, TrendingUp } from 'lucide-react';
 // File-level addition inside AgencyServicesPreview.jsx, below the bento grid:
 <div className="mt-16">
   <p className="text-xs font-mono text-text-secondary uppercase tracking-widest text-center mb-8">
-    Why Integrit over alternatives
+    Why Flogrit over alternatives
   </p>
   <div className="overflow-x-auto">
     <table className="w-full text-sm font-body">
       <thead>
         <tr className="border-b border-[#1E1E1E]">
           <th className="text-left py-3 pr-6 text-text-secondary font-normal">Capability</th>
-          <th className="py-3 px-4 text-accent-primary font-semibold">Integrit</th>
+          <th className="py-3 px-4 text-accent-primary font-semibold">Flogrit</th>
           <th className="py-3 px-4 text-text-secondary font-normal">Freelancer</th>
           <th className="py-3 px-4 text-text-secondary font-normal">In-House Team</th>
           <th className="py-3 px-4 text-text-secondary font-normal">Agency</th>
@@ -609,7 +609,7 @@ Add urgency + social proof immediately above the CTA buttons:
     ))}
   </div>
   <p className="text-sm font-body text-text-secondary">
-    <span className="text-white">10+ clients</span> already scaling with Integrit
+    <span className="text-white">10+ clients</span> already scaling with Flogrit
   </p>
   <span className="hidden sm:block h-4 w-px bg-[#1E1E1E]" />
   <p className="text-sm font-mono text-accent-primary">⚡ 3 spots left this month</p>
@@ -863,7 +863,7 @@ Since no testimonials exist on the agency side yet, create a placeholder testimo
 // /src/components/home/AgencyTestimonialsTeaser.jsx — CREATE NEW
 const testimonials = [
   {
-    quote: "Integrit's editing system helped our YouTube channel break 30K views in 45 days. The content strategy alone was worth it.",
+    quote: "Flogrit's editing system helped our YouTube channel break 30K views in 45 days. The content strategy alone was worth it.",
     name: 'Nivas K.',
     handle: '@hustlelifehyd',
     platform: 'YouTube',
@@ -1016,5 +1016,5 @@ className="bg-white/[0.02] backdrop-blur-[12px] border border-white/[0.06] round
 
 ---
 
-*Generated from full Integrit context analysis. Stack: React 19 + Vite + TailwindCSS v3 + Framer Motion v12.*  
+*Generated from full Flogrit context analysis. Stack: React 19 + Vite + TailwindCSS v3 + Framer Motion v12.*  
 *Color system: locked. Font system: Space Grotesk + Inter + JetBrains Mono. Routing: frozen.*

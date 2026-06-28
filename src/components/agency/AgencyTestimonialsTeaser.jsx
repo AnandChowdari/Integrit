@@ -4,7 +4,7 @@ import { fadeUpVariant, staggerContainer } from '../../lib/motionVariants';
 export default function AgencyTestimonialsTeaser() {
   const testimonials = [
     {
-      quote: "Integrit's editing system helped our YouTube channel break 5M+ views organically. The content strategy alone was worth it — they truly understand what makes content convert.",
+      quote: "Flogrit's editing system helped our YouTube channel break 5M+ views organically. The content strategy alone was worth it — they truly understand what makes content convert.",
       name: 'Nivas K.',
       handle: 'Hustle Lifestyle',
       platform: 'YouTube & Instagram',

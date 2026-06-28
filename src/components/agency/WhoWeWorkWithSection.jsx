@@ -20,7 +20,7 @@ export default function WhoWeWorkWithSection() {
       title: 'Startups & Brands',
       desc: 'You need visibility and leads. We run the full stack — from content to conversion — so your team can focus on building.',
       cta: 'Book a Discovery Call →',
-      href: '/contact',
+      href: '/#contact',
     },
   ];
 

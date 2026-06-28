@@ -1,0 +1,359 @@
+/* ═══════════════════════════════════════════════════════
+   FLOGRIT HERO — Scroll-Driven Tube Animation
+   ═══════════════════════════════════════════════════════ */
+
+/* ─── Palette Tokens ─────────────────────────────────── */
+:root {
+  --flogrit-bg: #0A0A0A;
+  --flogrit-lime: #C0FF34;
+  --flogrit-lime-glow: rgba(192, 255, 52, 0.18);
+  --flogrit-lime-dim: rgba(192, 255, 52, 0.25);
+  --flogrit-white: #F0F0F0;
+  --flogrit-muted: rgba(240, 240, 240, 0.45);
+  --flogrit-grey: #2A2A2A;
+}
+
+/* ─── Hero Section (Loader Overlay) ────────────────────── */
+.flogrit-hero {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 9999;
+  background: var(--flogrit-bg);
+  overflow: hidden;
+  transition: opacity 0.5s ease-out;
+}
+
+.flogrit-hero.loader-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ─── Sticky Frame (No longer sticky, just container) ───────────────────── */
+.flogrit-sticky {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* ─── SVG Layer ──────────────────────────────────────── */
+.flogrit-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ─── Node Styles (SVG circles) ──────────────────────── */
+.tube-node .node-fill {
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(0);
+  opacity: 0;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+              opacity 0.3s ease;
+}
+
+.tube-node .node-glow {
+  opacity: 0;
+  transition: opacity 0.6s ease 0.2s;
+}
+
+.tube-node .node-ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(1);
+  opacity: 0.4;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+              opacity 0.3s ease;
+}
+
+.tube-node.node--active .node-fill {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.tube-node.node--active .node-glow {
+  opacity: 1;
+}
+
+.tube-node.node--active .node-ring {
+  transform: scale(1.15);
+  opacity: 1;
+}
+
+/* Completion pulse on all nodes */
+.tube-node.node--complete .node-glow {
+  animation: node-glow-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes node-glow-pulse {
+  0%, 100% { opacity: 0.5; }
+  50%      { opacity: 1; }
+}
+
+/* Floating Idle Animation for Inactive Nodes */
+.node-float-container {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.tube-node:not(.node--active) .node-float-container {
+  animation: bubble-float-idle var(--float-duration, 3.2s) ease-in-out infinite var(--float-delay, 0s);
+}
+
+.node-float-0 { --float-duration: 3.4s; --float-delay: -0.2s; }
+.node-float-1 { --float-duration: 3.8s; --float-delay: -0.8s; }
+.node-float-2 { --float-duration: 3.2s; --float-delay: -1.4s; }
+.node-float-3 { --float-duration: 4.0s; --float-delay: -0.4s; }
+.node-float-4 { --float-duration: 3.5s; --float-delay: -1.9s; }
+
+@keyframes bubble-float-idle {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+/* ─── Wordmark Layer ─────────────────────────────────── */
+.flogrit-wordmark-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.flogrit-wordmark {
+  position: absolute;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 800;
+  font-size: clamp(4.5rem, 15vw, 13.5rem);
+  color: var(--flogrit-white);
+  letter-spacing: -0.06em;
+  line-height: 1;
+  white-space: nowrap;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.fl-text {
+  right: calc(100% - var(--n3x, 50%) + 0.38em);
+  top: var(--n3y, 50%);
+  transform: translateX(-30px) translateY(-50%);
+}
+
+.grit-text {
+  left: calc(var(--n3x, 50%) + 0.38em);
+  top: var(--n3y, 50%);
+  transform: translateX(30px) translateY(-50%);
+}
+
+.o-text {
+  left: var(--n3x, 50%);
+  top: var(--n3y, 50%);
+  transform: translateX(-50%) translateY(-50%) scale(0);
+  letter-spacing: 0;
+}
+
+/* Apostrophe separators — lime colored, smaller */
+.flogrit-tick {
+  color: var(--flogrit-lime);
+  font-weight: 400;
+  font-size: 0.6em;
+  opacity: 0.7;
+}
+
+/* ─── Footer (Tagline + CTA) ─────────────────────────── */
+.flogrit-footer {
+  position: absolute;
+  bottom: 10vh;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  text-align: center;
+  z-index: 5;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.flogrit-tagline {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: clamp(0.85rem, 1.3vw, 1rem);
+  color: var(--flogrit-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin: 0 0 1.5rem 0;
+}
+
+.flogrit-cta {
+  display: inline-block;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  background: var(--flogrit-lime);
+  color: var(--flogrit-bg);
+  border: 1.5px solid transparent;
+  border-radius: 4px;
+  padding: 14px 36px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s ease,
+              color 0.2s ease,
+              box-shadow 0.2s ease,
+              border-color 0.2s ease;
+}
+
+.flogrit-cta:hover {
+  background: transparent;
+  color: var(--flogrit-lime);
+  border-color: var(--flogrit-lime);
+}
+
+/* ─── Scroll Hint ────────────────────────────────────── */
+.flogrit-scroll-hint {
+  position: absolute;
+  bottom: 6vh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(192, 255, 52, 0.5);
+  z-index: 10;
+  animation: flogrit-nudge 2s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes flogrit-nudge {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%      { transform: translateX(-50%) translateY(5px); }
+}
+
+/* ─── Progress Bar (Right Edge) ──────────────────────── */
+.flogrit-progress {
+  position: fixed;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 120px;
+  background: var(--flogrit-grey);
+  z-index: 50;
+  border-radius: 1px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.flogrit-progress-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background: var(--flogrit-lime);
+  border-radius: 1px;
+}
+
+.flogrit-progress-tick {
+  position: absolute;
+  left: -3px;
+  width: 8px;
+  height: 1px;
+  background: var(--flogrit-grey);
+}
+
+.flogrit-progress-tick:nth-child(2) { bottom: 0; }
+.flogrit-progress-tick:nth-child(3) { bottom: 20%; }
+.flogrit-progress-tick:nth-child(4) { bottom: 40%; }
+.flogrit-progress-tick:nth-child(5) { bottom: 60%; }
+.flogrit-progress-tick:nth-child(6) { bottom: 80%; }
+.flogrit-progress-tick:nth-child(7) { bottom: 100%; }
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+
+  .flogrit-wordmark {
+    font-size: clamp(2rem, 9vw, 4rem);
+  }
+
+  .flogrit-footer {
+    bottom: 8vh;
+  }
+
+  .flogrit-tagline {
+    font-size: clamp(0.75rem, 3vw, 0.9rem);
+  }
+
+  .flogrit-cta {
+    padding: 12px 28px;
+    font-size: 0.85rem;
+  }
+
+  .flogrit-progress {
+    right: 12px;
+    height: 80px;
+  }
+
+  .flogrit-scroll-hint {
+    bottom: 4vh;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   REDUCED MOTION
+   ═══════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  .flogrit-svg path {
+    stroke-dashoffset: 0 !important;
+    stroke-dasharray: none !important;
+  }
+
+  .tube-node .node-fill {
+    transform: scale(1) !important;
+    opacity: 1 !important;
+    transition: none !important;
+  }
+
+  .tube-node .node-glow {
+    opacity: 1 !important;
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .tube-node .node-ring {
+    transform: scale(1) !important;
+    opacity: 0.5 !important;
+    transition: none !important;
+  }
+
+  .flogrit-wordmark {
+    opacity: 1 !important;
+    transform: translateY(-50%) !important;
+  }
+
+  .flogrit-footer {
+    opacity: 1 !important;
+    transform: translateX(-50%) translateY(0) !important;
+    pointer-events: auto !important;
+  }
+
+  .flogrit-scroll-hint {
+    display: none !important;
+  }
+
+  .flogrit-nudge,
+  .node-glow-pulse {
+    animation: none !important;
+  }
+}

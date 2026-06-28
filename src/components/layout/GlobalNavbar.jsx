@@ -23,19 +23,21 @@ export default function GlobalNavbar() {
   const navLinks = [
     { name: 'Services', path: '/services' },
     { name: 'Products', path: '/products' },
-    { name: 'Contact', path: '/contact' },
+    { name: 'Captiongrit', path: '/products/captiongrit' },
+    { name: 'Contact', path: '/#contact' },
   ];
 
 
   return (
     <nav
-      className={`fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-300 w-[95%] max-w-[620px] px-2 ${isScrolled ? 'top-4' : 'top-6'
-        }`}
+      className={`fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-300 w-[95%] max-w-[690px] px-2 ${
+        isScrolled ? 'top-4' : 'top-6'
+      }`}
     >
       <div className="flex items-center justify-between gap-4 px-6 py-2.5 rounded-full border border-white/10 bg-[#0c0c0f]/80 backdrop-blur-md shadow-[0_12px_40px_-12px_rgba(0,0,0,0.7)] transition-all duration-300">
         <Link to="/" className="flex items-center gap-2 group shrink-0">
-          <img src="/logo.jpg" alt="Integrit Logo" className="w-6 h-6 object-contain group-hover:scale-110 transition-transform rounded-md" />
-          <span className="font-display font-bold text-base text-white tracking-wide">Integrit</span>
+          <img src="/logo.jpg" alt="Flogrit Logo" className="w-6 h-6 object-contain group-hover:scale-110 transition-transform rounded-md" />
+          <span className="font-display font-bold text-base text-white tracking-wide">Flogrit</span>
         </Link>
 
         {/* Desktop Nav */}
@@ -57,7 +59,7 @@ export default function GlobalNavbar() {
 
           <div className="flex items-center">
             <Link
-              to="/contact"
+              to="/#contact"
               className="bg-accent-primary hover:bg-accent-secondary text-black px-5 py-2 rounded-full font-extrabold text-[11px] uppercase tracking-wider transition-all shadow-[0_0_15px_rgba(198,255,52,0.15)] hover:shadow-[0_0_25px_rgba(198,255,52,0.3)] hover:-translate-y-0.5"
             >
               Book a Call
@@ -97,7 +99,7 @@ export default function GlobalNavbar() {
               ))}
             </div>
             <Link
-              to="/contact"
+              to="/#contact"
               className="bg-accent-primary text-black px-6 py-3.5 text-center font-extrabold text-sm uppercase tracking-wider rounded-xl mt-2"
             >
               Book a Call

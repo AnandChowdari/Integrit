@@ -9,8 +9,8 @@ export default function GlobalFooter() {
 
           <div className="col-span-1 md:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-4 group inline-flex">
-              <img src="/logo.jpg" alt="Integrit Logo" className="w-7 h-7 object-contain group-hover:scale-110 transition-transform rounded-md" />
-              <span className="font-display font-bold text-xl text-white tracking-wide">Integrit</span>
+              <img src="/logo.jpg" alt="Flogrit Logo" className="w-7 h-7 object-contain group-hover:scale-110 transition-transform rounded-md" />
+              <span className="font-display font-bold text-xl text-white tracking-wide">Flogrit</span>
             </Link>
             <p className="text-text-secondary text-sm font-body leading-relaxed max-w-xs">
               AI Automations + Marketing. Built for creators.
@@ -25,10 +25,10 @@ export default function GlobalFooter() {
           <div>
             <h4 className="font-bold text-white mb-6">Company</h4>
             <ul className="space-y-4">
-              <li><Link to="/contact" className="text-text-secondary hover:text-white transition-colors text-sm">Book a Discovery Call</Link></li>
+              <li><Link to="/#contact" className="text-text-secondary hover:text-white transition-colors text-sm">Book a Discovery Call</Link></li>
               <li><Link to="/services" className="text-text-secondary hover:text-white transition-colors text-sm">Services</Link></li>
               <li><Link to="/products" className="text-text-secondary hover:text-white transition-colors text-sm">Products</Link></li>
-              <li><Link to="/contact" className="text-text-secondary hover:text-white transition-colors text-sm">Contact</Link></li>
+              <li><Link to="/#contact" className="text-text-secondary hover:text-white transition-colors text-sm">Contact</Link></li>
             </ul>
           </div>
 
@@ -60,7 +60,7 @@ export default function GlobalFooter() {
 
         <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-text-secondary text-sm">
-            © {new Date().getFullYear()} Integrit · Made in India 🇮🇳
+            © {new Date().getFullYear()} Flogrit · Made in India 🇮🇳
           </p>
         </div>
       </div>
