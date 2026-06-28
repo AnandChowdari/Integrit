@@ -206,9 +206,10 @@ export default function FlogritHero() {
       id="hero"
       className={`flogrit-hero ${isHidden ? 'loader-hidden' : ''}`}
       aria-label="Flogrit Loading"
+      style={{ height: vh ? `${vh}px` : '100dvh' }}
     >
       <div className="flogrit-sticky">
-        <svg className="flogrit-svg" viewBox={`0 0 ${vw} ${vh}`}>
+        <svg className="flogrit-svg" viewBox={`0 0 ${vw} ${vh}`} preserveAspectRatio="none">
           <path ref={glowRef} d={pathD} fill="none" stroke="rgba(192, 255, 52, 0.15)" strokeWidth={isMobile ? 38 * mScale : 72} strokeLinecap="round" />
           <path ref={tubeRef} d={pathD} fill="none" stroke="#C0FF34" strokeWidth={isMobile ? 26 * mScale : 48} strokeLinecap="round" opacity={0.9} />
           <path ref={innerCoreRef} d={pathD} fill="none" stroke="#0A0A0A" strokeWidth={isMobile ? 16 * mScale : 34} strokeLinecap="round" />
