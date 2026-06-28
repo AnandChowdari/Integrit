@@ -130,7 +130,7 @@
   font-weight: 800;
   font-size: clamp(4.5rem, 15vw, 13.5rem);
   color: var(--flogrit-white);
-  letter-spacing: -0.03em;
+  letter-spacing: -0.06em;
   line-height: 1;
   white-space: nowrap;
   opacity: 0;
@@ -138,13 +138,13 @@
 }
 
 .fl-text {
-  right: calc(100% - var(--n3x, 50%) + var(--node-gap, 34px));
+  right: calc(100% - var(--n3x, 50%) + 0.38em);
   top: var(--n3y, 50%);
   transform: translateX(-30px) translateY(-50%);
 }
 
 .grit-text {
-  left: calc(var(--n3x, 50%) + var(--node-gap, 34px));
+  left: calc(var(--n3x, 50%) + 0.38em);
   top: var(--n3y, 50%);
   transform: translateX(30px) translateY(-50%);
 }
@@ -153,6 +153,7 @@
   left: var(--n3x, 50%);
   top: var(--n3y, 50%);
   transform: translateX(-50%) translateY(-50%) scale(0);
+  letter-spacing: 0;
 }
 
 /* Apostrophe separators — lime colored, smaller */
@@ -280,9 +281,6 @@
    ═══════════════════════════════════════════════════════ */
 
 @media (max-width: 768px) {
-  .flogrit-hero {
-    height: 300vh;
-  }
 
   .flogrit-wordmark {
     font-size: clamp(2rem, 9vw, 4rem);

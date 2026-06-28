@@ -93,6 +93,12 @@ export default function FlogritHero() {
       const g = nodeRefs.current[idx];
       if (g) g.setAttribute('transform', `translate(${pos.x}, ${pos.y})`);
     });
+
+    const layer = document.querySelector('.flogrit-wordmark-layer');
+    if (layer && nodePositions[2]) {
+      layer.style.setProperty('--n3x', `${nodePositions[2].x}px`);
+      layer.style.setProperty('--n3y', `${nodePositions[2].y}px`);
+    }
   }, [pathD, nodeGap]);
 
   useEffect(() => {
@@ -204,7 +210,7 @@ export default function FlogritHero() {
           <path ref={innerCoreRef} d={pathD} fill="none" stroke="#0A0A0A" strokeWidth={isMobile ? 16 : 34} strokeLinecap="round" />
           <path ref={highlightRef} d={pathD} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth={isMobile ? 4 : 8} strokeLinecap="round" />
 
-          {[0, 1, 3, 4].map(idx => {
+          {[0, 1, 2, 3, 4].map(idx => {
             const isO = idx === 2;
             const innerR = isO ? (isMobile ? 18 : 56) : (isMobile ? 10 : 24);
             const outerR = isO ? (isMobile ? 26 : 75) : (isMobile ? 16 : 32);

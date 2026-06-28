@@ -4,29 +4,35 @@ import { fadeUpVariant, staggerContainer } from '../../lib/motionVariants';
 const services = [
   {
     id: 1,
-    title: 'Lift your social media presence with wider audience.',
+    title: 'Expand Your Social Media Reach',
     items: [
-      'Content strategy',
-      'Video editing',
-      'Uploading / SEO Ranking'
+      'Strategic content planning tailored to your brand',
+      'Professional video editing and creative production',
+      'Social media optimization and SEO-driven publishing',
+      'Audience growth and engagement strategies',
+      'Performance tracking and continuous optimization'
     ]
   },
   {
     id: 2,
-    title: 'Converting reach to leads to generate flow of cash',
+    title: 'Turn Reach Into Qualified Leads',
     items: [
-      'Meta ads',
-      'Automating DMs',
-      'Chatbots in website (AI) for your website'
+      'High-converting lead generation funnels',
+      'Landing page and conversion optimization',
+      'CRM integration and lead management',
+      'Automated lead nurturing campaigns',
+      'Sales-focused marketing strategies'
     ]
   },
   {
     id: 3,
-    title: 'Follow up the leads that are leaking',
+    title: 'Never Let a Lead Slip Away',
     items: [
-      'WhatsApp automation',
-      'Instagram automations',
-      'Voice agents, cart abandonment systems'
+      'WhatsApp automation for instant customer engagement',
+      'Instagram DM and comment automation',
+      'AI Voice Agents for calls and appointment booking',
+      'Cart abandonment recovery workflows',
+      'Intelligent follow-up sequences and customer re-engagement'
     ]
   }
 ];
