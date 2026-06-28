@@ -16,7 +16,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen flex flex-col bg-bg-primary font-body text-text-primary selection:bg-accent-primary/30 selection:text-white">
       <GlobalNavbar />
-      
+
       <main className="flex-grow">
         <AgencyHero />
         <AgencySocialProof />

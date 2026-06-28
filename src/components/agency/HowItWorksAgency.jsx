@@ -62,7 +62,7 @@ export default function HowItWorksAgency() {
         const scrolledPast = -rect.top;
         const progress = scrolledPast / viewportHeight; // ranges from 0 to 3
         const step = Math.min(steps.length - 1, Math.max(0, Math.round(progress)));
-        
+
         if (step !== activeStepRef.current) {
           setActiveStep(step);
         }
@@ -102,7 +102,7 @@ export default function HowItWorksAgency() {
     const handleWheel = (e) => {
       const rect = container.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
-      
+
       // We only hijack the scroll if the container is fully in viewport
       const isPinned = rect.top <= 10 && rect.bottom >= viewportHeight - 10;
       if (!isPinned) return;
@@ -114,7 +114,7 @@ export default function HowItWorksAgency() {
       // If there is a valid next step in this section, transition to it
       if (nextStep >= 0 && nextStep < steps.length) {
         e.preventDefault();
-        
+
         isProgrammaticScroll.current = true;
         setActiveStep(nextStep);
 
@@ -162,7 +162,7 @@ export default function HowItWorksAgency() {
     <div ref={containerRef} className="relative h-[400vh] bg-bg-primary">
       {/* Sticky viewport content */}
       <div className="sticky top-0 h-screen w-full flex flex-col justify-between overflow-hidden py-16 md:py-24 px-6">
-        
+
         {/* Skip button */}
         <button
           onClick={() => { containerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' }); }}
@@ -170,7 +170,7 @@ export default function HowItWorksAgency() {
         >
           Skip →
         </button>
-        
+
         {/* Section Header */}
         <div className="max-w-7xl mx-auto w-full text-center">
           <motion.div
@@ -192,7 +192,7 @@ export default function HowItWorksAgency() {
 
         {/* Curved Flow Visual Area */}
         <div className="relative w-full max-w-5xl mx-auto h-[45vh] md:h-[40vh] my-auto flex items-center justify-center">
-          
+
           {/* Desktop Curved Path SVG */}
           <div className="hidden md:block absolute inset-0 w-full h-full pointer-events-none">
             <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="w-full h-full">
@@ -246,7 +246,7 @@ export default function HowItWorksAgency() {
           {/* Interactive Steps along the curve */}
           {steps.map((step, idx) => {
             const isActive = activeStep === idx;
-            
+
             return (
               <motion.button
                 key={idx}
@@ -277,21 +277,19 @@ export default function HowItWorksAgency() {
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
                 {/* Node Circle */}
-                <div 
-                  className={`w-12 h-12 rounded-full flex items-center justify-center font-mono font-bold transition-all duration-300 border ${
-                    isActive 
-                      ? 'bg-accent-primary text-black border-accent-primary shadow-[0_0_20px_rgba(198,255,52,0.4)]' 
+                <div
+                  className={`w-12 h-12 rounded-full flex items-center justify-center font-mono font-bold transition-all duration-300 border ${isActive
+                      ? 'bg-accent-primary text-black border-accent-primary shadow-[0_0_20px_rgba(198,255,52,0.4)]'
                       : 'bg-bg-secondary text-text-secondary border-border-default hover:border-accent-primary/50'
-                  }`}
+                    }`}
                 >
                   {step.num}
                 </div>
 
                 {/* Step Short Title (displayed just below/above circle) */}
-                <span 
-                  className={`absolute translate-y-8 text-[11px] font-mono tracking-widest font-bold whitespace-nowrap ${
-                    isActive ? 'text-accent-primary' : 'text-text-secondary'
-                  }`}
+                <span
+                  className={`absolute translate-y-8 text-[11px] font-mono tracking-widest font-bold whitespace-nowrap ${isActive ? 'text-accent-primary' : 'text-text-secondary'
+                    }`}
                 >
                   {step.title}
                 </span>
@@ -321,7 +319,7 @@ export default function HowItWorksAgency() {
               </motion.div>
             </AnimatePresence>
           </div>
-          
+
           {/* Scroll progress dots */}
           <div className="flex justify-center items-center gap-3 mt-8">
             {steps.map((_, idx) => (
@@ -342,11 +340,10 @@ export default function HowItWorksAgency() {
                     isProgrammaticScroll.current = false;
                   }, 800);
                 }}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  activeStep === idx 
-                    ? 'w-6 bg-accent-primary' 
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${activeStep === idx
+                    ? 'w-6 bg-accent-primary'
                     : 'bg-border-default hover:bg-text-secondary/50'
-                }`}
+                  }`}
                 aria-label={`Go to step ${idx + 1}`}
               />
             ))}

@@ -29,9 +29,8 @@ export default function GlobalNavbar() {
 
   return (
     <nav
-      className={`fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-300 w-[95%] max-w-[620px] px-2 ${
-        isScrolled ? 'top-4' : 'top-6'
-      }`}
+      className={`fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-300 w-[95%] max-w-[620px] px-2 ${isScrolled ? 'top-4' : 'top-6'
+        }`}
     >
       <div className="flex items-center justify-between gap-4 px-6 py-2.5 rounded-full border border-white/10 bg-[#0c0c0f]/80 backdrop-blur-md shadow-[0_12px_40px_-12px_rgba(0,0,0,0.7)] transition-all duration-300">
         <Link to="/" className="flex items-center gap-2 group shrink-0">
@@ -46,11 +45,10 @@ export default function GlobalNavbar() {
               <Link
                 key={link.name}
                 to={link.path}
-                className={`text-xs font-semibold tracking-wide transition-colors ${
-                  location.pathname === link.path
+                className={`text-xs font-semibold tracking-wide transition-colors ${location.pathname === link.path
                     ? 'text-accent-primary'
                     : 'text-text-secondary hover:text-white'
-                }`}
+                  }`}
               >
                 {link.name}
               </Link>
