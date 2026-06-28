@@ -69,21 +69,26 @@ export default function HowItWorksAgency() {
 
         // Auto-snap scrollbar to target step after user stops scrolling (touch & drag fallback)
         if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
-        scrollTimeout.current = setTimeout(() => {
-          if (!isProgrammaticScroll.current) {
-            const targetScrollY = containerTop + step * viewportHeight;
-            if (Math.abs(window.scrollY - targetScrollY) > 15) {
-              isProgrammaticScroll.current = true;
-              window.scrollTo({
-                top: targetScrollY,
-                behavior: 'smooth'
-              });
-              setTimeout(() => {
-                isProgrammaticScroll.current = false;
-              }, 800);
+        
+        // Disable auto-snapping on mobile to prevent interrupting touch momentum scrolling.
+        // It is kept for desktop as a fallback for scrollbar dragging.
+        if (window.innerWidth >= 768) {
+          scrollTimeout.current = setTimeout(() => {
+            if (!isProgrammaticScroll.current) {
+              const targetScrollY = containerTop + step * viewportHeight;
+              if (Math.abs(window.scrollY - targetScrollY) > 15) {
+                isProgrammaticScroll.current = true;
+                window.scrollTo({
+                  top: targetScrollY,
+                  behavior: 'smooth'
+                });
+                setTimeout(() => {
+                  isProgrammaticScroll.current = false;
+                }, 800);
+              }
             }
-          }
-        }, 300);
+          }, 300);
+        }
       }
     };
 
@@ -161,8 +166,7 @@ export default function HowItWorksAgency() {
   return (
     <div ref={containerRef} className="relative h-[400vh] bg-bg-primary">
       {/* Sticky viewport content */}
-      <div className="sticky top-0 h-screen w-full flex flex-col justify-between overflow-hidden py-16 md:py-24 px-6">
-
+      <div className="sticky top-0 h-[100dvh] w-full flex flex-col justify-between overflow-hidden py-16 md:py-24 px-6">
         {/* Skip button */}
         <button
           onClick={() => { containerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' }); }}

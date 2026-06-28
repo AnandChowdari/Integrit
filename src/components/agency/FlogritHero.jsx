@@ -8,9 +8,7 @@ import './FlogritHero.css';
    Fades out to reveal the main BrandReveal below it.
    ═══════════════════════════════════════════════════════ */
 
-const NODE_PATH_POSITIONS = [0.08, 0.22, 0.46, 0.72, 0.90];
 const TUBE_DRAW_END = 0.8; // Finishes drawing at 80% of timeline
-const NODE_THRESHOLDS = NODE_PATH_POSITIONS.map(pos => pos * TUBE_DRAW_END);
 const COMPLETION_START = 0.8;
 const ANIM_DURATION = 1500; // 1.5 seconds
 
@@ -43,12 +41,22 @@ export default function FlogritHero() {
   const pathDataRef = useRef({ totalLength: 0, nodePositions: [] });
 
   const { w: vw, h: vh } = dimensions;
-  const nodeGap = (isMobile ? 18 : 56) + (isMobile ? 12 : 36);
+  const mobileFontSize = Math.max(32, Math.min(vw * 0.09, 64));
+  const mScale = isMobile ? mobileFontSize / 34 : 1;
+  const nodeGap = (isMobile ? 18 * mScale : 56) + (isMobile ? 12 * mScale : 36);
+
+  const nodePositionsScale = isMobile 
+    ? [0.08, 0.22, 0.50, 0.78, 0.92] 
+    : [0.08, 0.22, 0.46, 0.72, 0.90];
+  const nodeThresholds = useMemo(() => nodePositionsScale.map(pos => pos * TUBE_DRAW_END), [nodePositionsScale]);
 
   const pathD = useMemo(() => {
     if (!vw || !vh) return '';
+    if (isMobile) {
+      return `M 0,${vh * 0.85} C ${vw * 0.20},${vh * 0.70} ${vw * 0.35},${vh * 0.50} ${vw * 0.50},${vh * 0.50} S ${vw * 0.80},${vh * 0.70} ${vw},${vh * 0.85}`;
+    }
     return `M 0,${vh * 0.85} C ${vw * 0.20},${vh * 0.70} ${vw * 0.32},${vh * 0.50} ${vw * 0.46},${vh * 0.50} S ${vw * 0.72},${vh * 0.70} ${vw},${vh * 0.85}`;
-  }, [vw, vh]);
+  }, [vw, vh, isMobile]);
 
   useEffect(() => {
     let timer;
@@ -82,7 +90,7 @@ export default function FlogritHero() {
       }
     });
 
-    const nodePositions = NODE_PATH_POSITIONS.map(pct => {
+    const nodePositions = nodePositionsScale.map(pct => {
       const pt = tubeEl.getPointAtLength(totalLength * pct);
       return { x: pt.x, y: pt.y };
     });
@@ -122,7 +130,7 @@ export default function FlogritHero() {
       if (innerCoreRef.current) innerCoreRef.current.style.strokeDashoffset = `${totalLength - drawnLength}`;
       if (highlightRef.current) highlightRef.current.style.strokeDashoffset = `${totalLength - drawnLength * 0.95}`;
 
-      NODE_THRESHOLDS.forEach((threshold, idx) => {
+      nodeThresholds.forEach((threshold, idx) => {
         const g = nodeRefs.current[idx];
         if (!g) return;
 
@@ -134,7 +142,7 @@ export default function FlogritHero() {
         }
       });
 
-      const wordmarkStart = NODE_THRESHOLDS[2];
+      const wordmarkStart = nodeThresholds[2];
       const wordmarkEnd = wordmarkStart + 0.15;
       const wp = phaseProgress(rawP, wordmarkStart, wordmarkEnd);
 
@@ -158,12 +166,8 @@ export default function FlogritHero() {
         const glowEl = node3Group.querySelector('.node-glow');
         
         if (rawP >= wordmarkStart) {
-          if (fillEl) {
-            const r = Math.round(192 - wp * (192 - 10));
-            const g = Math.round(255 - wp * (255 - 10));
-            const b = Math.round(52 - wp * (52 - 10));
-            fillEl.style.fill = `rgb(${r}, ${g}, ${b})`;
-          }
+          // Fade out the green fill along with the ring and glow
+          if (fillEl) fillEl.style.opacity = `${1 - wp}`;
           if (ringEl) ringEl.style.opacity = `${1 - wp}`;
           if (glowEl) glowEl.style.opacity = `${1 - wp}`;
         }
@@ -202,19 +206,20 @@ export default function FlogritHero() {
       id="hero"
       className={`flogrit-hero ${isHidden ? 'loader-hidden' : ''}`}
       aria-label="Flogrit Loading"
+      style={{ height: vh ? `${vh}px` : '100dvh' }}
     >
       <div className="flogrit-sticky">
-        <svg className="flogrit-svg" viewBox={`0 0 ${vw} ${vh}`}>
-          <path ref={glowRef} d={pathD} fill="none" stroke="rgba(192, 255, 52, 0.15)" strokeWidth={isMobile ? 38 : 72} strokeLinecap="round" />
-          <path ref={tubeRef} d={pathD} fill="none" stroke="#C0FF34" strokeWidth={isMobile ? 26 : 48} strokeLinecap="round" opacity={0.9} />
-          <path ref={innerCoreRef} d={pathD} fill="none" stroke="#0A0A0A" strokeWidth={isMobile ? 16 : 34} strokeLinecap="round" />
-          <path ref={highlightRef} d={pathD} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth={isMobile ? 4 : 8} strokeLinecap="round" />
+        <svg className="flogrit-svg" viewBox={`0 0 ${vw} ${vh}`} preserveAspectRatio="none">
+          <path ref={glowRef} d={pathD} fill="none" stroke="rgba(192, 255, 52, 0.15)" strokeWidth={isMobile ? 38 * mScale : 72} strokeLinecap="round" />
+          <path ref={tubeRef} d={pathD} fill="none" stroke="#C0FF34" strokeWidth={isMobile ? 26 * mScale : 48} strokeLinecap="round" opacity={0.9} />
+          <path ref={innerCoreRef} d={pathD} fill="none" stroke="#0A0A0A" strokeWidth={isMobile ? 16 * mScale : 34} strokeLinecap="round" />
+          <path ref={highlightRef} d={pathD} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth={isMobile ? 4 * mScale : 8} strokeLinecap="round" />
 
           {[0, 1, 2, 3, 4].map(idx => {
             const isO = idx === 2;
-            const innerR = isO ? (isMobile ? 18 : 56) : (isMobile ? 10 : 24);
-            const outerR = isO ? (isMobile ? 26 : 75) : (isMobile ? 16 : 32);
-            const glowR = isO ? (isMobile ? 34 : 96) : (isMobile ? 22 : 44);
+            const innerR = isO ? (isMobile ? 18 * mScale : 56) : (isMobile ? 10 * mScale : 24);
+            const outerR = isO ? (isMobile ? 26 * mScale : 75) : (isMobile ? 16 * mScale : 32);
+            const glowR = isO ? (isMobile ? 34 * mScale : 96) : (isMobile ? 22 * mScale : 44);
             return (
               <g key={`node-${idx}`} ref={el => { nodeRefs.current[idx] = el; }} className="tube-node">
                 <g className={`node-float-container node-float-${idx}`}>
