@@ -41,7 +41,7 @@ export default function FlogritHero() {
   const pathDataRef = useRef({ totalLength: 0, nodePositions: [] });
 
   const { w: vw, h: vh } = dimensions;
-  const mobileFontSize = Math.max(32, Math.min(vw * 0.09, 64));
+  const mobileFontSize = Math.max(40, Math.min(vw * 0.15, 80));
   const mScale = isMobile ? mobileFontSize / 34 : 1;
   const nodeGap = (isMobile ? 18 * mScale : 56) + (isMobile ? 12 * mScale : 36);
 
