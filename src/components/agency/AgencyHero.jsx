@@ -76,7 +76,7 @@ export default function AgencyHero() {
       id: 'agent',
       label: 'AI Agent Core',
       sub: 'Flogrit Controller',
-      image: '/logo.jpg',
+      image: '/logo.svg',
       x: 400, y: 250,
       isCenter: true,
     },

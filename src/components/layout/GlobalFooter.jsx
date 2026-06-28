@@ -9,7 +9,7 @@ export default function GlobalFooter() {
 
           <div className="col-span-1 md:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-4 group inline-flex">
-              <img src="/logo.jpg" alt="Flogrit Logo" className="w-7 h-7 object-contain group-hover:scale-110 transition-transform rounded-md" />
+              <img src="/logo.svg" alt="Flogrit Logo" className="w-7 h-7 object-contain group-hover:scale-110 transition-transform rounded-md" />
               <span className="font-display font-bold text-xl text-white tracking-wide">Flogrit</span>
             </Link>
             <p className="text-text-secondary text-sm font-body leading-relaxed max-w-xs">
