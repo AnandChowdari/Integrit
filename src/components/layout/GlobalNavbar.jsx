@@ -47,11 +47,10 @@ export default function GlobalNavbar() {
               <Link
                 key={link.name}
                 to={link.path}
-                className={`text-xs font-semibold tracking-wide transition-colors ${
-                  location.pathname === link.path
+                className={`text-xs font-semibold tracking-wide transition-colors ${location.pathname === link.path
                     ? 'text-accent-primary'
                     : 'text-text-secondary hover:text-white'
-                }`}
+                  }`}
               >
                 {link.name}
               </Link>

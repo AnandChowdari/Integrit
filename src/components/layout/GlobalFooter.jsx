@@ -6,7 +6,7 @@ export default function GlobalFooter() {
     <footer className="bg-bg-primary border-t border-white/5 pt-20 pb-10">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-          
+
           <div className="col-span-1 md:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-4 group inline-flex">
               <img src="/logo.jpg" alt="Flogrit Logo" className="w-7 h-7 object-contain group-hover:scale-110 transition-transform rounded-md" />
@@ -48,7 +48,7 @@ export default function GlobalFooter() {
               <li><Link to="/terms" className="text-text-secondary hover:text-white transition-colors text-sm">Terms of Service</Link></li>
               <li><Link to="/refund" className="text-text-secondary hover:text-white transition-colors text-sm">Refund Policy</Link></li>
             </ul>
-            
+
             <h4 className="font-bold text-white mb-6">Connect</h4>
             <ul className="space-y-4">
               <li><a href={siteConfig.links.instagram} target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-white transition-colors text-sm">Instagram</a></li>

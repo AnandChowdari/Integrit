@@ -230,23 +230,21 @@ export default function AgencyHero() {
             animate="visible"
             className="relative flex items-center justify-center lg:justify-start w-full mt-12 lg:mt-0 lg:max-w-[600px] xl:max-w-[680px] lg:-ml-24 xl:-ml-40"
           >
-            {/* 3D Perspective Wrapper */}
-            <div
-              className="relative select-none cursor-crosshair group mx-auto lg:mx-0"
-              style={{
-                perspective: '1200px',
-                width: `${800 * scale}px`,
-                height: `${500 * scale}px`,
-                marginTop: window.innerWidth < 768 ? '2rem' : undefined
-              }}
-              onMouseMove={handleMouseMove}
-              onMouseLeave={handleMouseLeave}
-            >
-              {/* CSS Style block for custom animations */}
-              <style dangerouslySetInnerHTML={{ __html: `
-                @keyframes flowDash {
-                  to {
-                    stroke-dashoffset: -40;
+            <div className="hero-3d w-full flex justify-center">
+              {/* 3D Perspective Wrapper */}
+              <div
+                className="w-full relative select-none cursor-crosshair group"
+                style={{ perspective: '1200px', containerType: 'inline-size' }}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+              >
+                {/* CSS Style block for custom animations */}
+                <style dangerouslySetInnerHTML={{
+                  __html: `
+                  @keyframes flowDash {
+                    to {
+                      stroke-dashoffset: -40;
+                    }
                   }
                 }
                 .animate-flow-dash-hero {
@@ -263,168 +261,34 @@ export default function AgencyHero() {
                 }
               `}} />
 
-              {/* Scaled Wrapper */}
-              <div
-                className="absolute top-0 left-0 origin-top-left"
-                style={{
-                  width: '800px',
-                  height: '500px',
-                  transform: `scale(${scale})`
-                }}
-              >
-                {/* Tilted Canvas */}
-                <div
-                  className="w-full h-full relative border border-white/10 bg-[#0A0A0A] rounded-2xl overflow-hidden shadow-[0_30px_100px_rgba(0,0,0,0.9)]"
-                  style={{
-                    transform: `rotateX(${15 + tilt.y}deg) rotateY(${-12 + tilt.x}deg) rotateZ(2deg)`,
-                    transformStyle: 'preserve-3d',
-                    transition: 'transform 0.15s ease-out'
-                  }}
-                >
-                {/* Dot Grid Background */}
-                <div
-                  className="absolute inset-0 opacity-[0.15] bg-[radial-gradient(circle,#C0FF34_1px,transparent_1.5px)] bg-[size:1.5rem_1.5rem]"
-                  style={{ transform: 'translateZ(-1px)' }}
-                />
-
-                {/* Automation Workspace Top UI Header Bar */}
-                <div
-                  className="absolute top-0 left-0 right-0 h-10 border-b border-white/5 bg-[#0A0A0A]/90 px-4 flex items-center justify-between z-20 font-sans"
-                  style={{ transform: 'translateZ(15px)' }}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="flex gap-1">
-                      <div className="w-2.5 h-2.5 rounded-full bg-[#E05252]" />
-                      <div className="w-2.5 h-2.5 rounded-full bg-[#E0A052]" />
-                      <div className="w-2.5 h-2.5 rounded-full bg-[#52C452]" />
-                    </div>
-                    <span className="text-[10px] font-bold tracking-wider text-white font-display uppercase">
-                      Content Funnel Workflow Engine
-                    </span>
-                    <span className="text-[9px] bg-accent-primary/10 border border-accent-primary/30 text-accent-primary px-1.5 py-0.5 rounded uppercase font-bold tracking-wider">
-                      Active
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-4 text-white/30 text-[9px] font-mono">
-                    <span className="hidden sm:inline">FPS: 60/60</span>
-                    <span>ID: 8a4d-f9e2</span>
-                  </div>
-                </div>
-
-                {/* Floating controls toolbar on left side */}
-                <div
-                  className="absolute left-4 top-1/2 -translate-y-1/2 flex flex-col gap-2.5 z-20 bg-[#111]/90 border border-white/10 p-1.5 rounded-lg text-white/40 shadow-xl"
-                  style={{ transform: 'translateZ(20px)' }}
-                >
-                  <button className="p-1 hover:text-accent-primary transition-colors" aria-label="Move"><Move className="w-3.5 h-3.5" /></button>
-                  <button className="p-1 hover:text-accent-primary transition-colors" aria-label="Zoom in"><Plus className="w-3.5 h-3.5" /></button>
-                  <button className="p-1 hover:text-accent-primary transition-colors" aria-label="Zoom out"><Minus className="w-3.5 h-3.5" /></button>
-                  <button className="p-1 hover:text-accent-primary transition-colors" aria-label="Fullscreen"><Maximize2 className="w-3.5 h-3.5" /></button>
-                  <button className="p-1 hover:text-accent-primary transition-colors" aria-label="Settings"><Settings className="w-3.5 h-3.5" /></button>
-                </div>
-
-                {/* SVG Connections Canvas */}
-                <svg
-                  className="absolute inset-0 w-full h-full pointer-events-none z-10"
-                  viewBox="0 0 800 500"
-                  style={{ transform: 'translateZ(5px)' }}
-                >
-                  <defs>
-                    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-                      <feGaussianBlur stdDeviation="4" result="blur" />
-                      <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                    </filter>
-                  </defs>
-
-                  {/* Radiating AI Control lines */}
-                  {radiatingPaths.map((path) => (
-                    <path
-                      key={path.id}
-                      d={path.d}
-                      fill="none"
-                      stroke="rgba(192, 255, 52, 0.05)"
-                      strokeWidth="1.5"
-                    />
-                  ))}
-
-                  {/* Sequential Main Flow Lines */}
-                  {paths.map((path) => (
-                    <g key={path.id}>
-                      <path
-                        d={path.d}
-                        fill="none"
-                        stroke="#C0FF34"
-                        strokeWidth="3"
-                        strokeOpacity="0.1"
-                        className="glow-path"
-                      />
-                      <path
-                        id={path.id}
-                        d={path.d}
-                        fill="none"
-                        stroke="rgba(192, 255, 52, 0.4)"
-                        strokeWidth="1.5"
-                        strokeDasharray="6 8"
-                        className="animate-flow-dash-hero"
-                      />
-                    </g>
-                  ))}
-
-                  {/* Flowing Data Particles */}
-                  {paths.map((path, idx) => (
-                    <g key={`particle-${path.id}`}>
-                      <circle r="3.5" fill="#C0FF34" filter="url(#glow)">
-                        <animateMotion dur={`${3 + idx * 0.4}s`} repeatCount="indefinite">
-                          <mpath href={`#${path.id}`} />
-                        </animateMotion>
-                      </circle>
-                      <circle r="2.5" fill="#ffffff" filter="url(#glow)" opacity="0.8">
-                        <animateMotion dur={`${3 + idx * 0.4}s`} begin="1.5s" repeatCount="indefinite">
-                          <mpath href={`#${path.id}`} />
-                        </animateMotion>
-                      </circle>
-                    </g>
-                  ))}
-                </svg>
-
-                {/* HTML Cards (Tilted & Hovering) */}
-                {nodes.map((node) => {
-                  const Icon = node.icon;
-                  const isCenter = node.isCenter;
-                  return (
+                <div className="w-full aspect-[8/5] relative">
+                  <div
+                    className="absolute top-0 left-0 origin-top-left"
+                    style={{
+                      width: '800px',
+                      height: '500px',
+                      transform: 'scale(calc(100cqw / 800))'
+                    }}
+                  >
+                    {/* Tilted Canvas */}
                     <div
-                      key={node.id}
-                      className={`absolute z-20 rounded-xl p-2.5 flex items-center gap-2 border transition-all duration-300 ${
-                        isCenter
-                          ? 'w-[155px] sm:w-[170px] h-[72px] sm:h-[80px] border-accent-primary bg-black/90 center-node-glow'
-                          : 'w-[130px] sm:w-[140px] h-[56px] sm:h-[64px] border-white/10 bg-neutral-950/80 backdrop-blur-md node-shadow hover:border-accent-primary/40'
-                      }`}
+                      className="w-full h-full relative border border-white/10 bg-[#0A0A0A] rounded-2xl overflow-hidden shadow-[0_30px_100px_rgba(0,0,0,0.9)]"
                       style={{
-                        left: `${(node.x / 800) * 100}%`,
-                        top: `${(node.y / 500) * 100}%`,
-                        transform: `translate(-50%, -50%) translateZ(${isCenter ? '32px' : '20px'})`,
-                        transformStyle: 'preserve-3d'
+                        transform: `rotateX(${15 + tilt.y}deg) rotateY(${-12 + tilt.x}deg) rotateZ(2deg)`,
+                        transformStyle: 'preserve-3d',
+                        transition: 'transform 0.15s ease-out'
                       }}
                     >
-                      {/* Connection Ports */}
-                      <div className="w-1.5 h-1.5 rounded-full bg-neutral-900 border border-white/20 absolute -left-0.5 top-1/2 -translate-y-1/2" />
-                      <div className="w-1.5 h-1.5 rounded-full bg-neutral-900 border border-white/20 absolute -right-0.5 top-1/2 -translate-y-1/2" />
-
-                      {/* Status indicator */}
-                      <div className="w-1 h-full rounded-l absolute left-0 top-0 bottom-0 bg-accent-primary opacity-80" />
-
-                      {/* Icon Container */}
+                      {/* Dot Grid Background */}
                       <div
-                        className={`rounded flex items-center justify-center shrink-0 ${
-                          isCenter
-                            ? 'w-9 h-9 border border-accent-primary/50 text-accent-primary overflow-hidden'
-                            : 'w-7.5 h-7.5 border'
-                        }`}
-                        style={!isCenter ? {
-                          backgroundColor: `${node.color}15`,
-                          borderColor: `${node.color}35`,
-                          color: node.color
-                        } : {}}
+                        className="absolute inset-0 opacity-[0.15] bg-[radial-gradient(circle,#C0FF34_1px,transparent_1.5px)] bg-[size:1.5rem_1.5rem]"
+                        style={{ transform: 'translateZ(-1px)' }}
+                      />
+
+                      {/* Automation Workspace Top UI Header Bar */}
+                      <div
+                        className="absolute top-0 left-0 right-0 h-10 border-b border-white/5 bg-[#0A0A0A]/90 px-4 flex items-center justify-between z-20 font-sans"
+                        style={{ transform: 'translateZ(15px)' }}
                       >
                         {node.image ? (
                           <img src={node.image} alt="Flogrit Logo" className="w-full h-full object-cover rounded" />
@@ -433,15 +297,153 @@ export default function AgencyHero() {
                         )}
                       </div>
 
-                      {/* Text details */}
-                      <div className="overflow-hidden">
-                        <span className="font-sans font-bold text-[9px] sm:text-[10px] text-white leading-tight block truncate">
-                          {node.label}
-                        </span>
-                        <span className="font-mono text-[7px] sm:text-[8px] text-text-secondary leading-none block truncate mt-0.5">
-                          {node.sub}
-                        </span>
+                      {/* Floating controls toolbar on left side */}
+                      <div
+                        className="absolute left-4 top-1/2 -translate-y-1/2 flex flex-col gap-2.5 z-20 bg-[#111]/90 border border-white/10 p-1.5 rounded-lg text-white/40 shadow-xl"
+                        style={{ transform: 'translateZ(20px)' }}
+                      >
+                        <button className="p-1 hover:text-accent-primary transition-colors" aria-label="Move"><Move className="w-3.5 h-3.5" /></button>
+                        <button className="p-1 hover:text-accent-primary transition-colors" aria-label="Zoom in"><Plus className="w-3.5 h-3.5" /></button>
+                        <button className="p-1 hover:text-accent-primary transition-colors" aria-label="Zoom out"><Minus className="w-3.5 h-3.5" /></button>
+                        <button className="p-1 hover:text-accent-primary transition-colors" aria-label="Fullscreen"><Maximize2 className="w-3.5 h-3.5" /></button>
+                        <button className="p-1 hover:text-accent-primary transition-colors" aria-label="Settings"><Settings className="w-3.5 h-3.5" /></button>
                       </div>
+
+                      {/* SVG Connections Canvas */}
+                      <svg
+                        className="absolute inset-0 w-full h-full pointer-events-none z-10"
+                        viewBox="0 0 800 500"
+                        style={{ transform: 'translateZ(5px)' }}
+                      >
+                        <defs>
+                          <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                            <feGaussianBlur stdDeviation="4" result="blur" />
+                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                          </filter>
+                        </defs>
+
+                        {/* Radiating AI Control lines */}
+                        {radiatingPaths.map((path) => (
+                          <path
+                            key={path.id}
+                            d={path.d}
+                            fill="none"
+                            stroke="rgba(192, 255, 52, 0.05)"
+                            strokeWidth="1.5"
+                          />
+                        ))}
+
+                        {/* Sequential Main Flow Lines */}
+                        {paths.map((path) => (
+                          <g key={path.id}>
+                            <path
+                              d={path.d}
+                              fill="none"
+                              stroke="#C0FF34"
+                              strokeWidth="3"
+                              strokeOpacity="0.1"
+                              className="glow-path"
+                            />
+                            <path
+                              id={path.id}
+                              d={path.d}
+                              fill="none"
+                              stroke="rgba(192, 255, 52, 0.4)"
+                              strokeWidth="1.5"
+                              strokeDasharray="6 8"
+                              className="animate-flow-dash-hero"
+                            />
+                          </g>
+                        ))}
+
+                        {/* Flowing Data Particles */}
+                        {paths.map((path, idx) => (
+                          <g key={`particle-${path.id}`}>
+                            <circle r="3.5" fill="#C0FF34" filter="url(#glow)">
+                              <animateMotion dur={`${3 + idx * 0.4}s`} repeatCount="indefinite">
+                                <mpath href={`#${path.id}`} />
+                              </animateMotion>
+                            </circle>
+                            <circle r="2.5" fill="#ffffff" filter="url(#glow)" opacity="0.8">
+                              <animateMotion dur={`${3 + idx * 0.4}s`} begin="1.5s" repeatCount="indefinite">
+                                <mpath href={`#${path.id}`} />
+                              </animateMotion>
+                            </circle>
+                          </g>
+                        ))}
+                      </svg>
+
+                      {/* HTML Cards (Tilted & Hovering) */}
+                      {nodes.map((node) => {
+                        const Icon = node.icon;
+                        const isCenter = node.isCenter;
+                        return (
+                          <div
+                            key={node.id}
+                            className={`absolute z-20 rounded-xl p-2.5 flex items-center gap-2 border transition-all duration-300 ${isCenter
+                                ? 'w-[155px] sm:w-[170px] h-[72px] sm:h-[80px] border-accent-primary bg-black/90 center-node-glow'
+                                : 'w-[130px] sm:w-[140px] h-[56px] sm:h-[64px] border-white/10 bg-neutral-950/80 backdrop-blur-md node-shadow hover:border-accent-primary/40'
+                              }`}
+                            style={{
+                              left: `${(node.x / 800) * 100}%`,
+                              top: `${(node.y / 500) * 100}%`,
+                              transform: `translate(-50%, -50%) translateZ(${isCenter ? '32px' : '20px'})`,
+                              transformStyle: 'preserve-3d'
+                            }}
+                          >
+                            {/* Connection Ports */}
+                            <div className="w-1.5 h-1.5 rounded-full bg-neutral-900 border border-white/20 absolute -left-0.5 top-1/2 -translate-y-1/2" />
+                            <div className="w-1.5 h-1.5 rounded-full bg-neutral-900 border border-white/20 absolute -right-0.5 top-1/2 -translate-y-1/2" />
+
+                            {/* Status indicator */}
+                            <div className="w-1 h-full rounded-l absolute left-0 top-0 bottom-0 bg-accent-primary opacity-80" />
+
+                            {/* Icon Container */}
+                            <div
+                              className={`rounded flex items-center justify-center shrink-0 ${isCenter
+                                  ? 'w-9 h-9 border border-accent-primary/50 text-accent-primary overflow-hidden'
+                                  : 'w-7.5 h-7.5 border'
+                                }`}
+                              style={!isCenter ? {
+                                backgroundColor: `${node.color}15`,
+                                borderColor: `${node.color}35`,
+                                color: node.color
+                              } : {}}
+                            >
+                              {node.image ? (
+                                <img src={node.image} alt="Integrit Logo" className="w-full h-full object-cover rounded" />
+                              ) : (
+                                <Icon className={isCenter ? 'w-5 h-5' : 'w-4 h-4'} style={!isCenter ? { color: node.color } : {}} />
+                              )}
+                            </div>
+
+                            {/* Text details */}
+                            <div className="overflow-hidden">
+                              <span className="font-sans font-bold text-[9px] sm:text-[10px] text-white leading-tight block truncate">
+                                {node.label}
+                              </span>
+                              <span className="font-mono text-[7px] sm:text-[8px] text-text-secondary leading-none block truncate mt-0.5">
+                                {node.sub}
+                              </span>
+                            </div>
+                          </div>
+                        );
+                      })}
+
+                      {/* Bottom Status / Log Bar */}
+                      <div
+                        className="absolute bottom-0 left-0 right-0 h-8 border-t border-white/5 bg-[#0A0A0A]/95 px-4 flex items-center justify-between z-20 font-mono text-[8px] text-white/50"
+                        style={{ transform: 'translateZ(15px)' }}
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-accent-primary animate-pulse" />
+                          <span>[System Status] Listening for trigger webhooks...</span>
+                        </div>
+                        <div className="text-accent-primary font-bold">
+                          Execution completed (1.2s)
+                        </div>
+                      </div>
+
                     </div>
                   );
                 })}

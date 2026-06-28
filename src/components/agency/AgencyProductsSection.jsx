@@ -64,12 +64,12 @@ export default function AgencyProductsSection() {
               </p>
               <div className="flex gap-3">
                 <Link to="/products/captiongrit"
-                   className="flex-1 px-4 py-2.5 bg-accent-primary text-black text-xs font-semibold font-display rounded-lg
+                  className="flex-1 px-4 py-2.5 bg-accent-primary text-black text-xs font-semibold font-display rounded-lg
                               hover:bg-accent-secondary transition-colors text-center">
                   View Plugin →
                 </Link>
                 <Link to="/products/captiongrit#pricing"
-                   className="px-4 py-2.5 border border-accent-primary/40 text-accent-primary text-xs font-display rounded-lg
+                  className="px-4 py-2.5 border border-accent-primary/40 text-accent-primary text-xs font-display rounded-lg
                               hover:bg-accent-primary/10 transition-colors text-center">
                   See Pricing
                 </Link>

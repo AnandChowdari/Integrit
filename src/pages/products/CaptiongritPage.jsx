@@ -54,7 +54,7 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen flex flex-col bg-bg-primary font-body text-text-primary selection:bg-accent-primary/30 selection:text-white">
       <CaptiongritNavbar onBuyNow={handleGenericBuyNow} />
-      
+
       <main className="flex-grow">
         <HeroSection onBuyNow={handleGenericBuyNow} />
         <SocialProofBar />
@@ -72,7 +72,7 @@ export default function LandingPage() {
         <TestimonialsSection />
         <FaqSection />
         <FinalCtaSection onBuyNow={handleGenericBuyNow} />
-        
+
         {/* Hidden Sections */}
         {/* <CaseStudiesSection /> */}
         {/* <AutomationWorkflowsSection /> */}
@@ -82,9 +82,9 @@ export default function LandingPage() {
 
       <AnimatePresence>
         {isCheckoutOpen && (
-          <CheckoutModal 
-            isOpen={isCheckoutOpen} 
-            onClose={() => setIsCheckoutOpen(false)} 
+          <CheckoutModal
+            isOpen={isCheckoutOpen}
+            onClose={() => setIsCheckoutOpen(false)}
             selectedPlan={selectedPlan}
           />
         )}
