@@ -11,7 +11,6 @@ import WhoWeWorkWithSection from '../components/agency/WhoWeWorkWithSection';
 import AgencyTestimonialsTeaser from '../components/agency/AgencyTestimonialsTeaser';
 import AgencyFinalCta from '../components/agency/AgencyFinalCta';
 import ContactSection from '../components/agency/ContactSection';
-import SectionDivider from '../components/ui/SectionDivider';
 
 export default function HomePage() {
   return (
@@ -21,14 +20,10 @@ export default function HomePage() {
         <FlogritHero />
         <BrandReveal />
         <AgencySocialProof />
-        <SectionDivider direction="down" />
         <WhatWeDoSection />
-        <SectionDivider direction="down" />
         <FindYourProblemSection />
         <HowItWorksAgency />
-        <SectionDivider direction="down" />
         <AgencyProductsSection />
-        <SectionDivider direction="down" />
         <WhoWeWorkWithSection />
         <AgencyTestimonialsTeaser />
         <AgencyFinalCta />
